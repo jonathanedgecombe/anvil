@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import com.google.common.collect.ImmutableList;
 import com.wyverngame.anvil.injector.trans.server.DiskIoPatchTransformer;
 import com.wyverngame.anvil.injector.trans.Transformer;
-import com.wyverngame.anvil.injector.trans.server.PositionTransformer;
+import com.wyverngame.anvil.injector.trans.server.CreaturePositionTransformer;
 
 public final class Injector {
 	public static void main(String[] args) throws IOException {
@@ -22,7 +22,7 @@ public final class Injector {
 
 	private final ImmutableList<Transformer> transformers = ImmutableList.of(
 		new DiskIoPatchTransformer(),
-		new PositionTransformer()
+		new CreaturePositionTransformer()
 	);
 	private final Module client, common, server;
 
