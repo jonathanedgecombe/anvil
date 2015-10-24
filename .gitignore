@@ -2,5 +2,6 @@
 *~
 *.iml
 */target
+*.jar
 !.git*
 !.mailmap
