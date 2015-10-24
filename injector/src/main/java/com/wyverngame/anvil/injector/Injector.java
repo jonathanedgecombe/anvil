@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.nio.file.Paths;
 
 import com.google.common.collect.ImmutableList;
-import com.wyverngame.anvil.injector.trans.DiskIoPatchTransformer;
+import com.wyverngame.anvil.injector.trans.server.DiskIoPatchTransformer;
 import com.wyverngame.anvil.injector.trans.Transformer;
+import com.wyverngame.anvil.injector.trans.server.PositionTransformer;
 
 public final class Injector {
 	public static void main(String[] args) throws IOException {
@@ -13,28 +14,30 @@ public final class Injector {
 	}
 
 	public static Injector create() throws IOException {
-		Application client = Application.read(Paths.get("client.jar"));
-		Application common = Application.read(Paths.get("common.jar"));
-		Application server = Application.read(Paths.get("server.jar"));
+		Module client = Module.read(Paths.get("client.jar"));
+		Module common = Module.read(Paths.get("common.jar"));
+		Module server = Module.read(Paths.get("server.jar"));
 		return new Injector(client, common, server);
 	}
 
 	private final ImmutableList<Transformer> transformers = ImmutableList.of(
-		new DiskIoPatchTransformer()
+		new DiskIoPatchTransformer(),
+		new PositionTransformer()
 	);
-	private final Application client, common, server;
+	private final Module client, common, server;
 
-	private Injector(Application client, Application common, Application server) {
+	private Injector(Module client, Module common, Module server) {
 		this.client = client;
 		this.common = common;
 		this.server = server;
 	}
 
 	public void run() throws IOException {
+		// TODO split this in case classes collide?
+		Application application = new Application(client, common, server);
+
 		for (Transformer transformer : transformers) {
-			transformer.transform(client);
-			transformer.transform(common);
-			transformer.transform(server);
+			transformer.transform(application);
 		}
 
 		client.write(Paths.get("client-patched.jar"));

@@ -1,89 +1,24 @@
 package com.wyverngame.anvil.injector;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.Map;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
-import java.util.jar.JarOutputStream;
-
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableMap;
-import com.google.common.io.ByteStreams;
+import com.google.common.collect.ImmutableList;
 import org.checkerframework.checker.nullness.qual.Nullable;
-import org.objectweb.asm.ClassReader;
-import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
 
 public final class Application {
-	private final ImmutableMap<String, ClassNode> classes;
-	private final ImmutableMap<String, byte[]> files;
+	private final ImmutableList<Module> modules;
 
-	public static Application read(Path path) throws IOException {
-		ImmutableMap.Builder<String, ClassNode> classes = ImmutableMap.builder();
-		ImmutableMap.Builder<String, byte[]> files = ImmutableMap.builder();
-
-		try (JarInputStream in = new JarInputStream(Files.newInputStream(path))) {
-			JarEntry entry;
-			while ((entry = in.getNextJarEntry()) != null) {
-				if (entry.isDirectory()) {
-					continue;
-				}
-
-				String name = entry.getName();
-				if (name.endsWith(".class")) {
-					name = name.replaceAll(".class$", "");
-
-					ClassNode clazz = new ClassNode();
-
-					ClassReader reader = new ClassReader(in);
-					reader.accept(clazz, 0);
-
-					classes.put(name, clazz);
-				} else {
-					byte[] file = ByteStreams.toByteArray(in);
-					files.put(name, file);
-				}
-			}
-		}
-
-		return new Application(classes.build(), files.build());
-	}
-
-	private Application(ImmutableMap<String, ClassNode> classes, ImmutableMap<String, byte[]> files) {
-		this.classes = classes;
-		this.files = files;
-	}
-
-	public void write(Path path) throws IOException {
-		try (JarOutputStream out = new JarOutputStream(Files.newOutputStream(path))) {
-			for (Map.Entry<String, ClassNode> entry : classes.entrySet()) {
-				String name = entry.getKey().concat(".class");
-				ClassNode clazz = entry.getValue();
-
-				ClassWriter writer = new ClassWriter(0);
-				clazz.accept(writer);
-
-				out.putNextEntry(new JarEntry(name));
-				out.write(writer.toByteArray());
-			}
-
-			for (Map.Entry<String, byte[]> entry : files.entrySet()) {
-				String name = entry.getKey();
-				byte[] file = entry.getValue();
-
-				out.putNextEntry(new JarEntry(name));
-				out.write(file);
-			}
-		}
+	public Application(Module... modules) {
+		this.modules = ImmutableList.copyOf(modules);
 	}
 
 	public @Nullable ClassNode getClass(String name) {
-		return classes.get(name);
-	}
+		for (Module module : modules) {
+			@Nullable ClassNode clazz = module.getClass(name);
+			if (clazz != null) {
+				return clazz;
+			}
+		}
 
-	public ImmutableCollection<ClassNode> getClasses() {
-		return classes.values();
+		return null;
 	}
 }

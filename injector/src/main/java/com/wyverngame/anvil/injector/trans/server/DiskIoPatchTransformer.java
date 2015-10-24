@@ -1,6 +1,7 @@
-package com.wyverngame.anvil.injector.trans;
+package com.wyverngame.anvil.injector.trans.server;
 
 import com.wyverngame.anvil.injector.InjectorException;
+import com.wyverngame.anvil.injector.trans.MethodTransformer;
 import com.wyverngame.anvil.injector.util.MethodNodeUtils;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objectweb.asm.Opcodes;
