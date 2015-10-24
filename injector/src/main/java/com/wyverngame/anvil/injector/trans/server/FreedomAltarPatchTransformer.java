@@ -4,6 +4,7 @@ import com.wyverngame.anvil.injector.trans.MethodTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.FrameNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
@@ -26,6 +27,7 @@ public final class FreedomAltarPatchTransformer extends MethodTransformer {
 		list.add(new JumpInsnNode(Opcodes.IFNE, label));
 		list.add(new InsnNode(Opcodes.RETURN));
 		list.add(label);
+		list.add(new FrameNode(Opcodes.F_SAME, 0, null, 0, null));
 
 		method.instructions.insertBefore(method.instructions.getFirst(), list);
 	}
