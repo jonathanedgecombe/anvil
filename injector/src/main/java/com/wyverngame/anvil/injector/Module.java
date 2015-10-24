@@ -15,6 +15,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.util.CheckClassAdapter;
 
 public final class Module {
 	private final ImmutableMap<String, ClassNode> classes;
@@ -63,7 +64,7 @@ public final class Module {
 				ClassNode clazz = entry.getValue();
 
 				ClassWriter writer = new ClassWriter(0);
-				clazz.accept(writer);
+				clazz.accept(new CheckClassAdapter(writer, true));
 
 				out.putNextEntry(new JarEntry(name));
 				out.write(writer.toByteArray());
