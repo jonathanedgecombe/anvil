@@ -96,22 +96,7 @@
           <configuration>
             <source>1.8</source>
             <target>1.8</target>
-            <compilerId>javac+jsr308</compilerId>
-            <annotationProcessors>
-              <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
-              <annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>
-              <annotationProcessor>org.checkerframework.checker.lock.LockChecker</annotationProcessor>
-              <annotationProcessor>org.checkerframework.checker.regex.RegexChecker</annotationProcessor>
-              <annotationProcessor>org.checkerframework.checker.formatter.FormatterChecker</annotationProcessor>
-            </annotationProcessors>
           </configuration>
-          <dependencies>
-            <dependency>
-              <groupId>net.rkunze.maven</groupId>
-              <artifactId>maven-checkerframework-javac</artifactId>
-              <version>1.9.5-1</version>
-            </dependency>
-          </dependencies>
         </plugin>
       </plugins>
     </pluginManagement>
@@ -123,4 +108,36 @@
       </plugin>
     </plugins>
   </build>
+
+  <profiles>
+    <profile>
+      <id>checker</id>
+
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+              <compilerId>javac+jsr308</compilerId>
+              <annotationProcessors>
+                <annotationProcessor>org.checkerframework.checker.nullness.NullnessChecker</annotationProcessor>
+                <annotationProcessor>org.checkerframework.checker.interning.InterningChecker</annotationProcessor>
+                <annotationProcessor>org.checkerframework.checker.lock.LockChecker</annotationProcessor>
+                <annotationProcessor>org.checkerframework.checker.regex.RegexChecker</annotationProcessor>
+                <annotationProcessor>org.checkerframework.checker.formatter.FormatterChecker</annotationProcessor>
+              </annotationProcessors>
+            </configuration>
+            <dependencies>
+              <dependency>
+                <groupId>net.rkunze.maven</groupId>
+                <artifactId>maven-checkerframework-javac</artifactId>
+                <version>1.9.5-1</version>
+              </dependency>
+            </dependencies>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
 </project>
