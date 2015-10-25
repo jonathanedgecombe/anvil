@@ -35,9 +35,8 @@ public final class DiskIoPatchTransformer extends MethodTransformer {
 
 			/* this.lastResetTiles = now; */
 			InsnList list = new InsnList();
-			list.add(new VarInsnNode(Opcodes.ALOAD, 0));
 			list.add(new VarInsnNode(Opcodes.LLOAD, nowVar.index));
-			list.add(new FieldInsnNode(Opcodes.PUTFIELD, clazz.name, "lastResetTiles", "J"));
+			list.add(new FieldInsnNode(Opcodes.PUTSTATIC, clazz.name, "lastResetTiles", "J"));
 
 			method.instructions.insert(it, list);
 			return;
