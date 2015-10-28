@@ -1,7 +1,13 @@
+.sw*
 .*
 *~
 *.iml
 */target
 *.jar
 !.git*
+.git*~
+.git*.sw*
 !.mailmap
+*/bin
+*/lib
+*.jar

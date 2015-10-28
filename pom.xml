@@ -16,8 +16,9 @@
   <modules>
     <module>api-client</module>
     <module>api-common</module>
-    <module>api-server</module>
-    <module>injector</module>
+    <module>example-client-mod</module>
+    <module>patcher-client</module>
+    <module>patcher-common</module>
   </modules>
 
   <pluginRepositories>
