@@ -20,7 +20,10 @@ import com.wurmonline.shared.constants.StructureConstants.FloorState;
 import com.wurmonline.shared.constants.StructureConstants.FloorType;
 import com.wurmonline.shared.util.MulticolorLineSegment;
 import com.wyverngame.anvil.api.Anvil;
+import com.wyverngame.anvil.api.event.HungerUpdateEvent;
+import com.wyverngame.anvil.api.event.LoginEvent;
 import com.wyverngame.anvil.api.event.StaminaUpdateEvent;
+import com.wyverngame.anvil.api.event.ThirstUpdateEvent;
 
 public final class ServerConnectionListenerProxy extends ServerConnectionListenerClass {
 	public ServerConnectionListenerProxy(WurmClientBase client, World world) {
@@ -30,6 +33,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 	@Override
 	public void loginResult(String message, String model, float x, float y, float h, float yRot, int layer, long wurmTimeSeconds, long serverTimeMillis, byte commandType, byte kingdomId, int counter, byte bloodKingdom, long bridgeId, float groundOffset) {
 		super.loginResult(message, model, x, y, h, yRot, layer, wurmTimeSeconds, serverTimeMillis, commandType, kingdomId, counter, bloodKingdom, bridgeId, groundOffset);
+		Anvil.handleEvent(new LoginEvent(message, model, x, y, h, yRot, layer, wurmTimeSeconds, serverTimeMillis, commandType, kingdomId, counter, bloodKingdom, bridgeId, groundOffset));
 	}
 
 	@Override
@@ -171,18 +175,20 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void setStamina(float stamina, float damage) {
-		Anvil.handleEvent(new StaminaUpdateEvent(stamina, damage));
 		super.setStamina(stamina, damage);
+		Anvil.handleEvent(new StaminaUpdateEvent(stamina, damage));
 	}
 
 	@Override
 	void setHunger(float hunger, byte nutritionLevel) {
 		super.setHunger(hunger, nutritionLevel);
+		Anvil.handleEvent(new HungerUpdateEvent(hunger, nutritionLevel));
 	}
 
 	@Override
 	void setThirst(float thirst) {
 		super.setThirst(thirst);
+		Anvil.handleEvent(new ThirstUpdateEvent(thirst));
 	}
 
 	@Override
