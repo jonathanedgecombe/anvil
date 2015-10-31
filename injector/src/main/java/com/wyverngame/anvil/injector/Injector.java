@@ -21,6 +21,7 @@ import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 import com.wyverngame.anvil.injector.trans.server.PlayerKingdomTransformer;
+import com.wyverngame.anvil.injector.trans.server.PortalQuestionTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
 import org.slf4j.Logger;
@@ -57,7 +58,8 @@ public final class Injector {
 		new ActionEntryPriestRestrictionTransformer(),
 		new ActionFaithfulPriestRestrictionTransformer(),
 		new FarmingWeedsTransformer(),
-		new PlayerKingdomTransformer()
+		new PlayerKingdomTransformer(),
+		new PortalQuestionTransformer()
 	);
 	private final Module common, client, server;
 
