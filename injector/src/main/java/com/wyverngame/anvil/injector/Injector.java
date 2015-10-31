@@ -17,6 +17,7 @@ import com.wyverngame.anvil.injector.trans.client.WorldTickTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
+import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,7 +48,8 @@ public final class Injector {
 	private final ImmutableList<Transformer> serverTransformers = ImmutableList.of(
 		new DiskIoTransformer(),
 		new FreedomAltarTransformer(),
-		new ChaosTransformer()
+		new ChaosTransformer(),
+		new SkillGainTransformer()
 	);
 	private final Module common, client, server;
 
