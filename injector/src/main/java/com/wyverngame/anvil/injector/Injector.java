@@ -1,7 +1,13 @@
 package com.wyverngame.anvil.injector;
 
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import com.wyverngame.anvil.injector.trans.Transformer;
@@ -11,11 +17,13 @@ import com.wyverngame.anvil.injector.trans.client.WorldTickTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
+import com.wyverngame.anvil.injector.util.EmptyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class Injector {
 	private static final Logger logger = LoggerFactory.getLogger(Injector.class.getName());
+	private static final URL[] EMPTY_URL_ARRAY = new URL[0];
 
 	public static void main(String[] args) throws IOException {
 		Injector.create().run();
@@ -76,13 +84,26 @@ public final class Injector {
 			transformer.transform(serverApplication);
 		}
 
-		ClassLoader dependencyClassLoader = getClass().getClassLoader(); // TODO load client/server libs here
+		/* find libraries required to compute stack frames */
+		ClassLoader commonClassLoader = new EmptyClassLoader();
+		ClassLoader clientClassLoader = createClassLoader(Paths.get("wurm/client/WurmLauncher/lib"));
+		ClassLoader serverClassLoader = createClassLoader(Paths.get("wurm/server/lib"));
 
 		/* write patched jars */
 		logger.info("Writing jars...");
 
-		client.write(clientApplication, dependencyClassLoader, Paths.get("api-client/lib/client-patched.jar"));
-		common.write(commonApplication, dependencyClassLoader, Paths.get("api-common/lib/common-patched.jar"));
-		server.write(serverApplication, dependencyClassLoader, Paths.get("api-server/lib/server-patched.jar"));
+		common.write(commonApplication, commonClassLoader, Paths.get("api-common/lib/common-patched.jar"));
+		client.write(clientApplication, clientClassLoader, Paths.get("api-client/lib/client-patched.jar"));
+		server.write(serverApplication, serverClassLoader, Paths.get("api-server/lib/server-patched.jar"));
+	}
+
+	private ClassLoader createClassLoader(Path path) throws IOException {
+		List<URL> jars = new ArrayList<>();
+
+		for (Path jar : Files.newDirectoryStream(path, "*.jar")) {
+			jars.add(jar.toUri().toURL());
+		}
+
+		return new URLClassLoader(jars.toArray(EMPTY_URL_ARRAY));
 	}
 }
