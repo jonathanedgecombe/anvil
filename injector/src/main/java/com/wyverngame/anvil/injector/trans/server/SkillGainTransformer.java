@@ -59,7 +59,7 @@ public final class SkillGainTransformer extends MethodTransformer {
 			throw new InjectorException("Couldn't find end of sType if block");
 		}
 
-		/* skillDivider /= Servers.localServer.getSkillGainRate(); */
+		/* this.skillDivider /= Servers.localServer.getSkillGainRate(); */
 		InsnList list = new InsnList();
 		list.add(new VarInsnNode(Opcodes.DLOAD, skillDividerVar.index));
 		list.add(new FieldInsnNode(Opcodes.GETSTATIC, "com/wurmonline/server/Servers", "localServer", "Lcom/wurmonline/server/ServerEntry;"));
