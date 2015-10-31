@@ -2,6 +2,7 @@ package com.wyverngame.anvil.injector.trans;
 
 import com.wyverngame.anvil.injector.InjectorException;
 import com.wyverngame.anvil.injector.util.AsmUtils;
+import com.wyverngame.anvil.injector.util.InsnMatcher;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
@@ -23,8 +24,9 @@ public abstract class MethodTransformer extends ClassTransformer {
 			throw new InjectorException("couldn't find method: " + name);
 		}
 
-		transform(clazz, method);
+		InsnMatcher matcher = new InsnMatcher(method.instructions);
+		transform(clazz, method, matcher);
 	}
 
-	public abstract void transform(ClassNode clazz, MethodNode method);
+	public abstract void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher);
 }

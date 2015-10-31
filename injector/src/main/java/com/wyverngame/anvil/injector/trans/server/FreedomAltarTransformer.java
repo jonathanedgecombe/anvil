@@ -1,6 +1,7 @@
 package com.wyverngame.anvil.injector.trans.server;
 
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
+import com.wyverngame.anvil.injector.util.InsnMatcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldInsnNode;
@@ -16,7 +17,7 @@ public final class FreedomAltarTransformer extends MethodTransformer {
 	}
 
 	@Override
-	public void transform(ClassNode clazz, MethodNode method) {
+	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
 		/* if (!Servers.localServer.PVPSERVER) return; */
 		LabelNode label = new LabelNode();
 

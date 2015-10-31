@@ -18,11 +18,8 @@ public final class PlayerKingdomTransformer extends MethodTransformer {
 	}
 
 	@Override
-	public void transform(ClassNode clazz, MethodNode method) {
+	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
 		// TODO this would work better as an event, allowing customization :)
-
-		InsnMatcher matcher = new InsnMatcher(method.instructions);
-
 		Iterator<AbstractInsnNode[]> matches = matcher.match("GETSTATIC GETFIELD", match -> {
 			FieldInsnNode getstatic = (FieldInsnNode) match[0];
 			FieldInsnNode getfield  = (FieldInsnNode) match[1];

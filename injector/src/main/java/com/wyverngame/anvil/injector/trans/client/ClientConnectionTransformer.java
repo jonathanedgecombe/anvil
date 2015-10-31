@@ -2,6 +2,7 @@ package com.wyverngame.anvil.injector.trans.client;
 
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
 
+import com.wyverngame.anvil.injector.util.InsnMatcher;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodInsnNode;
@@ -14,7 +15,7 @@ public final class ClientConnectionTransformer extends MethodTransformer {
 	}
 
 	@Override
-	public void transform(ClassNode clazz, MethodNode method) {
+	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
 		for (AbstractInsnNode node : method.instructions.toArray()) {
 			if (node instanceof MethodInsnNode) {
 				MethodInsnNode mn = (MethodInsnNode) node;

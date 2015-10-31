@@ -2,6 +2,7 @@ package com.wyverngame.anvil.injector.trans.server;
 
 import com.wyverngame.anvil.injector.InjectorException;
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
+import com.wyverngame.anvil.injector.util.InsnMatcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
@@ -14,7 +15,7 @@ public final class FarmingWeedsTransformer extends MethodTransformer {
 	}
 
 	@Override
-	public void transform(ClassNode clazz, MethodNode method) {
+	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
 		for (AbstractInsnNode it = method.instructions.getFirst(); it.getNext() != null; it = it.getNext()) {
 			AbstractInsnNode next = it.getNext();
 
