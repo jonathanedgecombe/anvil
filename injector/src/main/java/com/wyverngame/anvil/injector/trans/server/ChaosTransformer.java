@@ -18,6 +18,7 @@ public final class ChaosTransformer extends MethodTransformer {
 		method.instructions.clear();
 		method.localVariables.clear();
 
+		/* return this.PVPSERVER; */
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, clazz.name, "PVPSERVER", "Z"));
 		method.instructions.add(new InsnNode(Opcodes.IRETURN));
