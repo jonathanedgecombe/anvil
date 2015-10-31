@@ -18,6 +18,7 @@ import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTr
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
+import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
@@ -53,7 +54,8 @@ public final class Injector {
 		new ChaosTransformer(),
 		new SkillGainTransformer(),
 		new ActionEntryPriestRestrictionTransformer(),
-		new ActionFaithfulPriestRestrictionTransformer()
+		new ActionFaithfulPriestRestrictionTransformer(),
+		new FarmingWeedsTransformer()
 	);
 	private final Module common, client, server;
 
