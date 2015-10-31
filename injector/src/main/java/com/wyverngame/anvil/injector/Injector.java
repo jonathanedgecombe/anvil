@@ -24,13 +24,13 @@ public final class Injector {
 		return new Injector(client, common, server);
 	}
 
-	private final ImmutableList<Transformer> transformers = ImmutableList.of(
-		/* client */
+	private final ImmutableList<Transformer> commonTransformers = ImmutableList.of();
+	private final ImmutableList<Transformer> clientTransformers = ImmutableList.of(
 		new ClientConnectionTransformer(),
 		new WorldConstructorTransformer(),
-		new WorldTickTransformer(),
-
-		/* server */
+		new WorldTickTransformer()
+	);
+	private final ImmutableList<Transformer> serverTransformers = ImmutableList.of(
 		new DiskIoTransformer(),
 		new FreedomAltarTransformer(),
 		new ChaosTransformer()
@@ -44,16 +44,32 @@ public final class Injector {
 	}
 
 	public void run() throws IOException {
-		Application application = new Application(client, common, server);
+		/* transform common.jar */
+		Application commonApplication = new Application(common);
 
-		for (Transformer transformer : transformers) {
-			transformer.transform(application);
+		for (Transformer transformer : commonTransformers) {
+			transformer.transform(commonApplication);
+		}
+
+		/* transform client.jar */
+		Application clientApplication = new Application(common, client);
+
+		for (Transformer transformer : clientTransformers) {
+			transformer.transform(clientApplication);
+		}
+
+		/* transform server.jar */
+		Application serverApplication = new Application(common, server);
+
+		for (Transformer transformer : serverTransformers) {
+			transformer.transform(serverApplication);
 		}
 
 		ClassLoader dependencyClassLoader = getClass().getClassLoader(); // TODO load client/server libs here
 
-		client.write(application, dependencyClassLoader, Paths.get("api-client/lib/client-patched.jar"));
-		common.write(application, dependencyClassLoader, Paths.get("api-common/lib/common-patched.jar"));
-		server.write(application, dependencyClassLoader, Paths.get("api-server/lib/server-patched.jar"));
+		/* write patched jars */
+		client.write(clientApplication, dependencyClassLoader, Paths.get("api-client/lib/client-patched.jar"));
+		common.write(commonApplication, dependencyClassLoader, Paths.get("api-common/lib/common-patched.jar"));
+		server.write(serverApplication, dependencyClassLoader, Paths.get("api-server/lib/server-patched.jar"));
 	}
 }
