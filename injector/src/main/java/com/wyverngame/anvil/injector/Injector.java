@@ -15,6 +15,7 @@ import com.wyverngame.anvil.injector.trans.client.ClientConnectionTransformer;
 import com.wyverngame.anvil.injector.trans.client.WorldConstructorTransformer;
 import com.wyverngame.anvil.injector.trans.client.WorldTickTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTransformer;
+import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
@@ -56,6 +57,7 @@ public final class Injector {
 		new ChaosTransformer(),
 		new SkillGainTransformer(),
 		new ActionEntryPriestRestrictionTransformer(),
+		new ActionEntryTypePriestRestrictionTransformer(),
 		new ActionFaithfulPriestRestrictionTransformer(),
 		new FarmingWeedsTransformer(),
 		new PlayerKingdomTransformer(),
