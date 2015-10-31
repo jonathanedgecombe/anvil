@@ -1,9 +1,6 @@
 package com.wyverngame.anvil.injector.trans;
 
 import com.wyverngame.anvil.injector.InjectorException;
-
-import java.util.List;
-
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
@@ -16,10 +13,9 @@ public abstract class MethodTransformer extends ClassTransformer {
 		this.desc = desc;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public final void transform(ClassNode clazz) {
-		for (MethodNode method : ((List<MethodNode>) clazz.methods)) {
+		for (MethodNode method : clazz.methods) {
 			if (method.name.equals(name) && method.desc.equals(desc)) {
 				transform(clazz, method);
 				return;
