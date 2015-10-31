@@ -16,6 +16,7 @@ public final class ChaosTransformer extends MethodTransformer {
 	@Override
 	public void transform(ClassNode clazz, MethodNode method) {
 		method.instructions.clear();
+		method.localVariables.clear();
 
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, clazz.name, "PVPSERVER", "Z"));
