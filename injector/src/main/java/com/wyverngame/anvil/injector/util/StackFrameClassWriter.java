@@ -17,12 +17,12 @@ public final class StackFrameClassWriter extends ClassWriter {
 		public abstract Type[] getInterfaces();
 
 		public final boolean isAssignableFrom(Type type) {
-			/* case 1: this 'the same as' type */
+			/* case 1: 'this' is the same as 'type' */
 			if (getName().equals(type.getName())) {
 				return true;
 			}
 
-			/* case 2: this 'a superclass of' type */
+			/* case 2: 'this' is a superclass of 'type' */
 			Type t = type;
 			while ((t = t.getSuperclass()) != null) {
 				if (getName().equals(t.getName())) {
@@ -30,7 +30,7 @@ public final class StackFrameClassWriter extends ClassWriter {
 				}
 			}
 
-			/* case 3: this 'a superinterface of' type */
+			/* case 3: 'this' is a superinterface of 'type' */
 			return isSuperinterfaceOf(type);
 		}
 
