@@ -28,7 +28,7 @@ public final class StackFrameClassWriter extends ClassWriter {
 				if (getName().equals(t.getName())) {
 					return true;
 				}
-			};
+			}
 
 			/* case 3: this 'a superinterface of' type */
 			return isSuperinterfaceOf(type);
