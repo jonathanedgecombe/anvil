@@ -36,9 +36,11 @@ SRC_SERVER_DONE=$(SRC_SERVER_DIR).done
 
 .PHONY: all clean
 
-all:
+all: $(SRC_DONE)
 
 clean:
+	$(RM) $(SRC_DONE) $(WURM_DONE) $(CLIENT_DONE) $(SERVER_DONE)
+	$(RM) -r $(SRC_DIR)
 
 # download steamcmd
 $(STEAMCMD_ARCHIVE):
