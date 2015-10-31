@@ -1,5 +1,6 @@
 package com.wyverngame.anvil.injector.trans.client;
 
+import com.wyverngame.anvil.injector.InjectorException;
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -27,6 +28,8 @@ public final class WorldTickTransformer extends MethodTransformer {
 					"com/wyverngame/anvil/api/Anvil", 
 					"update", "()V", 
 					false));
+		} else {
+			throw new InjectorException("Couldn't find RETURN");
 		}
 	}
 }

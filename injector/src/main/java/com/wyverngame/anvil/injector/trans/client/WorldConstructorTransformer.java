@@ -1,5 +1,6 @@
 package com.wyverngame.anvil.injector.trans.client;
 
+import com.wyverngame.anvil.injector.InjectorException;
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -33,6 +34,8 @@ public final class WorldConstructorTransformer extends MethodTransformer {
 							false));
 
 			method.instructions.insertBefore(ret, list);
+		} else {
+			throw new InjectorException("Couldn't find RETURN");
 		}
 	}
 }
