@@ -8,6 +8,7 @@ import com.wyverngame.anvil.injector.trans.Transformer;
 import com.wyverngame.anvil.injector.trans.client.ClientConnectionTransformer;
 import com.wyverngame.anvil.injector.trans.client.WorldConstructorTransformer;
 import com.wyverngame.anvil.injector.trans.client.WorldTickTransformer;
+import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 
@@ -31,7 +32,8 @@ public final class Injector {
 
 		/* server */
 		new DiskIoTransformer(),
-		new FreedomAltarTransformer()
+		new FreedomAltarTransformer(),
+		new ChaosTransformer()
 	);
 	private final Module client, common, server;
 
