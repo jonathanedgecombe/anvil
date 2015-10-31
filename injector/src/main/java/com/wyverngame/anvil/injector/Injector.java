@@ -18,10 +18,10 @@ public final class Injector {
 	}
 
 	public static Injector create() throws IOException {
-		Module client = Module.read(Paths.get("api-client/lib/client.jar"));
 		Module common = Module.read(Paths.get("api-common/lib/common.jar"));
+		Module client = Module.read(Paths.get("api-client/lib/client.jar"));
 		Module server = Module.read(Paths.get("api-server/lib/server.jar"));
-		return new Injector(client, common, server);
+		return new Injector(common, client, server);
 	}
 
 	private final ImmutableList<Transformer> commonTransformers = ImmutableList.of();
@@ -35,11 +35,11 @@ public final class Injector {
 		new FreedomAltarTransformer(),
 		new ChaosTransformer()
 	);
-	private final Module client, common, server;
+	private final Module common, client, server;
 
-	private Injector(Module client, Module common, Module server) {
-		this.client = client;
+	private Injector(Module common, Module client, Module server) {
 		this.common = common;
+		this.client = client;
 		this.server = server;
 	}
 
