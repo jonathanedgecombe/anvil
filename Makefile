@@ -38,13 +38,17 @@ SRC_COMMON_DONE=$(SRC_COMMON_DIR).done
 SRC_SERVER_DIR=$(SRC_DIR)/server
 SRC_SERVER_DONE=$(SRC_SERVER_DIR).done
 
-.PHONY: all clean
+.PHONY: all clean distclean
 
 all: $(SRC_DONE)
 
 clean:
 	$(RM) $(SRC_DONE) $(WURM_DONE) $(CLIENT_DONE) $(SERVER_DONE)
 	$(RM) -r $(SRC_DIR)
+
+distclean:
+	$(RM) $(STEAMCMD_DONE) $(STEAMCMD_ARCHIVE)
+	$(RM) -r $(WURM_DIR) $(STEAMCMD_DIR)
 
 # download steamcmd
 $(STEAMCMD_ARCHIVE):
