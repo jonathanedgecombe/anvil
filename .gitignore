@@ -10,6 +10,7 @@
 */bin
 */lib
 /src
+/patched-src
 /steamcmd
 /wurm
 *.done

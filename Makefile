@@ -38,13 +38,29 @@ SRC_COMMON_DONE=$(SRC_COMMON_DIR).done
 SRC_SERVER_DIR=$(SRC_DIR)/server
 SRC_SERVER_DONE=$(SRC_SERVER_DIR).done
 
+PATCHED_COMMON_JAR=common-patched.jar
+PATCHED_CLIENT_JAR=client-patched.jar
+PATCHED_SERVER_JAR=server-patched.jar
+
+PATCHED_SRC_DIR=patched-src
+PATCHED_SRC_DONE=$(PATCHED_SRC_DIR).done
+
+PATCHED_SRC_CLIENT_DIR=$(PATCHED_SRC_DIR)/client
+PATCHED_SRC_CLIENT_DONE=$(PATCHED_SRC_CLIENT_DIR).done
+
+PATCHED_SRC_COMMON_DIR=$(PATCHED_SRC_DIR)/common
+PATCHED_SRC_COMMON_DONE=$(PATCHED_SRC_COMMON_DIR).done
+
+PATCHED_SRC_SERVER_DIR=$(PATCHED_SRC_DIR)/server
+PATCHED_SRC_SERVER_DONE=$(PATCHED_SRC_SERVER_DIR).done
+
 .PHONY: all clean distclean
 
 all: $(SRC_DONE)
 
 clean:
-	$(RM) $(SRC_DONE) $(WURM_DONE) $(CLIENT_DONE) $(SERVER_DONE)
-	$(RM) -r $(SRC_DIR)
+	$(RM) $(SRC_DONE) $(PATCHED_SRC_DONE) $(WURM_DONE) $(CLIENT_DONE) $(SERVER_DONE)
+	$(RM) -r $(SRC_DIR) $(PATCHED_SRC_DIR)
 
 distclean:
 	$(RM) $(STEAMCMD_DONE) $(STEAMCMD_ARCHIVE)
@@ -101,4 +117,28 @@ $(SRC_SERVER_DONE): $(WURM_DONE)
 	touch $@
 
 $(SRC_DONE): $(SRC_COMMON_DONE) $(SRC_CLIENT_DONE) $(SRC_SERVER_DONE)
+	touch $@
+
+# decompile common-patched.jar
+$(PATCHED_SRC_COMMON_DONE): $(PATCHED_COMMON_JAR)
+	mkdir -p $(PATCHED_SRC_COMMON_DIR)
+	java -cp $(CFR_JAR) org.benf.cfr.reader.Main $(PATCHED_COMMON_JAR) \
+		--outputdir $(PATCHED_SRC_COMMON_DIR)
+	touch $@
+
+# decompile client-patched.jar
+$(PATCHED_SRC_CLIENT_DONE): $(PATCHED_CLIENT_JAR)
+	mkdir -p $(PATCHED_SRC_CLIENT_DIR)
+	java -cp $(CFR_JAR):$(PATCHED_COMMON_JAR) org.benf.cfr.reader.Main \
+		$(PATCHED_CLIENT_JAR) --outputdir $(PATCHED_SRC_CLIENT_DIR)
+	touch $@
+
+# decompile server-patched.jar
+$(PATCHED_SRC_SERVER_DONE): $(PATCHED_SERVER_JAR)
+	mkdir -p $(PATCHED_SRC_SERVER_DIR)
+	java -cp $(CFR_JAR):$(PATCHED_COMMON_JAR) org.benf.cfr.reader.Main \
+		$(PATCHED_SERVER_JAR) --outputdir $(PATCHED_SRC_SERVER_DIR)
+	touch $@
+
+$(PATCHED_SRC_DONE): $(PATCHED_SRC_COMMON_DONE) $(PATCHED_SRC_CLIENT_DONE) $(PATCHED_SRC_SERVER_DONE)
 	touch $@
