@@ -19,7 +19,7 @@
       <artifactId>common</artifactId>
       <version>828552</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/lib/common.jar</systemPath>
+      <systemPath>${project.basedir}/../wurm/server/common.jar</systemPath>
     </dependency>
   </dependencies>
 

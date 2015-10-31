@@ -32,9 +32,9 @@ public final class Injector {
 	public static Injector create() throws IOException {
 		logger.info("Reading jars...");
 
-		Module common = Module.read(Paths.get("api-common/lib/common.jar"));
-		Module client = Module.read(Paths.get("api-client/lib/client.jar"));
-		Module server = Module.read(Paths.get("api-server/lib/server.jar"));
+		Module common = Module.read(Paths.get("wurm/server/common.jar"));
+		Module client = Module.read(Paths.get("wurm/client/WurmLauncher/client.jar"));
+		Module server = Module.read(Paths.get("wurm/server/server.jar"));
 		return new Injector(common, client, server);
 	}
 
@@ -92,9 +92,9 @@ public final class Injector {
 		/* write patched jars */
 		logger.info("Writing jars...");
 
-		common.write(commonApplication, commonClassLoader, Paths.get("api-common/lib/common-patched.jar"));
-		client.write(clientApplication, clientClassLoader, Paths.get("api-client/lib/client-patched.jar"));
-		server.write(serverApplication, serverClassLoader, Paths.get("api-server/lib/server-patched.jar"));
+		common.write(commonApplication, commonClassLoader, Paths.get("common-patched.jar"));
+		client.write(clientApplication, clientClassLoader, Paths.get("client-patched.jar"));
+		server.write(serverApplication, serverClassLoader, Paths.get("server-patched.jar"));
 	}
 
 	private ClassLoader createClassLoader(Path path) throws IOException {

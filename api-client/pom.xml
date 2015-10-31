@@ -24,7 +24,7 @@
       <artifactId>client</artifactId>
       <version>828552</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/lib/client.jar</systemPath>
+      <systemPath>${project.basedir}/../wurm/client/WurmLauncher/client.jar</systemPath>
     </dependency>
   </dependencies>
 
