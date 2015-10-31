@@ -140,7 +140,7 @@ public final class StackFrameClassWriter extends ClassWriter {
 			return type;
 		}
 
-		ClassNode clazz = application.getClass(name);
+		@Nullable ClassNode clazz = application.getClass(name);
 		if (clazz != null) {
 			type = new AsmType(clazz);
 		} else {
