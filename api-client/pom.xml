@@ -22,7 +22,7 @@
     <dependency>
       <groupId>com.wurmonline</groupId>
       <artifactId>client</artifactId>
-      <version>828552</version>
+      <version>LATEST</version>
       <scope>system</scope>
       <systemPath>${project.basedir}/../wurm/client/WurmLauncher/client.jar</systemPath>
     </dependency>
