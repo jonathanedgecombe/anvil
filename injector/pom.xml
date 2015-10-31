@@ -8,19 +8,15 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>patcher-common</artifactId>
+  <artifactId>injector</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <name>Anvil: Patcher Common</name>
+  <name>Anvil: Injector</name>
 
   <dependencies>
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-debug-all</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
     </dependency>
   </dependencies>
 

@@ -13,6 +13,16 @@
 
   <name>Anvil: API Common</name>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.wurmonline</groupId>
+      <artifactId>common</artifactId>
+      <version>828552</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/common.jar</systemPath>
+    </dependency>
+  </dependencies>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>

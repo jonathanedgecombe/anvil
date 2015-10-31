@@ -26,13 +26,6 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/lib/client.jar</systemPath>
     </dependency>
-    <dependency>
-      <groupId>com.wurmonline</groupId>
-      <artifactId>client</artifactId>
-      <version>828552</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/../api-common/lib/common.jar</systemPath>
-    </dependency>
   </dependencies>
 
   <properties>

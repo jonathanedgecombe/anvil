@@ -15,18 +15,9 @@
 
   <dependencies>
     <dependency>
-      <groupId>com.wurmonline</groupId>
-      <artifactId>client</artifactId>
-      <version>828552</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/../api-client/lib/client.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>com.wurmonline</groupId>
-      <artifactId>client</artifactId>
-      <version>828552</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/../api-common/lib/common.jar</systemPath>
+      <groupId>com.wyverngame.anvil</groupId>
+      <artifactId>api-client</artifactId>
+      <version>1.0.0-SNAPSHOT</version>
     </dependency>
   </dependencies>
 

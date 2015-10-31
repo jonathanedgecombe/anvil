@@ -1,4 +1,4 @@
-package com.wyverngame.anvil.client.trans;
+package com.wyverngame.anvil.injector.trans.client;
 
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
 
@@ -8,8 +8,8 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.TypeInsnNode;
 
-public final class ClientConnectionTransform extends MethodTransformer {
-	public ClientConnectionTransform() {
+public final class ClientConnectionTransformer extends MethodTransformer {
+	public ClientConnectionTransformer() {
 		super("com/wurmonline/client/WurmClientBase", "performFirstConnection", "()V");
 	}
 

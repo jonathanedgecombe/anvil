@@ -1,4 +1,4 @@
-package com.wyverngame.anvil.client.trans;
+package com.wyverngame.anvil.injector.trans.client;
 
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
 import org.objectweb.asm.Opcodes;
