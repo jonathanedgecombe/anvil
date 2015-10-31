@@ -3,7 +3,7 @@ package com.wyverngame.anvil.injector.util;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 
-public final class MethodNodeUtils {
+public final class AsmUtils {
 	public static LocalVariableNode getLocalVariable(MethodNode method, String name, String desc) {
 		for (LocalVariableNode var : method.localVariables) {
 			if (var.name.equals(name) && var.desc.equals(desc)) {
@@ -14,7 +14,7 @@ public final class MethodNodeUtils {
 		return null;
 	}
 
-	private MethodNodeUtils() {
+	private AsmUtils() {
 		/* empty */
 	}
 }

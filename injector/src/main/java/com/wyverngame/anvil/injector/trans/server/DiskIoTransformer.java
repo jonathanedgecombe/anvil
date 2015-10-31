@@ -2,7 +2,7 @@ package com.wyverngame.anvil.injector.trans.server;
 
 import com.wyverngame.anvil.injector.InjectorException;
 import com.wyverngame.anvil.injector.trans.MethodTransformer;
-import com.wyverngame.anvil.injector.util.MethodNodeUtils;
+import com.wyverngame.anvil.injector.util.AsmUtils;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
@@ -21,7 +21,7 @@ public final class DiskIoTransformer extends MethodTransformer {
 
 	@Override
 	public void transform(ClassNode clazz, MethodNode method) {
-		@Nullable LocalVariableNode nowVar = MethodNodeUtils.getLocalVariable(method, "now", "J");
+		@Nullable LocalVariableNode nowVar = AsmUtils.getLocalVariable(method, "now", "J");
 		if (nowVar == null)
 			throw new InjectorException("couldn't find now variable");
 
