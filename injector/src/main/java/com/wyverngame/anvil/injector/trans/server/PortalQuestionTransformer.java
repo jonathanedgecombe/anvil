@@ -66,6 +66,9 @@ public final class PortalQuestionTransformer extends MethodTransformer {
 
 		InsnList list = new InsnList();
 
+		// TODO add message saying this portal leads to the wild server?
+		// TODO remove fighting/archery penalty when moving between servers?
+
 		/* buf.append("text{text=\"Please select a kingdom to join:\"}"); */
 		list.add(new VarInsnNode(Opcodes.ALOAD, bufVar.index));
 		list.add(new LdcInsnNode("text{text=\"Please select a kingdom to join:\"}"));
