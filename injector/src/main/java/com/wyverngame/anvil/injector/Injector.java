@@ -48,8 +48,10 @@ public final class Injector {
 			transformer.transform(application);
 		}
 
-		client.write(Paths.get("api-client/lib/client-patched.jar"));
-		common.write(Paths.get("api-common/lib/common-patched.jar"));
-		server.write(Paths.get("api-server/lib/server-patched.jar"));
+		ClassLoader dependencyClassLoader = getClass().getClassLoader(); // TODO load client/server libs here
+
+		client.write(application, dependencyClassLoader, Paths.get("api-client/lib/client-patched.jar"));
+		common.write(application, dependencyClassLoader, Paths.get("api-common/lib/common-patched.jar"));
+		server.write(application, dependencyClassLoader, Paths.get("api-server/lib/server-patched.jar"));
 	}
 }

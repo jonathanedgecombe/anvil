@@ -11,6 +11,7 @@ import java.util.jar.JarOutputStream;
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.ByteStreams;
+import com.wyverngame.anvil.injector.util.StackFrameClassWriter;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
@@ -39,7 +40,7 @@ public final class Module {
 					ClassNode clazz = new ClassNode();
 
 					ClassReader reader = new ClassReader(in);
-					reader.accept(clazz, 0);
+					reader.accept(clazz, ClassReader.SKIP_FRAMES);
 
 					classes.put(name, clazz);
 				} else {
@@ -57,13 +58,13 @@ public final class Module {
 		this.files = files;
 	}
 
-	public void write(Path path) throws IOException {
+	public void write(Application application, ClassLoader dependencyClassLoader, Path path) throws IOException {
 		try (JarOutputStream out = new JarOutputStream(Files.newOutputStream(path))) {
 			for (Map.Entry<String, ClassNode> entry : classes.entrySet()) {
 				String name = entry.getKey().concat(".class");
 				ClassNode clazz = entry.getValue();
 
-				ClassWriter writer = new ClassWriter(0);
+				ClassWriter writer = new StackFrameClassWriter(application, dependencyClassLoader);
 				clazz.accept(new CheckClassAdapter(writer, true));
 
 				out.putNextEntry(new JarEntry(name));
