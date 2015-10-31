@@ -1,6 +1,8 @@
 package com.wyverngame.anvil.injector.trans;
 
 import com.wyverngame.anvil.injector.InjectorException;
+import com.wyverngame.anvil.injector.util.AsmUtils;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
 
@@ -15,14 +17,13 @@ public abstract class MethodTransformer extends ClassTransformer {
 
 	@Override
 	public final void transform(ClassNode clazz) {
-		for (MethodNode method : clazz.methods) {
-			if (method.name.equals(name) && method.desc.equals(desc)) {
-				transform(clazz, method);
-				return;
-			}
+		@Nullable MethodNode method = AsmUtils.getMethod(clazz, name, desc);
+
+		if (method == null) {
+			throw new InjectorException("couldn't find method: " + name);
 		}
 
-		throw new InjectorException("couldn't find method: " + name);
+		transform(clazz, method);
 	}
 
 	public abstract void transform(ClassNode clazz, MethodNode method);

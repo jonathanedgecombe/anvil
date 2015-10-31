@@ -17,6 +17,16 @@ public final class AsmUtils {
 		return null;
 	}
 
+	public static @Nullable MethodNode getMethod(ClassNode clazz, String name, String desc) {
+		for (MethodNode method : clazz.methods) {
+			if (method.name.equals(name) && method.desc.equals(desc)) {
+				return method;
+			}
+		}
+
+		return null;
+	}
+
 	public static @Nullable FieldNode getField(ClassNode clazz, String name, String desc) {
 		for (FieldNode field : clazz.fields) {
 			if (field.name.equals(name) && field.desc.equals(desc)) {
