@@ -9,3 +9,9 @@
 !.mailmap
 */bin
 */lib
+/src
+/steamcmd
+/wurm
+*.done
+*.tar.gz
+Makefile.rc
