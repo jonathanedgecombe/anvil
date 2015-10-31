@@ -2,6 +2,7 @@ include Makefile.rc
 
 STEAMCMD=$(STEAMCMD_DIR)/steamcmd.sh
 STEAMCMD_DIR=steamcmd
+STEAMCMD_DONE=$(STEAMCMD_DIR).done
 STEAMCMD_ARCHIVE=$(STEAMCMD_DIR)_linux.tar.gz
 STEAMCMD_URL=https://steamcdn-a.akamaihd.net/client/installer/$(STEAMCMD_ARCHIVE)
 
@@ -50,19 +51,20 @@ $(STEAMCMD_ARCHIVE):
 	wget -qO $@ $(STEAMCMD_URL)
 
 # extract steamcmd
-$(STEAMCMD): $(STEAMCMD_ARCHIVE)
+$(STEAMCMD_DONE): $(STEAMCMD_ARCHIVE)
 	mkdir -p $(STEAMCMD_DIR)
 	tar -C $(STEAMCMD_DIR) -xzf $(STEAMCMD_ARCHIVE)
+	touch $@
 
 # download wurm client
-$(CLIENT_DONE): $(STEAMCMD)
+$(CLIENT_DONE): $(STEAMCMD_DONE)
 	mkdir -p $(CLIENT_DIR)
 	$(STEAMCMD) +login $(STEAM_USER) +force_install_dir ../$(CLIENT_DIR) \
 		+@sSteamCmdForcePlatformType windows +app_update $(CLIENT_APPID) +quit
 	touch $@
 
 # download wurm server
-$(SERVER_DONE): $(STEAMCMD)
+$(SERVER_DONE): $(STEAMCMD_DONE)
 	mkdir -p $(SERVER_DIR)
 	$(STEAMCMD) +login $(STEAM_USER) +force_install_dir ../$(SERVER_DIR) \
 		+app_update $(SERVER_APPID) +quit
