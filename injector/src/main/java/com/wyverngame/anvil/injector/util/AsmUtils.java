@@ -1,6 +1,7 @@
 package com.wyverngame.anvil.injector.util;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.FieldNode;
 import org.objectweb.asm.tree.LocalVariableNode;
@@ -35,6 +36,26 @@ public final class AsmUtils {
 		}
 
 		return null;
+	}
+
+	public static @Nullable AbstractInsnNode getNextRealInsn(AbstractInsnNode insn) {
+		while ((insn = insn.getNext()) != null && insn.getOpcode() == -1);
+		return insn;
+	}
+
+	public static @Nullable AbstractInsnNode getPreviousRealInsn(AbstractInsnNode insn) {
+		while ((insn = insn.getPrevious()) != null && insn.getOpcode() == -1);
+		return insn;
+	}
+
+	public static @Nullable AbstractInsnNode getNextPseudoInsn(AbstractInsnNode insn) {
+		while ((insn = insn.getNext()) != null && insn.getOpcode() != -1);
+		return insn;
+	}
+
+	public static @Nullable AbstractInsnNode getPreviousPseudoInsn(AbstractInsnNode insn) {
+		while ((insn = insn.getPrevious()) != null && insn.getOpcode() != -1);
+		return insn;
 	}
 
 	private AsmUtils() {
