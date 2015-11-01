@@ -19,8 +19,8 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-public final class FarmingWeedsPollTransformer extends MethodTransformer {
-	public FarmingWeedsPollTransformer() {
+public final class FarmingWeedsCropPollTransformer extends MethodTransformer {
+	public FarmingWeedsCropPollTransformer() {
 		super("com/wurmonline/server/zones/CropTilePoller", "checkForFarmGrowth", "(IIIBBLcom/wurmonline/mesh/MeshIO;Z)V");
 	}
 

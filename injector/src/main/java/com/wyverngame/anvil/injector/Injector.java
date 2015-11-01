@@ -19,7 +19,8 @@ import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestricti
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
-import com.wyverngame.anvil.injector.trans.server.FarmingWeedsPollTransformer;
+import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransformer;
+import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 import com.wyverngame.anvil.injector.trans.server.PlayerKingdomTransformer;
@@ -61,7 +62,8 @@ public final class Injector {
 		new ActionEntryTypePriestRestrictionTransformer(),
 		new ActionFaithfulPriestRestrictionTransformer(),
 		new FarmingWeedsTransformer(),
-		new FarmingWeedsPollTransformer(),
+		new FarmingWeedsTilePollTransformer(),
+		new FarmingWeedsCropPollTransformer(),
 		new PlayerKingdomTransformer(),
 		new PortalQuestionTransformer()
 	);
