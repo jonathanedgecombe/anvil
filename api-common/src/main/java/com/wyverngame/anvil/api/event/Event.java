@@ -2,9 +2,10 @@ package com.wyverngame.anvil.api.event;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public abstract class Event {
-	private final List<Runnable> tasks = new ArrayList<>();
+	private final List<Consumer<Event>> tasks = new ArrayList<>();
 	private boolean preventDefault = false;
 
 	/**
@@ -22,13 +23,13 @@ public abstract class Event {
 	 * Add a task to be run after the default behaviour.
 	 * @param task
 	 */
-	public void addTask(Runnable task) {
+	public void addTask(Consumer<Event> task) {
 		tasks.add(task);
 	}
 
 	public void runTasks() {
-		for (Runnable task :tasks) {
-			task.run();
+		for (Consumer<Event> task :tasks) {
+			task.accept(this);
 		}
 	}
 }
