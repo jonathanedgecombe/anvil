@@ -1,5 +1,5 @@
 package com.wyverngame.anvil.api.event;
 
-public final class TickEvent implements Event {
+public final class TickEvent extends Event {
 
 }

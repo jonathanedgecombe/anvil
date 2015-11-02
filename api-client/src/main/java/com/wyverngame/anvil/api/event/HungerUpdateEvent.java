@@ -1,6 +1,6 @@
 package com.wyverngame.anvil.api.event;
 
-public final class HungerUpdateEvent implements Event {
+public final class HungerUpdateEvent extends Event {
 	private final float hunger;
 	private final byte nutrition;
 

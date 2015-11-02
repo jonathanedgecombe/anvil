@@ -20,8 +20,10 @@ import com.wurmonline.shared.constants.StructureConstants.FloorState;
 import com.wurmonline.shared.constants.StructureConstants.FloorType;
 import com.wurmonline.shared.util.MulticolorLineSegment;
 import com.wyverngame.anvil.api.Anvil;
+import com.wyverngame.anvil.api.event.AddInventoryItemEvent;
+import com.wyverngame.anvil.api.event.AvailableActionsEvent;
+import com.wyverngame.anvil.api.event.Event;
 import com.wyverngame.anvil.api.event.HungerUpdateEvent;
-import com.wyverngame.anvil.api.event.LoginEvent;
 import com.wyverngame.anvil.api.event.StaminaUpdateEvent;
 import com.wyverngame.anvil.api.event.ThirstUpdateEvent;
 
@@ -33,7 +35,6 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 	@Override
 	public void loginResult(String message, String model, float x, float y, float h, float yRot, int layer, long wurmTimeSeconds, long serverTimeMillis, byte commandType, byte kingdomId, int counter, byte bloodKingdom, long bridgeId, float groundOffset) {
 		super.loginResult(message, model, x, y, h, yRot, layer, wurmTimeSeconds, serverTimeMillis, commandType, kingdomId, counter, bloodKingdom, bridgeId, groundOffset);
-		Anvil.handleEvent(new LoginEvent(message, model, x, y, h, yRot, layer, wurmTimeSeconds, serverTimeMillis, commandType, kingdomId, counter, bloodKingdom, bridgeId, groundOffset));
 	}
 
 	@Override
@@ -78,9 +79,9 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void playDeadThenReplaceWithCorpse(long creatureId, long corpseId, String modelName, String lName, byte materialId,
-			float x, float y, float h, float rot, byte layer, String description, short iconId, float size) {
+									   float x, float y, float h, float rot, byte layer, String description, short iconId, float size) {
 		super.playDeadThenReplaceWithCorpse(creatureId, corpseId, modelName, lName, materialId, x, y, h, rot, layer,
-				description, iconId, size);
+			description, iconId, size);
 	}
 
 	@Override
@@ -105,21 +106,28 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void addAvailableActions(byte requestId, List<PlayerAction> actionList, String helpTopic) {
-		super.addAvailableActions(requestId, actionList, helpTopic);
+		Event event = new AvailableActionsEvent(requestId, actionList, helpTopic);
+		Anvil.handleEvent(event);
+
+		if (!event.isPreventingDefault()) {
+			super.addAvailableActions(requestId, actionList, helpTopic);
+		}
+
+		event.runTasks();
 	}
 
 	@Override
 	void addItem(long id, String modelName, String lName, byte materialId, float x, float y, float h, float rot,
-			byte layer, String description, short iconId, float scale, long bridgeId, byte rarity) {
+				 byte layer, String description, short iconId, float scale, long bridgeId, byte rarity) {
 		super.addItem(id, modelName, lName, materialId, x, y, h, rot, layer, description, iconId, scale, bridgeId, rarity);
 	}
 
 	@Override
 	void addProjectile(long id, byte type, String modelName, String lName, byte materialId, float startX, float startY,
-			float startH, float rot, byte layer, float endX, float endY, float endH, long sourceId, long targetId,
-			float secondsInAir, float realSecondsInAir) {
+					   float startH, float rot, byte layer, float endX, float endY, float endH, long sourceId, long targetId,
+					   float secondsInAir, float realSecondsInAir) {
 		super.addProjectile(id, type, modelName, lName, materialId, startX, startY, startH, rot, layer, endX, endY, endH,
-				sourceId, targetId, secondsInAir, realSecondsInAir);
+			sourceId, targetId, secondsInAir, realSecondsInAir);
 	}
 
 	@Override
@@ -164,7 +172,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void addComplexEffect(long id, long target, short type, float x, float y, float h, int layer, float radiusMeters,
-			float lengthMeters, int direction, byte kingdom, byte entityId) {
+						  float lengthMeters, int direction, byte kingdom, byte entityId) {
 		super.addComplexEffect(id, target, type, x, y, h, layer, radiusMeters, lengthMeters, direction, kingdom, entityId);
 	}
 
@@ -175,20 +183,38 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void setStamina(float stamina, float damage) {
-		super.setStamina(stamina, damage);
-		Anvil.handleEvent(new StaminaUpdateEvent(stamina, damage));
+		Event event = new StaminaUpdateEvent(stamina, damage);
+		Anvil.handleEvent(event);
+
+		if (!event.isPreventingDefault()) {
+			super.setStamina(stamina, damage);
+		}
+
+		event.runTasks();
 	}
 
 	@Override
 	void setHunger(float hunger, byte nutritionLevel) {
-		super.setHunger(hunger, nutritionLevel);
-		Anvil.handleEvent(new HungerUpdateEvent(hunger, nutritionLevel));
+		Event event = new HungerUpdateEvent(hunger, nutritionLevel);
+		Anvil.handleEvent(event);
+
+		if (!event.isPreventingDefault()) {
+			super.setHunger(hunger, nutritionLevel);
+		}
+
+		event.runTasks();
 	}
 
 	@Override
 	void setThirst(float thirst) {
-		super.setThirst(thirst);
-		Anvil.handleEvent(new ThirstUpdateEvent(thirst));
+		Event event = new ThirstUpdateEvent(thirst);
+		Anvil.handleEvent(event);
+
+		if (!event.isPreventingDefault()) {
+			super.setThirst(thirst);
+		}
+
+		event.runTasks();
 	}
 
 	@Override
@@ -223,7 +249,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	public void addWall(long houseId, int x, int y, int heightOffset, byte dir, byte type, String material, float r,
-			float g, float b, float a, byte layer, String doorName, boolean overrideReverse) {
+						float g, float b, float a, byte layer, String doorName, boolean overrideReverse) {
 		super.addWall(houseId, x, y, heightOffset, dir, type, material, r, g, b, a, layer, doorName, overrideReverse);
 	}
 
@@ -274,7 +300,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void addFence(int x, int y, int heightOffset, byte dir, byte type, float r, float g, float b, float a, byte layer,
-			String name) {
+				  String name) {
 		super.addFence(x, y, heightOffset, dir, type, r, g, b, a, layer, name);
 	}
 
@@ -290,13 +316,13 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void openFence(int x, int y, int heightOffset, byte dir, boolean open, boolean changePassable, boolean mayPass,
-			byte layer) {
+				   byte layer) {
 		super.openFence(x, y, heightOffset, dir, open, changePassable, mayPass, layer);
 	}
 
 	@Override
 	void playSound(String soundName, float x, float y, float h, float pitch, float volume, float prio,
-			boolean isPersonal) {
+				   boolean isPersonal) {
 		super.playSound(soundName, x, y, h, pitch, volume, prio, isPersonal);
 	}
 
@@ -417,15 +443,15 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	public void attachCreature(long passenger, long carrier, float xOffset, float yOffset, float hOffset,
-			byte placeId) {
+							   byte placeId) {
 		super.attachCreature(passenger, carrier, xOffset, yOffset, hOffset, placeId);
 	}
 
 	@Override
 	void setVehicleController(long controller, long carrier, float xOffset, float yOffset, float hOffset,
-			float maxDepth, float maxHeight, float maxHeightDiff, float vehicleRotation, byte placeId) {
+							  float maxDepth, float maxHeight, float maxHeightDiff, float vehicleRotation, byte placeId) {
 		super.setVehicleController(controller, carrier, xOffset, yOffset, hOffset, maxDepth, maxHeight, maxHeightDiff,
-				vehicleRotation, placeId);
+			vehicleRotation, placeId);
 	}
 
 	@Override
@@ -435,7 +461,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void playAnimationWithTargetItem(long id, String animationName, boolean looping, boolean freeze,
-			long targetItemId) {
+									 long targetItemId) {
 		super.playAnimationWithTargetItem(id, animationName, looping, freeze, targetItemId);
 	}
 
@@ -486,13 +512,13 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void addCreationGroundItem(String name, long id, float quality, float damage, float weight, short iconId,
-			ItemType itemType) {
+							   ItemType itemType) {
 		super.addCreationGroundItem(name, id, quality, damage, weight, iconId, itemType);
 	}
 
 	@Override
 	void replaceCreationGroundItem(long replaceWithId, String name, long id, float quality, float damage, float weight,
-			short iconId, ItemType itemType) {
+								   short iconId, ItemType itemType) {
 		super.replaceCreationGroundItem(replaceWithId, name, id, quality, damage, weight, iconId, itemType);
 	}
 
@@ -653,10 +679,18 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void addInventoryItem(long inventoryWindowId, long id, long parentId, short iconId, String baseName,
-			String customName, byte materialId, float quality, float damage, float weight, float r, float g, float b,
-			int price, short impIconId, short typeBits, byte temperature, byte rarity, byte auxData) {
-		super.addInventoryItem(inventoryWindowId, id, parentId, iconId, baseName, customName, materialId, quality, damage,
+						  String customName, byte materialId, float quality, float damage, float weight, float r, float g, float b,
+						  int price, short impIconId, short typeBits, byte temperature, byte rarity, byte auxData) {
+		Event event = new AddInventoryItemEvent(inventoryWindowId, id, parentId, iconId, baseName, customName, materialId, quality, damage,
+			weight, r, g, b, price, impIconId, typeBits, temperature, rarity, auxData);
+		Anvil.handleEvent(event);
+
+		if (!event.isPreventingDefault()) {
+			super.addInventoryItem(inventoryWindowId, id, parentId, iconId, baseName, customName, materialId, quality, damage,
 				weight, r, g, b, price, impIconId, typeBits, temperature, rarity, auxData);
+		}
+
+		event.runTasks();
 	}
 
 	@Override
@@ -666,10 +700,10 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void updateInventoryItem(long inventoryWindowId, long id, long parentId, String baseName, String customName,
-			float quality, float damage, float weight, float r, float g, float b, int price, short impIconId,
-			byte temperature, byte rarity) {
+							 float quality, float damage, float weight, float r, float g, float b, int price, short impIconId,
+							 byte temperature, byte rarity) {
 		super.updateInventoryItem(inventoryWindowId, id, parentId, baseName, customName, quality, damage, weight, r, g, b,
-				price, impIconId, temperature, rarity);
+			price, impIconId, temperature, rarity);
 	}
 
 	@Override
@@ -709,7 +743,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void showBMLForm(short id, String title, int width, int height, boolean closeable, boolean resizeable, float r,
-			float g, float b, String bml) {
+					 float g, float b, String bml) {
 		super.showBMLForm(id, title, width, height, closeable, resizeable, r, g, b, bml);
 	}
 
@@ -725,7 +759,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void addMissionState(long wurmid, String name, String creator, String description, long startDate, long endDate,
-			long expireDate, float state, boolean restartable) {
+						 long expireDate, float state, boolean restartable) {
 		super.addMissionState(wurmid, name, creator, description, startDate, endDate, expireDate, state, restartable);
 	}
 
@@ -741,7 +775,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	public void addClothing(long wurmId, int itemId, byte bodyPart, boolean hasColour, float red, float green,
-			float blue, byte material, byte rarity) {
+							float blue, byte material, byte rarity) {
 		super.addClothing(wurmId, itemId, bodyPart, hasColour, red, green, blue, material, rarity);
 	}
 
@@ -787,7 +821,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	public void addRoof(long houseId, int x, int y, short heightOffset, FloorType roofType, FloorMaterial roofMaterial,
-			FloorState roofState, byte layer, float dir, byte specialRoofId) {
+						FloorState roofState, byte layer, float dir, byte specialRoofId) {
 		super.addRoof(houseId, x, y, heightOffset, roofType, roofMaterial, roofState, layer, dir, specialRoofId);
 	}
 
@@ -798,7 +832,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	public void addFloor(long houseId, int x, int y, short heightOffset, FloorType floorType,
-			FloorMaterial floorMaterial, FloorState floorState, byte layer, byte dir) {
+						 FloorMaterial floorMaterial, FloorState floorState, byte layer, byte dir) {
 		super.addFloor(houseId, x, y, heightOffset, floorType, floorMaterial, floorState, layer, dir);
 	}
 
@@ -809,7 +843,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	public void addBridgePart(long structureId, int x, int y, short heightOffset, BridgeType bridgeType,
-			BridgeMaterial bridgeMaterial, BridgeState bridgeState, byte dir, byte slope) {
+							  BridgeMaterial bridgeMaterial, BridgeState bridgeState, byte dir, byte slope) {
 		super.addBridgePart(structureId, x, y, heightOffset, bridgeType, bridgeMaterial, bridgeState, dir, slope);
 	}
 
@@ -860,7 +894,7 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	void updateSupportTicket(long ticketNo, TicketGroup ticketGroup, String description, String message,
-			byte colourCode) {
+							 byte colourCode) {
 		super.updateSupportTicket(ticketNo, ticketGroup, description, message, colourCode);
 	}
 
@@ -881,23 +915,23 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 
 	@Override
 	public void openPlanWindow(String planName, byte planDirection, byte planLength, byte planWidth, int startX,
-			int startY, int startH, int endX, int endY, int endH, byte planMaterial, String planCustom) {
+							   int startY, int startH, int endX, int endY, int endH, byte planMaterial, String planCustom) {
 		super.openPlanWindow(planName, planDirection, planLength, planWidth, startX, startY, startH, endX, endY, endH,
-				planMaterial, planCustom);
+			planMaterial, planCustom);
 	}
 
 	@Override
 	void setupPermissionsManagement(int qId, String objectType, String objectName, String ownerName, boolean canGoBack,
-			boolean isOwner, boolean canChangeOwner, boolean isManaged, boolean managedEnabled, String mayManageText,
-			String mayManageHover, String warningText, String messageOnTick, String questionOnTick,
-			String messageUnTick, String questionUnTick, String allowAlliesText, String allowCitizensText,
-			String allowKingdomText, String allowEveryoneText, String[] header1, String[] header2, String[] hover,
-			String[] trusted, long[] tIds, String[] friends, long[] fIds, String mySettlement, String[] citizens,
-			long[] cIds, String[] permitted, long[] pIds, boolean[][] allowed) {
+									boolean isOwner, boolean canChangeOwner, boolean isManaged, boolean managedEnabled, String mayManageText,
+									String mayManageHover, String warningText, String messageOnTick, String questionOnTick,
+									String messageUnTick, String questionUnTick, String allowAlliesText, String allowCitizensText,
+									String allowKingdomText, String allowEveryoneText, String[] header1, String[] header2, String[] hover,
+									String[] trusted, long[] tIds, String[] friends, long[] fIds, String mySettlement, String[] citizens,
+									long[] cIds, String[] permitted, long[] pIds, boolean[][] allowed) {
 		super.setupPermissionsManagement(qId, objectType, objectName, ownerName, canGoBack, isOwner, canChangeOwner, isManaged,
-				managedEnabled, mayManageText, mayManageHover, warningText, messageOnTick, questionOnTick, messageUnTick,
-				questionUnTick, allowAlliesText, allowCitizensText, allowKingdomText, allowEveryoneText, header1, header2,
-				hover, trusted, tIds, friends, fIds, mySettlement, citizens, cIds, permitted, pIds, allowed);
+			managedEnabled, mayManageText, mayManageHover, warningText, messageOnTick, questionOnTick, messageUnTick,
+			questionUnTick, allowAlliesText, allowCitizensText, allowKingdomText, allowEveryoneText, header1, header2,
+			hover, trusted, tIds, friends, fIds, mySettlement, citizens, cIds, permitted, pIds, allowed);
 	}
 
 	@Override

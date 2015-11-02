@@ -1,8 +1,8 @@
 package com.wyverngame.anvil.api;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.FileSystems;
@@ -11,72 +11,80 @@ import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
+import java.util.jar.JarEntry;
+import java.util.jar.JarInputStream;
 
-public final class Loader {
-	private final String specificationTitle;
-	private final String specificationVersion;
+public final class Loader<T extends Context> {
+	private final ContextFactory<T> factory;
 
-	private final ContextFactory factory;
-
-	public Loader(String specificationTitle, String specificationVersion, ContextFactory factory) {
-		this.specificationTitle = specificationTitle;
-		this.specificationVersion = specificationVersion;
+	public Loader(ContextFactory<T> factory) {
 		this.factory = factory;
 	}
 
-	public Context load(Path path) throws IOException, ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException {
-		try (URLClassLoader loader = new URLClassLoader(new URL[] { path.toUri().toURL() }, Loader.class.getClassLoader())) {
-			try (Scanner scanner = new Scanner(loader.getResource("anvil.mod").openStream())) {
-				// TODO use something decent for this like yaml or json
-				String title = scanner.nextLine();
-				String version = scanner.nextLine();
-				String author = scanner.nextLine();
-				String mainClass = scanner.nextLine();
+	public Plugin<T> load(Path path) throws Throwable {
+		// TODO Better way of searching for plugin classes.
+		List<String> classes = new ArrayList<>();
 
-				Context ctx = factory.create(new ModInfo(title, version, author));
-
-				Class<?> main = Class.forName(mainClass, true, loader);
-
-				if (!main.getSuperclass().equals(Mod.class)) {
-					throw new IOException("Main-Class of '" + mainClass + "' is not a sub-class of " + Mod.class.getCanonicalName());
+		try (JarInputStream in = new JarInputStream(Files.newInputStream(path))) {
+			JarEntry entry = in.getNextJarEntry();
+			while (entry != null) {
+				String name = entry.getName();
+				if (name.endsWith(".class")) {
+					classes.add(name.substring(0, name.length() - 6).replace('/', '.'));
 				}
 
-				Method method = main.getDeclaredMethod("load", Context.class);
-				method.invoke(main.newInstance(), ctx);
-
-				return ctx;
+				entry = in.getNextJarEntry();
 			}
+		}
+
+		try (URLClassLoader loader = new URLClassLoader(new URL[] { path.toUri().toURL() }, Loader.class.getClassLoader())) {
+			for (String name : classes) {
+				Class<?> main = Class.forName(name, true, loader);
+
+				if (!main.getSuperclass().equals(Plugin.class)) {
+					continue;
+				}
+
+				T ctx = factory.create();
+
+				@SuppressWarnings("unchecked")
+				Constructor<? extends Plugin<T>>[] constructors = (Constructor<? extends Plugin<T>>[]) main.getConstructors();
+				for (Constructor<? extends Plugin<T>> constructor : constructors) {
+					if (constructor.getParameterCount() != 1) continue;
+
+					if (Context.class.isAssignableFrom(constructor.getParameterTypes()[0])) {
+						try {
+							return constructor.newInstance(ctx);
+						} catch (InvocationTargetException ex) {
+							throw ex.getTargetException();
+						}
+					}
+				}
+			}
+
+			throw new IOException("No class extending Plugin with matching constructor in " + path.toString());
 		}
 	}
 
 	private final static PathMatcher MATCHER = FileSystems.getDefault().getPathMatcher("glob:**.jar");
 
-	public List<Context> loadAll(Path path) throws IOException {
-		List<Context> mods = new ArrayList<>();
+	public List<Plugin<T>> loadAll(Path path) throws IOException {
+		List<Plugin<T>> plugins = new ArrayList<>();
 
 		try {
 			Files.walk(path).forEach(p -> {
 				if (MATCHER.matches(p)) {
 					try {
-						mods.add(load(p));
-					} catch (Exception ex) {
+						plugins.add(load(p));
+					} catch (Throwable ex) {
 						factory.error(ex);
 					}
 				}
 			});
-		} catch (Exception ex) {
+		} catch (Throwable ex) {
 			factory.error(ex);
 		}
 
-		return mods;
-	}
-
-	public String getSpecificationTitle() {
-		return specificationTitle;
-	}
-
-	public String getSpecificationVersion() {
-		return specificationVersion;
+		return plugins;
 	}
 }

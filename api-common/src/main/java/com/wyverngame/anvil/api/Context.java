@@ -4,46 +4,37 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import com.wyverngame.anvil.api.event.Event;
 
 public abstract class Context {
-	private final ModInfo info;
-	private final Map<Class<? extends Event>, List<EventHandler<? extends Event>>> handlers = new HashMap<>();
+	private final Map<Class<? extends Event>, List<Consumer<? extends Event>>> handlers = new HashMap<>();
 
-	public Context(ModInfo info) {
-		this.info = info;
-	}
-
-	public synchronized <T extends Event> void register(EventHandler<T> eventHandler) {
-		Class<T> type = eventHandler.getType();
-		List<EventHandler<? extends Event>> list = handlers.get(type);
+	public synchronized <T extends Event> void register(Class<T> type, Consumer<T> handler) {
+		List<Consumer<? extends Event>> list = handlers.get(type);
 
 		if (list == null) {
 			list = new ArrayList<>();
-			list.add(eventHandler);
+			list.add(handler);
 			handlers.put(type, list);
 		} else {
-			list.add(eventHandler);
+			list.add(handler);
 		}
 	}
 
 	@SuppressWarnings({ "unchecked" })
-	public synchronized <T extends Event> void handle(T event) {
+	public synchronized <T extends Event> void handle(T event) throws Exception {
 		if (event == null) return;
 
 		Class<T> type = (Class<T>) event.getClass();
 
-		List<EventHandler<? extends Event>> list = handlers.get(type);
+		List<Consumer<? extends Event>> list = handlers.get(type);
 
 		if (list != null) {
-			for (EventHandler<? extends Event> handler : list) {
-				((EventHandler<T>) handler).handle(event);
+			for (Consumer<? extends Event> handler : list) {
+				((Consumer<T>) handler).accept(event);
 			}
 		}
-	}
-
-	public ModInfo getInfo() {
-		return info;
 	}
 }

@@ -13,13 +13,10 @@ import com.wyverngame.anvil.api.event.Event;
 import com.wyverngame.anvil.api.event.TickEvent;
 
 public final class Anvil {
-	private static final String SPECIFICATION_TITLE = "ANVIL-CLIENT-MOD";
-	private static final String SPECIFICATION_VERSION = "1";
-
 	private static WurmClientBase client = null;
 	private static World world = null;
 
-	private static List<Context> mods = null;
+	private static List<Plugin<ClientContext>> plugins = null;
 	private static List<Event> queue = new ArrayList<>();
 
 	private static final ReentrantLock lock = new ReentrantLock();
@@ -32,21 +29,21 @@ public final class Anvil {
 
 	public static void load() {
 		try {
-			client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Loading Anvil mods...");
+			client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Loading Anvil plugins...");
 
-			Loader loader = new Loader(SPECIFICATION_TITLE, SPECIFICATION_VERSION, new ClientContextFactory(client, world));
-			mods = loader.loadAll(Paths.get("anvil-mods"));
+			Loader<ClientContext> loader = new Loader<>(new ClientContextFactory(client, world));
+			plugins = loader.loadAll(Paths.get("anvil-mods"));
 			loaded = true;
 
-			for (Context mod : mods) {
-				client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Loaded " + mod.getInfo().toString() + ".");
+			for (Plugin<ClientContext> plugin : plugins) {
+				client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Loaded " + plugin.getMetaData().toString() + ".");
 			}
 
 			for (Event event : queue) {
 				handleEvent(event);
 			}
 		} catch (IOException ex) {
-			client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Failed to load Anvil mods: " + ex.toString());
+			client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Failed to load Anvil plugins: " + ex.toString());
 		}
 	}
 
@@ -68,14 +65,14 @@ public final class Anvil {
 		if (!loaded) {
 			queue.add(event);
 		} else {
-			Iterator<Context> iterator = mods.iterator();
+			Iterator<Plugin<ClientContext>> iterator = plugins.iterator();
 			while (iterator.hasNext()) {
-				Context mod = iterator.next();
+				Plugin<ClientContext> plugin = iterator.next();
 
 				try {
-					mod.handle(event);
-				} catch (Exception ex) {
-					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Exception in " + mod.getInfo());
+					plugin.getContext().handle(event);
+				} catch (Throwable ex) {
+					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Exception in " + plugin.getMetaData().getTitle());
 					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, ex.toString());
 	
 					for (StackTraceElement ste : ex.getStackTrace()) {
@@ -83,6 +80,8 @@ public final class Anvil {
 					}
 
 					iterator.remove();
+					client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Unloaded " + plugin.getMetaData().toString() + ".");
+					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Warning! Client may be in an unsafe state.");
 				}
 			}
 		}
