@@ -21,6 +21,10 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/../wurm/server/common.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>io.github.lukehutch</groupId>
+      <artifactId>fast-classpath-scanner</artifactId>
+    </dependency>
   </dependencies>
 
   <properties>

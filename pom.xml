@@ -61,6 +61,11 @@
         <artifactId>asm-debug-all</artifactId>
         <version>5.0.4</version>
       </dependency>
+      <dependency>
+        <groupId>io.github.lukehutch</groupId>
+        <artifactId>fast-classpath-scanner</artifactId>
+        <version>1.9.7</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
