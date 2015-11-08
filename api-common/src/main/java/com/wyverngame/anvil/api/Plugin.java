@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 
 public abstract class Plugin<T extends Context> {
 	protected final T ctx;
-	private final PluginMetadata metadata;
+	protected final PluginMetadata metadata;
 
 	public Plugin(T ctx) {
 		this.ctx = ctx;
