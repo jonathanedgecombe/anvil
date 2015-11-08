@@ -23,7 +23,7 @@ public final class AutoDrinkPlugin extends Plugin<ClientContext> {
 		});
 	}
 
-	public void recursiveDrink(InventoryMetaItem item) {
+	private void recursiveDrink(InventoryMetaItem item) {
 		if (item.getBaseName().equals("water")) {
 			ctx.getHud().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Drinking...");
 			ctx.executeAction(0, item.getId(), "Drink");
