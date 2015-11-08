@@ -12,6 +12,7 @@ public final class ClientContextFactory extends ContextFactory<ClientContext> {
 		this.world = world;
 	}
 
+	@Override
 	public void error(Throwable ex) {
 		client.getConnectionListener().textMessage(":Event", 1f, 0.5f, 0f, ex.toString());
 
