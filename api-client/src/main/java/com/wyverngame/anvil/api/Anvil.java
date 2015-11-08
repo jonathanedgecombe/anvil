@@ -36,7 +36,7 @@ public final class Anvil {
 			loaded = true;
 
 			for (Plugin<ClientContext> plugin : plugins) {
-				client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Loaded " + plugin.getMetaData().toString() + ".");
+				client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Loaded " + plugin.getMetadata().toString() + ".");
 			}
 
 			for (Event event : queue) {
@@ -72,7 +72,7 @@ public final class Anvil {
 				try {
 					plugin.getContext().handle(event);
 				} catch (Throwable ex) {
-					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Exception in " + plugin.getMetaData().getTitle());
+					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Exception in " + plugin.getMetadata().getTitle());
 					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, ex.toString());
 	
 					for (StackTraceElement ste : ex.getStackTrace()) {
@@ -80,7 +80,7 @@ public final class Anvil {
 					}
 
 					iterator.remove();
-					client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Unloaded " + plugin.getMetaData().toString() + ".");
+					client.getConnectionListener().textMessage(":Event", 0.4f, 0.6f, 0.75f, "Unloaded " + plugin.getMetadata().toString() + ".");
 					client.getConnectionListener().textMessage(":Event", 1f, 0.2f, 0f, "Warning! Client may be in an unsafe state.");
 				}
 			}

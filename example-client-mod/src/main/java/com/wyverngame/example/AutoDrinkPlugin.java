@@ -3,10 +3,10 @@ package com.wyverngame.example;
 import com.wurmonline.client.game.inventory.InventoryMetaItem;
 import com.wyverngame.anvil.api.ClientContext;
 import com.wyverngame.anvil.api.Plugin;
-import com.wyverngame.anvil.api.Plugin.MetaData;
+import com.wyverngame.anvil.api.Plugin.Metadata;
 import com.wyverngame.anvil.api.event.ThirstUpdateEvent;
 
-@MetaData(title = "Auto-drink", version = "1.0", author = "Jonneh")
+@Metadata(title = "Auto-drink", version = "1.0", author = "Jonneh")
 public final class AutoDrinkPlugin extends Plugin<ClientContext> {
 	private long lastCheck = 0;
 

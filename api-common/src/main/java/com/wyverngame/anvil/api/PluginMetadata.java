@@ -1,9 +1,9 @@
 package com.wyverngame.anvil.api;
 
-public final class PluginMetaData {
+public final class PluginMetadata {
 	private final String title, version, author;
 
-	public PluginMetaData(String title, String version, String author) {
+	public PluginMetadata(String title, String version, String author) {
 		this.title = title;
 		this.version = version;
 		this.author = author;
@@ -21,7 +21,7 @@ public final class PluginMetaData {
 		return author;
 	}
 
-	public boolean matches(PluginMetaData info) {
+	public boolean matches(PluginMetadata info) {
 		return info.getTitle().equals(title) && info.getAuthor().equals(author);
 	}
 
