@@ -24,6 +24,7 @@ import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 import com.wyverngame.anvil.injector.trans.server.PlayerKingdomTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalQuestionTransformer;
+import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
@@ -54,6 +55,7 @@ public final class Injector {
 		new ClientConnectionTransformer()
 	);
 	private final ImmutableList<Transformer> serverTransformers = ImmutableList.of(
+		new ServerTransformer(),
 		new DiskIoTransformer(),
 		new FreedomAltarTransformer(),
 		new ChaosTransformer(),
