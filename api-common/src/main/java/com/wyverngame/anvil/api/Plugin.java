@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 public abstract class Plugin<T extends PluginContext> {
 	private static final Logger logger = LoggerFactory.getLogger(Plugin.class);
 
-	protected PluginContext ctx;
+	protected T ctx;
 	protected EventBus eventBus;
 
 	public abstract void init() throws Exception;
