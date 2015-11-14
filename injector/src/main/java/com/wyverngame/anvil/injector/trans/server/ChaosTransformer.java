@@ -16,6 +16,7 @@ public final class ChaosTransformer extends MethodTransformer {
 
 	@Override
 	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
+		method.tryCatchBlocks.clear();
 		method.instructions.clear();
 		method.localVariables.clear();
 
@@ -23,5 +24,7 @@ public final class ChaosTransformer extends MethodTransformer {
 		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
 		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, clazz.name, "PVPSERVER", "Z"));
 		method.instructions.add(new InsnNode(Opcodes.IRETURN));
+
+		// TODO adjust maxLocals and maxStack?
 	}
 }

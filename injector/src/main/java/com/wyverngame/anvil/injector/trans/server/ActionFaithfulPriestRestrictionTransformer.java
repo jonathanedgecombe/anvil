@@ -14,11 +14,14 @@ public final class ActionFaithfulPriestRestrictionTransformer extends MethodTran
 
 	@Override
 	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
+		method.tryCatchBlocks.clear();
 		method.instructions.clear();
 		method.localVariables.clear();
 
 		/* return true; */
 		method.instructions.add(new InsnNode(Opcodes.ICONST_1));
 		method.instructions.add(new InsnNode(Opcodes.IRETURN));
+
+		// TODO adjust maxLocals and maxStack?
 	}
 }
