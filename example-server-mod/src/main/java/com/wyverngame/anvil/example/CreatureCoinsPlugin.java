@@ -19,9 +19,13 @@ public final class CreatureCoinsPlugin extends Plugin<ServerPluginContext> {
 	public void init() {
 		on(CreateCreatureEvent.class, (ctx, evt) -> {
 			Creature creature = evt.getCreature();
-			if (creature.isAnimal() || creature.isMonster()) {
-				/* generate random number of iron coins */
-				long iron = random.nextInt(creature.isMonster() ? 1000 : 200);
+			if (creature.isMonster() && !creature.isUnique()) {
+				/* generate max number of iron coins based on a function of the combat rating */
+				float combatRating = creature.getBaseCombatRating();
+				int maxIron = (int) Math.round((Math.tanh((combatRating - 5) / 5) + 1 + combatRating / 100) * 1000);
+
+				int halfMaxIron = maxIron / 2;
+				long iron = random.nextInt(halfMaxIron) + halfMaxIron;
 
 				/* subtract from the king's iron */
 				Shop kingsMoney = Economy.getEconomy().getKingsShop();
