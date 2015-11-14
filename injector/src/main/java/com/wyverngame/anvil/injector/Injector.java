@@ -26,6 +26,8 @@ import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 import com.wyverngame.anvil.injector.trans.server.PlayerKingdomTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalQuestionTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
+import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
+import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,7 +67,9 @@ public final class Injector {
 		new FarmingWeedsTilePollTransformer(),
 		new FarmingWeedsCropPollTransformer(),
 		new PlayerKingdomTransformer(),
-		new PortalQuestionTransformer()
+		new PortalQuestionTransformer(),
+		new SteamAuthTransformer(),
+		new SteamAuthCallbackTransformer()
 	);
 	private final Module common, client, server;
 
