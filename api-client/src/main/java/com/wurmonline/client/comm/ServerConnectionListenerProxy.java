@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.wurmonline.client.WurmClientBase;
-import com.wurmonline.client.comm.ServerConnectionListenerClass;
 import com.wurmonline.client.game.World;
 import com.wurmonline.client.renderer.cell.CreatureCellRenderable;
 import com.wurmonline.client.renderer.gui.CreationListItem;
@@ -19,13 +18,13 @@ import com.wurmonline.shared.constants.StructureConstants.FloorMaterial;
 import com.wurmonline.shared.constants.StructureConstants.FloorState;
 import com.wurmonline.shared.constants.StructureConstants.FloorType;
 import com.wurmonline.shared.util.MulticolorLineSegment;
-import com.wyverngame.anvil.api.Anvil;
-import com.wyverngame.anvil.api.event.AddInventoryItemEvent;
-import com.wyverngame.anvil.api.event.AvailableActionsEvent;
+import com.wyverngame.anvil.api.PluginManager;
+import com.wyverngame.anvil.api.client.event.AddInventoryItemEvent;
+import com.wyverngame.anvil.api.client.event.AvailableActionsEvent;
 import com.wyverngame.anvil.api.event.Event;
-import com.wyverngame.anvil.api.event.HungerUpdateEvent;
-import com.wyverngame.anvil.api.event.StaminaUpdateEvent;
-import com.wyverngame.anvil.api.event.ThirstUpdateEvent;
+import com.wyverngame.anvil.api.client.event.HungerUpdateEvent;
+import com.wyverngame.anvil.api.client.event.StaminaUpdateEvent;
+import com.wyverngame.anvil.api.client.event.ThirstUpdateEvent;
 
 public final class ServerConnectionListenerProxy extends ServerConnectionListenerClass {
 	public ServerConnectionListenerProxy(WurmClientBase client, World world) {
@@ -107,13 +106,9 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 	@Override
 	void addAvailableActions(byte requestId, List<PlayerAction> actionList, String helpTopic) {
 		Event event = new AvailableActionsEvent(requestId, actionList, helpTopic);
-		Anvil.handleEvent(event);
-
-		if (!event.isPreventingDefault()) {
+		if (PluginManager.getInstance().fire(event)) {
 			super.addAvailableActions(requestId, actionList, helpTopic);
 		}
-
-		event.runTasks();
 	}
 
 	@Override
@@ -184,37 +179,25 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 	@Override
 	void setStamina(float stamina, float damage) {
 		Event event = new StaminaUpdateEvent(stamina, damage);
-		Anvil.handleEvent(event);
-
-		if (!event.isPreventingDefault()) {
+		if (PluginManager.getInstance().fire(event)) {
 			super.setStamina(stamina, damage);
 		}
-
-		event.runTasks();
 	}
 
 	@Override
 	void setHunger(float hunger, byte nutritionLevel) {
 		Event event = new HungerUpdateEvent(hunger, nutritionLevel);
-		Anvil.handleEvent(event);
-
-		if (!event.isPreventingDefault()) {
+		if (PluginManager.getInstance().fire(event)) {
 			super.setHunger(hunger, nutritionLevel);
 		}
-
-		event.runTasks();
 	}
 
 	@Override
 	void setThirst(float thirst) {
 		Event event = new ThirstUpdateEvent(thirst);
-		Anvil.handleEvent(event);
-
-		if (!event.isPreventingDefault()) {
+		if (PluginManager.getInstance().fire(event)) {
 			super.setThirst(thirst);
 		}
-
-		event.runTasks();
 	}
 
 	@Override
@@ -683,14 +666,10 @@ public final class ServerConnectionListenerProxy extends ServerConnectionListene
 						  int price, short impIconId, short typeBits, byte temperature, byte rarity, byte auxData) {
 		Event event = new AddInventoryItemEvent(inventoryWindowId, id, parentId, iconId, baseName, customName, materialId, quality, damage,
 			weight, r, g, b, price, impIconId, typeBits, temperature, rarity, auxData);
-		Anvil.handleEvent(event);
-
-		if (!event.isPreventingDefault()) {
+		if (PluginManager.getInstance().fire(event)) {
 			super.addInventoryItem(inventoryWindowId, id, parentId, iconId, baseName, customName, materialId, quality, damage,
 				weight, r, g, b, price, impIconId, typeBits, temperature, rarity, auxData);
 		}
-
-		event.runTasks();
 	}
 
 	@Override

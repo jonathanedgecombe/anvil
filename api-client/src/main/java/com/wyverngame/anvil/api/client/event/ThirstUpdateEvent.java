@@ -1,4 +1,6 @@
-package com.wyverngame.anvil.api.event;
+package com.wyverngame.anvil.api.client.event;
+
+import com.wyverngame.anvil.api.event.Event;
 
 public final class ThirstUpdateEvent extends Event {
 	private final float thirst;

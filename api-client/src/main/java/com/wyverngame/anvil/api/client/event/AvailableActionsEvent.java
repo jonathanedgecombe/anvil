@@ -1,8 +1,9 @@
-package com.wyverngame.anvil.api.event;
+package com.wyverngame.anvil.api.client.event;
 
 import java.util.List;
 
 import com.wurmonline.shared.constants.PlayerAction;
+import com.wyverngame.anvil.api.event.Event;
 
 public class AvailableActionsEvent extends Event {
 	private final byte requestId;

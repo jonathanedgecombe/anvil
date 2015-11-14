@@ -1,36 +1,24 @@
 package com.wyverngame.anvil.api;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Inherited;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import com.wyverngame.anvil.api.event.Event;
+import com.wyverngame.anvil.api.event.EventBus;
+import com.wyverngame.anvil.api.event.EventHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public abstract class Plugin<T extends Context> {
-	protected final T ctx;
-	protected final PluginMetadata metadata;
+public abstract class Plugin<T extends PluginContext> {
+	private static final Logger logger = LoggerFactory.getLogger(Plugin.class);
 
-	public Plugin(T ctx) {
-		this.ctx = ctx;
+	protected PluginContext ctx;
+	protected EventBus eventBus;
 
-		Metadata info = this.getClass().getAnnotation(Metadata.class);
-		this.metadata = new PluginMetadata(info.title(), info.version(), info.author());
+	public abstract void init() throws Exception;
+
+	public void exceptionCaught(Throwable t) {
+		logger.warn("Uncaught exception:", t);
 	}
 
-	public T getContext() {
-		return ctx;
-	}
-
-	public PluginMetadata getMetadata() {
-		return metadata;
-	}
-
-	@Target(value = {ElementType.TYPE})
-	@Retention(value = RetentionPolicy.RUNTIME)
-	@Inherited
-	public @interface Metadata {
-		String title();
-		String version();
-		String author();
+	public final <T extends Event> void on(Class<T> type, EventHandler<T> handler) {
+		eventBus.on(this, type, handler);
 	}
 }
