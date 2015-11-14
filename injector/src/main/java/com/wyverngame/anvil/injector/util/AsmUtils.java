@@ -18,6 +18,20 @@ public final class AsmUtils {
 		return null;
 	}
 
+	public static @Nullable LocalVariableNode getLocalVariable(MethodNode method, int index ,AbstractInsnNode scope) {
+		for (LocalVariableNode var : method.localVariables) {
+			if (var.index == index) {
+				for (AbstractInsnNode node = var.start; node != var.end; node = node.getNext()) {
+					if (node == scope) {
+						return var;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
 	public static @Nullable MethodNode getMethod(ClassNode clazz, String name, String desc) {
 		for (MethodNode method : clazz.methods) {
 			if (method.name.equals(name) && method.desc.equals(desc)) {

@@ -17,6 +17,7 @@ import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTr
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
+import com.wyverngame.anvil.injector.trans.server.ChatTransformer;
 import com.wyverngame.anvil.injector.trans.server.CreateCreatureTransformer;
 import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransformer;
@@ -69,7 +70,8 @@ public final class Injector {
 		new PortalQuestionTransformer(),
 		new SteamAuthTransformer(),
 		new SteamAuthCallbackTransformer(),
-		new CreateCreatureTransformer()
+		new CreateCreatureTransformer(),
+		new ChatTransformer()
 	);
 	private final Module common, client, server;
 
