@@ -42,11 +42,11 @@ public final class PluginManager {
 
 				Plugin<?> plugin = type.newInstance();
 
-				Field field = type.getDeclaredField("ctx");
+				Field field = Plugin.class.getDeclaredField("ctx");
 				field.setAccessible(true);
 				field.set(plugin, ctx);
 
-				field = type.getDeclaredField("eventBus");
+				field = Plugin.class.getDeclaredField("eventBus");
 				field.setAccessible(true);
 				field.set(plugin, eventBus);
 
