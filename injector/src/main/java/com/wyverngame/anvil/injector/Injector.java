@@ -16,6 +16,7 @@ import com.wyverngame.anvil.injector.trans.client.WurmClientBaseTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
+import com.wyverngame.anvil.injector.trans.server.ChangeKingdomTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChatTransformer;
 import com.wyverngame.anvil.injector.trans.server.CreateCreatureTransformer;
@@ -71,7 +72,8 @@ public final class Injector {
 		new SteamAuthTransformer(),
 		new SteamAuthCallbackTransformer(),
 		new CreateCreatureTransformer(),
-		new ChatTransformer()
+		new ChatTransformer(),
+		new ChangeKingdomTransformer()
 	);
 	private final Module common, client, server;
 
