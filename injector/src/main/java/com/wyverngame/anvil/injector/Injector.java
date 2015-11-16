@@ -31,6 +31,7 @@ import com.wyverngame.anvil.injector.trans.server.PortalQuestionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
+import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
 import org.slf4j.Logger;
@@ -74,6 +75,7 @@ public final class Injector {
 		new PortalAnswerTransformer(),
 		new SteamAuthTransformer(),
 		new SteamAuthCallbackTransformer(),
+		new SteamAuthDuplicateTransformer(),
 		new CreateCreatureTransformer(),
 		new ChatTransformer(),
 		new ChangeKingdomTransformer(),
