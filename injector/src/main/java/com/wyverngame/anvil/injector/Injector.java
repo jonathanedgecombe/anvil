@@ -26,8 +26,7 @@ import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransforme
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
-import com.wyverngame.anvil.injector.trans.server.PortalAnswerTransformer;
-import com.wyverngame.anvil.injector.trans.server.PortalQuestionTransformer;
+import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
@@ -71,8 +70,7 @@ public final class Injector {
 		new FarmingWeedsTransformer(),
 		new FarmingWeedsTilePollTransformer(),
 		new FarmingWeedsCropPollTransformer(),
-		new PortalQuestionTransformer(),
-		new PortalAnswerTransformer(),
+		new PortalTransformer(),
 		new SteamAuthTransformer(),
 		new SteamAuthCallbackTransformer(),
 		new SteamAuthDuplicateTransformer(),
