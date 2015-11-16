@@ -21,7 +21,6 @@ import com.wyverngame.anvil.injector.trans.server.ChaosNotAllowedTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChatTransformer;
 import com.wyverngame.anvil.injector.trans.server.CreateCreatureTransformer;
-import com.wyverngame.anvil.injector.trans.server.DiskIoTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
@@ -60,7 +59,6 @@ public final class Injector {
 	);
 	private final ImmutableList<Transformer> serverTransformers = ImmutableList.of(
 		new ServerTransformer(),
-		new DiskIoTransformer(),
 		new FreedomAltarTransformer(),
 		new ChaosTransformer(),
 		new SkillGainTransformer(),
