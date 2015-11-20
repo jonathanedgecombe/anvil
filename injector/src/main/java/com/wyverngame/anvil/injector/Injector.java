@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.wyverngame.anvil.injector.trans.Transformer;
-import com.wyverngame.anvil.injector.trans.client.ClientConnectionTransformer;
+import com.wyverngame.anvil.injector.trans.client.MethodHookTransformer;
 import com.wyverngame.anvil.injector.trans.client.WurmClientBaseTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
@@ -55,8 +56,13 @@ public final class Injector {
 	private final ImmutableList<Transformer> commonTransformers = ImmutableList.of();
 	private final ImmutableList<Transformer> clientTransformers = ImmutableList.of(
 		new WurmClientBaseTransformer(),
-		new ClientConnectionTransformer()
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"setStamina",
+			"com/wyverngame/anvil/api/client/event/StaminaUpdateEvent",
+			false)
 	);
+
 	private final ImmutableList<Transformer> serverTransformers = ImmutableList.of(
 		new ServerTransformer(),
 		new FreedomAltarTransformer(),
