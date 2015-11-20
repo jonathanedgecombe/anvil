@@ -24,7 +24,8 @@ public final class TestPlugin extends Plugin<ClientPluginContext> {
 			HeadsUpDisplay hud = world.getHud();
 			if (hud == null) return;
 
-			hud.textMessage(":Event", 1f, 0.5f, 0f, evt.getScl() + ", " + evt.getStamina() + ", " + evt.getDamage());
+			hud.textMessage(":Event", 1f, 0.5f, 0f, evt.getStamina() + ", " + evt.getDamage());
+			ctx.preventDefault();
 		});
 	}
 }

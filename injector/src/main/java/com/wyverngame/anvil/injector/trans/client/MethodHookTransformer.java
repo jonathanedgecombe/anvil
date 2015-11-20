@@ -7,10 +7,13 @@ import java.util.regex.Pattern;
 
 import com.wyverngame.anvil.injector.trans.ClassTransformer;
 import com.wyverngame.anvil.injector.trans.FireEventInsnGenerator;
+import com.wyverngame.anvil.injector.util.AsmUtils;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.JumpInsnNode;
+import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 
@@ -33,7 +36,7 @@ public final class MethodHookTransformer extends ClassTransformer {
 	@Override
 	public void transform(ClassNode clazz) {
 		for (MethodNode method : clazz.methods) {
-			if (method.name.equals(methodName)) {
+			if (!method.name.equals(methodName)) {
 				continue;
 			}
 
@@ -44,10 +47,11 @@ public final class MethodHookTransformer extends ClassTransformer {
 				params.add(0, "L" + clazz.name + ";");
 			}
 
+			int offset = !isStatic && !includeThis ? 1 : 0; // TODO
 			List<LocalVariableNode> vars = new ArrayList<>();
 			for (int i = 0; i < params.size(); i++) {
 				String param = params.get(i);
-				LocalVariableNode var = method.localVariables.get(i);
+				LocalVariableNode var = method.localVariables.get(i + offset);
 
 				if (!param.equals(var.desc)) {
 					throw new AssertionError("Mismatching parameter descriptor");
@@ -59,10 +63,19 @@ public final class MethodHookTransformer extends ClassTransformer {
 
 			method.visitMaxs(method.maxStack + vars.size() + 1, method.maxLocals);
 			InsnList list = FireEventInsnGenerator.generate(eventType, vars.toArray(new LocalVariableNode[vars.size()]));
-			list.add(new InsnNode(Opcodes.POP));
-			// TODO prevent default
 
-			method.instructions.insertBefore(method.instructions.getFirst(), list);
+			if (method.desc.endsWith("V")) {
+				LabelNode label = new LabelNode();
+				list.add(new JumpInsnNode(Opcodes.IFEQ, label));
+				method.instructions.insertBefore(method.instructions.getFirst(), list);
+				method.instructions.insertBefore(AsmUtils.getPreviousRealInsn(method.instructions.getLast()), label);
+			} else {
+				list.add(new InsnNode(Opcodes.POP));
+				method.instructions.insertBefore(method.instructions.getFirst(), list);
+				// TODO
+			}
+
+			return;
 		}
 	}
 
