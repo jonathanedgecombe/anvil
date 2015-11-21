@@ -40,8 +40,6 @@ public final class MethodHookTransformer extends ClassTransformer {
 				continue;
 			}
 
-			System.out.println(method.name + method.desc);
-
 			boolean isStatic = (method.access & Opcodes.ACC_STATIC) != 0;
 
 			List<String> params = getParameters(method.desc);
