@@ -600,7 +600,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"requestStructureCreationList(J)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowRequestStructureList",
+			"com/wyverngame/anvil/api/client/event/CreationWindowRequestStructureListEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
