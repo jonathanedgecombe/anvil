@@ -18,17 +18,17 @@ import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public final class MethodHookTransformer extends ClassTransformer {
-	private final String methodName;
+	private final String methodId;
 	private final String eventType;
 	private final boolean includeThis;
 
-	public MethodHookTransformer(String clazz, String methodName, String eventType) {
-		this(clazz, methodName, eventType, true);
+	public MethodHookTransformer(String clazz, String methodId, String eventType) {
+		this(clazz, methodId, eventType, true);
 	}
 
-	public MethodHookTransformer(String clazz, String methodName, String eventType, boolean includeThis) {
+	public MethodHookTransformer(String clazz, String methodId, String eventType, boolean includeThis) {
 		super(clazz);
-		this.methodName = methodName;
+		this.methodId = methodId;
 		this.eventType = eventType;
 		this.includeThis = includeThis;
 	}
@@ -36,9 +36,11 @@ public final class MethodHookTransformer extends ClassTransformer {
 	@Override
 	public void transform(ClassNode clazz) {
 		for (MethodNode method : clazz.methods) {
-			if (!method.name.equals(methodName)) {
+			if (!(method.name + method.desc).equals(methodId)) {
 				continue;
 			}
+
+			System.out.println(method.name + method.desc);
 
 			boolean isStatic = (method.access & Opcodes.ACC_STATIC) != 0;
 
@@ -58,10 +60,9 @@ public final class MethodHookTransformer extends ClassTransformer {
 				}
 
 				vars.add(var);
-				System.out.println(var.name + ": " + var.index + ", " + var.desc);
 			}
 
-			method.visitMaxs(method.maxStack + vars.size() + 1, method.maxLocals);
+			method.visitMaxs(method.maxStack + vars.size() + 2, method.maxLocals);
 			InsnList list = FireEventInsnGenerator.generate(eventType, vars.toArray(new LocalVariableNode[vars.size()]));
 
 			if (method.desc.endsWith("V")) {
