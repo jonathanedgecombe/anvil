@@ -17,14 +17,7 @@ public final class TestPlugin extends Plugin<ClientPluginContext> {
 	@Override
 	public void init() throws NoSuchFieldException, IllegalAccessException {
 		on(UpdateStaminaEvent.class, (ctx, evt) -> {
-			Field field = WurmClientBase.class.getDeclaredField("world");
-			field.setAccessible(true);
-			World world = (World) field.get(this.ctx.getClient());
-			if (world == null) return;
-			HeadsUpDisplay hud = world.getHud();
-			if (hud == null) return;
-
-			hud.textMessage(":Event", 1f, 0.5f, 0f, evt.getStamina() + ", " + evt.getDamage());
+			this.ctx.getHud().textMessage(":Event", 1f, 0.5f, 0f, evt.getStamina() + ", " + evt.getDamage());
 			ctx.preventDefault();
 		});
 	}

@@ -531,6 +531,71 @@ public final class Injector {
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"clearMapAnnotationsByType(B)V",
 			"com/wyverngame/anvil/api/client/event/ClearMapAnnotationsEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"setIsUnfinishedViewForCreationWindow(Z)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowUpdateUnfinishedEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"clearItemListsForCreationWindow()V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowClearItemListEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"setCurrentCategoryForCreationWindow(Ljava/lang/String;)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowUpdateCategoryEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"addCreationGroundItem(Ljava/lang/String;JFFFSLcom/wurmonline/client/renderer/gui/CreationFrame$ItemType;)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowAddGroundItemEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"replaceCreationGroundItem(JLjava/lang/String;JFFFSLcom/wurmonline/client/renderer/gui/CreationFrame$ItemType;)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowReplaceGroundItemEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"setActionResult(Z)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowActionResultEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"updateCreationGroundItem(JFFF)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowUpdateGroundItemEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"removeCreationGroundItem(J)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowRemoveGroundItemEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"addCreationCategoryLists(Ljava/util/Map;S)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowAddCategoryListEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"addItemToCreationList(Lcom/wurmonline/client/renderer/gui/CreationListItem;)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowAddItemToListEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"addCreationItem(Ljava/lang/String;SSS)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowAddItemEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"creationItemTreeSent()V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowItemTreeSentEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"sortCreationItemList()V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowSortItemListEvent",
 			false)
 	);
 
