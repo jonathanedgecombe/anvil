@@ -601,6 +601,11 @@ public final class Injector {
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"requestStructureCreationList(J)V",
 			"com/wyverngame/anvil/api/client/event/CreationWindowRequestStructureList",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"addPlonk(S)V",
+			"com/wyverngame/anvil/api/client/event/AddPlonkEvent",
 			false)
 	);
 
