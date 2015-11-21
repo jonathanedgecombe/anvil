@@ -596,6 +596,11 @@ public final class Injector {
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"sortCreationItemList()V",
 			"com/wyverngame/anvil/api/client/event/CreationWindowSortItemListEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"requestStructureCreationList(J)V",
+			"com/wyverngame/anvil/api/client/event/CreationWindowRequestStructureList",
 			false)
 	);
 
