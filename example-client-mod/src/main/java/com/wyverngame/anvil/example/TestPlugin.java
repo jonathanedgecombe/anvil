@@ -12,10 +12,8 @@ import com.wyverngame.anvil.api.client.event.UpdateStaminaEvent;
 
 @PluginMetadata(name = "Test Plugin", version = "1.0", author = "Jonneh")
 public final class TestPlugin extends Plugin<ClientPluginContext> {
-	//private long lastCheck = 0;
-
 	@Override
-	public void init() throws NoSuchFieldException, IllegalAccessException {
+	public void init() {
 		on(UpdateStaminaEvent.class, (ctx, evt) -> {
 			this.ctx.getHud().textMessage(":Event", 1f, 0.5f, 0f, evt.getStamina() + ", " + evt.getDamage());
 			ctx.preventDefault();
