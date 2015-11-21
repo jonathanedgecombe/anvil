@@ -1,10 +1,5 @@
 package com.wyverngame.anvil.example;
 
-import java.lang.reflect.Field;
-
-import com.wurmonline.client.WurmClientBase;
-import com.wurmonline.client.game.World;
-import com.wurmonline.client.renderer.gui.HeadsUpDisplay;
 import com.wyverngame.anvil.api.Plugin;
 import com.wyverngame.anvil.api.PluginMetadata;
 import com.wyverngame.anvil.api.client.ClientPluginContext;
