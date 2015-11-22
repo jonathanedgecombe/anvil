@@ -10,13 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.wyverngame.anvil.injector.trans.Transformer;
 import com.wyverngame.anvil.injector.trans.client.MethodHookTransformer;
 import com.wyverngame.anvil.injector.trans.client.WurmClientBaseTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
+import com.wyverngame.anvil.injector.trans.server.ChampionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChangeKingdomTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosNotAllowedTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
@@ -637,7 +637,8 @@ public final class Injector {
 		new CreateCreatureTransformer(),
 		new ChatTransformer(),
 		new ChangeKingdomTransformer(),
-		new ChaosNotAllowedTransformer()
+		new ChaosNotAllowedTransformer(),
+		new ChampionTransformer()
 	);
 	private final Module common, client, server;
 
