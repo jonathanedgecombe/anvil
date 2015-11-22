@@ -19,7 +19,6 @@ import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictio
 import com.wyverngame.anvil.injector.trans.server.ActionTimeTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChampionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChangeKingdomTransformer;
-import com.wyverngame.anvil.injector.trans.server.ChaosNotAllowedTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChatTransformer;
 import com.wyverngame.anvil.injector.trans.server.CreateCreatureTransformer;
@@ -27,6 +26,7 @@ import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransforme
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
+import com.wyverngame.anvil.injector.trans.server.LootTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
@@ -625,6 +625,7 @@ public final class Injector {
 		new ServerTransformer(),
 		new FreedomAltarTransformer(),
 		new ChaosTransformer(),
+		new LootTransformer(),
 		new SkillGainTransformer(),
 		new ActionEntryPriestRestrictionTransformer(),
 		new ActionEntryTypePriestRestrictionTransformer(),
@@ -639,7 +640,6 @@ public final class Injector {
 		new CreateCreatureTransformer(),
 		new ChatTransformer(),
 		new ChangeKingdomTransformer(),
-		new ChaosNotAllowedTransformer(),
 		new ChampionTransformer(),
 		new ActionTimeTransformer("getSlowActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 20D, 250D),
 		new ActionTimeTransformer("getPickActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 300D, 200D),

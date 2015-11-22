@@ -4,10 +4,8 @@ import com.wyverngame.anvil.injector.trans.MethodTransformer;
 import com.wyverngame.anvil.injector.util.InsnMatcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.MethodNode;
-import org.objectweb.asm.tree.VarInsnNode;
 
 public final class ChaosTransformer extends MethodTransformer {
 	public ChaosTransformer() {
@@ -20,9 +18,8 @@ public final class ChaosTransformer extends MethodTransformer {
 		method.instructions.clear();
 		method.localVariables.clear();
 
-		/* return this.PVPSERVER; */
-		method.instructions.add(new VarInsnNode(Opcodes.ALOAD, 0));
-		method.instructions.add(new FieldInsnNode(Opcodes.GETFIELD, clazz.name, "PVPSERVER", "Z"));
+		/* return false; */
+		method.instructions.add(new InsnNode(Opcodes.ICONST_0));
 		method.instructions.add(new InsnNode(Opcodes.IRETURN));
 
 		// TODO adjust maxLocals and maxStack?
