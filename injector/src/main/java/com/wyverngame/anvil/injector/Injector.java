@@ -62,6 +62,11 @@ public final class Injector {
 			"com/wyverngame/anvil/api/client/event/TickEvent",
 			false),
 		new MethodHookTransformer(
+			"com/wurmonline/client/renderer/gui/HeadsUpDisplay",
+			"render(FZII)V",
+			"com/wyverngame/anvil/api/client/event/HudRenderEvent",
+			false),
+		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"loginResult(Ljava/lang/String;Ljava/lang/String;FFFFIJJBBIBJF)V",
 			"com/wyverngame/anvil/api/client/event/LoginEvent",
