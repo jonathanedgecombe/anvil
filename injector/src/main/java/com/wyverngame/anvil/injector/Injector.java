@@ -30,6 +30,7 @@ import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
+import com.wyverngame.anvil.injector.trans.server.SpyPreventionTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
@@ -645,7 +646,8 @@ public final class Injector {
 		new ActionTimeTransformer("getImproveActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;)I", 50D),
 		new ActionTimeTransformer("getRepairActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;D)I", 300D),
 		new ActionTimeTransformer("getDestroyActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 300D, 50D),
-		new ActionTimeTransformer("getItemCreationTime", "(ILcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/CreationEntry;Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/items/Item;Z)I", 15D)
+		new ActionTimeTransformer("getItemCreationTime", "(ILcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/CreationEntry;Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/items/Item;Z)I", 15D),
+		new SpyPreventionTransformer()
 	);
 	private final Module common, client, server;
 
