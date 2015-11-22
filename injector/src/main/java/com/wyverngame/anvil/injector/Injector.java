@@ -57,6 +57,11 @@ public final class Injector {
 	private final ImmutableList<Transformer> clientTransformers = ImmutableList.of(
 		new WurmClientBaseTransformer(),
 		new MethodHookTransformer(
+			"com/wurmonline/client/WurmClientBase",
+			"runGameLoop()V",
+			"com/wyverngame/anvil/api/client/event/TickEvent",
+			false),
+		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"loginResult(Ljava/lang/String;Ljava/lang/String;FFFFIJJBBIBJF)V",
 			"com/wyverngame/anvil/api/client/event/LoginEvent",

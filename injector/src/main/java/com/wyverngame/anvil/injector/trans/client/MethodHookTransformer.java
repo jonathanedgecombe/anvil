@@ -15,6 +15,7 @@ import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
 import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LocalVariableNode;
+import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public final class MethodHookTransformer extends ClassTransformer {
@@ -65,13 +66,15 @@ public final class MethodHookTransformer extends ClassTransformer {
 
 			if (method.desc.endsWith("V")) {
 				LabelNode label = new LabelNode();
-				list.add(new JumpInsnNode(Opcodes.IFEQ, label));
+				list.add(new InsnNode(Opcodes.DUP));
+				list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "runOnCompletion", "()V", false));
+				list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "isPreventingDefault", "()Z", false));
+				list.add(new JumpInsnNode(Opcodes.IFNE, label));
 				method.instructions.insertBefore(method.instructions.getFirst(), list);
 				method.instructions.insertBefore(AsmUtils.getPreviousRealInsn(method.instructions.getLast()), label);
 			} else {
 				list.add(new InsnNode(Opcodes.POP));
 				method.instructions.insertBefore(method.instructions.getFirst(), list);
-				// TODO
 			}
 
 			return;

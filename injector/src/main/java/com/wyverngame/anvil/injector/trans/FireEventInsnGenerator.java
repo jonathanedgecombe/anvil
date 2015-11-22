@@ -60,7 +60,7 @@ public final class FireEventInsnGenerator {
 			}
 		}
 		list.add(new MethodInsnNode(Opcodes.INVOKESPECIAL, type, "<init>", constructorDesc.toString(), false));
-		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/PluginManager", "fire", "(Lcom/wyverngame/anvil/api/event/Event;)Z", false));
+		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/PluginManager", "fire", "(Lcom/wyverngame/anvil/api/event/Event;)Lcom/wyverngame/anvil/api/event/EventContext;", false));
 
 		return list;
 	}

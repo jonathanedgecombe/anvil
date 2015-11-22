@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import com.google.common.collect.ImmutableList;
 import com.wyverngame.anvil.api.event.Event;
 import com.wyverngame.anvil.api.event.EventBus;
+import com.wyverngame.anvil.api.event.EventContext;
 import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,7 +64,7 @@ public final class PluginManager {
 		return builder.build();
 	}
 
-	public <T extends Event> boolean fire(T evt) {
+	public <T extends Event> EventContext fire(T evt) {
 		return eventBus.fire(evt);
 	}
 }

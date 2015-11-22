@@ -22,7 +22,7 @@ public final class EventBus {
 		handlers.put(type, new PluginHandlerPair(plugin, (EventHandler<Event>) handler));
 	}
 
-	public <T extends Event> boolean fire(T evt) {
+	public <T extends Event> EventContext fire(T evt) {
 		EventContext ctx = new EventContext();
 
 		for (PluginHandlerPair pair : handlers.get(evt.getClass())) {
@@ -33,6 +33,6 @@ public final class EventBus {
 			}
 		}
 
-		return !ctx.isPreventingDefault();
+		return ctx;
 	}
 }
