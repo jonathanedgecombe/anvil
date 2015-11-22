@@ -16,6 +16,7 @@ import com.wyverngame.anvil.injector.trans.client.WurmClientBaseTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
+import com.wyverngame.anvil.injector.trans.server.ActionTimeTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChampionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChangeKingdomTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosNotAllowedTransformer;
@@ -638,7 +639,13 @@ public final class Injector {
 		new ChatTransformer(),
 		new ChangeKingdomTransformer(),
 		new ChaosNotAllowedTransformer(),
-		new ChampionTransformer()
+		new ChampionTransformer(),
+		new ActionTimeTransformer("getSlowActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 20D, 250D),
+		new ActionTimeTransformer("getPickActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 300D, 200D),
+		new ActionTimeTransformer("getImproveActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;)I", 50D),
+		new ActionTimeTransformer("getRepairActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;D)I", 300D),
+		new ActionTimeTransformer("getDestroyActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 300D, 50D),
+		new ActionTimeTransformer("getItemCreationTime", "(ILcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/CreationEntry;Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/items/Item;Z)I", 15D)
 	);
 	private final Module common, client, server;
 
