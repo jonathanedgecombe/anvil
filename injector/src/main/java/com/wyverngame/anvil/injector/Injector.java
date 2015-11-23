@@ -26,6 +26,7 @@ import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransforme
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
+import com.wyverngame.anvil.injector.trans.server.GrassGrowthHotfixTransformer;
 import com.wyverngame.anvil.injector.trans.server.LootTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
@@ -649,7 +650,8 @@ public final class Injector {
 		new ActionTimeTransformer("getDestroyActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 300D, 50D),
 		new ActionTimeTransformer("getItemCreationTime", "(ILcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/CreationEntry;Lcom/wurmonline/server/items/Item;Lcom/wurmonline/server/items/Item;Z)I", 15D),
 		new SowActionTimeTransformer(),
-		new SpyPreventionTransformer()
+		new SpyPreventionTransformer(),
+		new GrassGrowthHotfixTransformer()
 	);
 	private final Module common, client, server;
 
