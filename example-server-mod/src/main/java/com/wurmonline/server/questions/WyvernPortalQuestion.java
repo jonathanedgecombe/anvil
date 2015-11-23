@@ -57,6 +57,10 @@ public final class WyvernPortalQuestion extends Question {
 			}
 
 			kingdom = Kingdoms.getKingdom(Byte.parseByte(id));
+
+			if (kingdom.getId() == Kingdom.KINGDOM_FREEDOM) {
+				return;
+			}
 		} else { /* HOMESERVER */
 			kingdom = Kingdoms.getKingdom(entry.KINGDOM);
 		}
@@ -150,6 +154,10 @@ public final class WyvernPortalQuestion extends Question {
 				for (byte id : entry.getExistingKingdoms()) {
 					Kingdom kingdom = Kingdoms.getKingdom(id);
 					if (kingdom == null || !kingdom.acceptsTransfers()) {
+						continue;
+					}
+
+					if (kingdom.getId() == Kingdoms.KINGDOM_FREEDOM) {
 						continue;
 					}
 
