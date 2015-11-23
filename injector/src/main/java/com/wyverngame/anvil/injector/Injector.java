@@ -67,6 +67,11 @@ public final class Injector {
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/renderer/gui/HeadsUpDisplay",
+			"init(II)V",
+			"com/wyverngame/anvil/api/client/event/HudInitEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/renderer/gui/HeadsUpDisplay",
 			"render(FZII)V",
 			"com/wyverngame/anvil/api/client/event/HudRenderEvent",
 			false),

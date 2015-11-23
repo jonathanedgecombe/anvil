@@ -110,8 +110,6 @@ public final class ChatTransformer extends MethodTransformer {
 		LabelNode skipReturnLabel = new LabelNode();
 
 		InsnList list = FireEventInsnGenerator.generate("com/wyverngame/anvil/api/server/event/ChatEvent", new QualifiedFieldNode(clazz, playerField), tabVar, messageVar);
-		list.add(new InsnNode(Opcodes.DUP));
-		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "runOnCompletion", "()V", false));
 		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "isPreventingDefault", "()Z", false));
 		list.add(new JumpInsnNode(Opcodes.IFEQ, skipReturnLabel));
 		list.add(new InsnNode(Opcodes.RETURN));

@@ -10,6 +10,7 @@ import com.wyverngame.anvil.injector.trans.FireEventInsnGenerator;
 import com.wyverngame.anvil.injector.util.AsmUtils;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
@@ -17,6 +18,7 @@ import org.objectweb.asm.tree.LabelNode;
 import org.objectweb.asm.tree.LocalVariableNode;
 import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
+import org.objectweb.asm.tree.VarInsnNode;
 
 public final class MethodHookTransformer extends ClassTransformer {
 	private final String methodId;
@@ -65,16 +67,25 @@ public final class MethodHookTransformer extends ClassTransformer {
 			InsnList list = FireEventInsnGenerator.generate(eventType, vars.toArray(new LocalVariableNode[vars.size()]));
 
 			if (method.desc.endsWith("V")) {
+				int index = method.maxLocals++;
+
 				LabelNode label = new LabelNode();
 				list.add(new InsnNode(Opcodes.DUP));
-				list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "runOnCompletion", "()V", false));
+				list.add(new VarInsnNode(Opcodes.ASTORE, index));
 				list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "isPreventingDefault", "()Z", false));
 				list.add(new JumpInsnNode(Opcodes.IFNE, label));
 				method.instructions.insertBefore(method.instructions.getFirst(), list);
-				method.instructions.insertBefore(AsmUtils.getPreviousRealInsn(method.instructions.getLast()), label);
+
+				InsnList after = new InsnList();
+				after.add(label);
+				after.add(new VarInsnNode(Opcodes.ALOAD, index));
+				after.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "runOnCompletion", "()V", false));
+				method.instructions.insertBefore(AsmUtils.getPreviousRealInsn(method.instructions.getLast()), after);
 			} else {
-				list.add(new InsnNode(Opcodes.POP));
 				method.instructions.insertBefore(method.instructions.getFirst(), list);
+				method.instructions.insertBefore(AsmUtils.getPreviousRealInsn(method.instructions.getLast()),
+					new MethodInsnNode(Opcodes.INVOKEVIRTUAL,
+						"com/wyverngame/anvil/api/event/EventContext", "runOnCompletion", "()V", false));
 			}
 
 			return;

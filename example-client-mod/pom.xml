@@ -19,6 +19,13 @@
       <artifactId>api-client</artifactId>
       <version>1.0.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>org.lwjgl</groupId>
+      <artifactId>lwjgl</artifactId>
+      <version>LATEST</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/../wurm/client/WurmLauncher/lib/lwjgl-2.9.1.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <properties>
