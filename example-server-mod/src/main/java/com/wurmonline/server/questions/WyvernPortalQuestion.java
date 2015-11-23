@@ -51,6 +51,11 @@ public final class WyvernPortalQuestion extends Question {
 		Kingdom kingdom;
 
 		if (entry.PVPSERVER) {
+			if (responder.isChampion()) {
+				responder.getCommunicator().sendNormalServerMessage("You try to step through the portal but a gust of wind pushes you back.");
+				return;
+			}
+
 			String id = properties.getProperty("kingdid");
 			if (id == null) {
 				return;
@@ -147,26 +152,30 @@ public final class WyvernPortalQuestion extends Question {
 			}
 
 			if (entry.PVPSERVER) {
-				buf.append("text{text=\"Please select a kingdom to convert to:\"}");
+				if (responder.isChampion()) {
+					buf.append("text{text=\"You will not be able to use this portal as you are a champion.\"}");
+				} else {
+					buf.append("text{text=\"Please select a kingdom to convert to:\"}");
 
-				boolean selected = true;
+					boolean selected = true;
 
-				for (byte id : entry.getExistingKingdoms()) {
-					Kingdom kingdom = Kingdoms.getKingdom(id);
-					if (kingdom == null || !kingdom.acceptsTransfers()) {
-						continue;
+					for (byte id : entry.getExistingKingdoms()) {
+						Kingdom kingdom = Kingdoms.getKingdom(id);
+						if (kingdom == null || !kingdom.acceptsTransfers()) {
+							continue;
+						}
+
+						if (kingdom.getId() == Kingdoms.KINGDOM_FREEDOM) {
+							continue;
+						}
+
+						buf.append("radio{group=\"kingdid\"; id=\"" + id + "\"; text=\"" + kingdom.getName() + "\"; selected=\"" + selected + "\"}");
+
+						selected = false;
 					}
 
-					if (kingdom.getId() == Kingdoms.KINGDOM_FREEDOM) {
-						continue;
-					}
-
-					buf.append("radio{group=\"kingdid\"; id=\"" + id + "\"; text=\"" + kingdom.getName() + "\"; selected=\"" + selected + "\"}");
-
-					selected = false;
+					buf.append("text{text=\"\"}");
 				}
-
-				buf.append("text{text=\"\"}");
 			} else { /* HOMESERVER */
 				buf.append("text{text=\"You will be converted to " + Kingdoms.getNameFor(entry.KINGDOM) + ".\"}");
 
