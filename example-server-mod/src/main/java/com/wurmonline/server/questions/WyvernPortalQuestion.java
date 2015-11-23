@@ -48,14 +48,14 @@ public final class WyvernPortalQuestion extends Question {
 			return;
 		}
 
+		if (responder.isChampion()) {
+			responder.getCommunicator().sendNormalServerMessage("You try to step through the portal but a gust of wind pushes you back.");
+			return;
+		}
+
 		Kingdom kingdom;
 
 		if (entry.PVPSERVER) {
-			if (responder.isChampion()) {
-				responder.getCommunicator().sendNormalServerMessage("You try to step through the portal but a gust of wind pushes you back.");
-				return;
-			}
-
 			String id = properties.getProperty("kingdid");
 			if (id == null) {
 				return;
@@ -151,10 +151,10 @@ public final class WyvernPortalQuestion extends Question {
 				buf.append("text{type=\"bold\"; text=\"This portal leads to the safe lands of " + Kingdoms.getNameFor(entry.KINGDOM) + ".\"}");
 			}
 
-			if (entry.PVPSERVER) {
-				if (responder.isChampion()) {
-					buf.append("text{text=\"You will not be able to use this portal as you are a champion.\"}");
-				} else {
+			if (responder.isChampion()) {
+				buf.append("text{text=\"You will not be able to use this portal as you are a champion.\"}");
+			} else {
+				if (entry.PVPSERVER) {
 					buf.append("text{text=\"Please select a kingdom to convert to:\"}");
 
 					boolean selected = true;
@@ -175,13 +175,13 @@ public final class WyvernPortalQuestion extends Question {
 					}
 
 					buf.append("text{text=\"\"}");
-				}
-			} else { /* HOMESERVER */
-				buf.append("text{text=\"You will be converted to " + Kingdoms.getNameFor(entry.KINGDOM) + ".\"}");
+				} else { /* HOMESERVER */
+					buf.append("text{text=\"You will be converted to " + Kingdoms.getNameFor(entry.KINGDOM) + ".\"}");
 
-				Deity deity = responder.getDeity();
-				if (deity != null && deity.getNumber() == Deities.DEITY_LIBILA) {
-					buf.append("text{text=\"You will lose connection with " + deity.getName() + ".\"}");
+					Deity deity = responder.getDeity();
+					if (deity != null && deity.getNumber() == Deities.DEITY_LIBILA) {
+						buf.append("text{text=\"You will lose connection with " + deity.getName() + ".\"}");
+					}
 				}
 			}
 
