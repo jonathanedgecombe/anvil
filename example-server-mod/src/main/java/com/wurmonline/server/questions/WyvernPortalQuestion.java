@@ -70,7 +70,7 @@ public final class WyvernPortalQuestion extends Question {
 			kingdom = Kingdoms.getKingdom(entry.KINGDOM);
 		}
 
-		if (kingdom == null || !kingdom.acceptsTransfers()) {
+		if (kingdom == null || !kingdom.acceptsTransfers() || kingdom.isCustomKingdom()) {
 			return;
 		}
 
@@ -161,7 +161,7 @@ public final class WyvernPortalQuestion extends Question {
 
 					for (byte id : entry.getExistingKingdoms()) {
 						Kingdom kingdom = Kingdoms.getKingdom(id);
-						if (kingdom == null || !kingdom.acceptsTransfers()) {
+						if (kingdom == null || !kingdom.acceptsTransfers() || kingdom.isCustomKingdom()) {
 							continue;
 						}
 
