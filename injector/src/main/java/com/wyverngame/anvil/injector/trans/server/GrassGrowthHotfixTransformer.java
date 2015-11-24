@@ -27,7 +27,7 @@ public final class GrassGrowthHotfixTransformer extends MethodTransformer {
 		InsnList list = new InsnList();
 		list.add(end);
 		list.add(handler);
-		list.add(new MethodInsnNode(Opcodes.INVOKEINTERFACE, "java/lang/Throwable", "printStackTrace", "()V", true));
+		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "java/lang/Throwable", "printStackTrace", "()V", false));
 		list.add(new InsnNode(Opcodes.ICONST_0));
 		list.add(new InsnNode(Opcodes.IRETURN));
 
