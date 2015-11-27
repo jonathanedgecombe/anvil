@@ -5,12 +5,12 @@ import com.wyverngame.anvil.api.event.Event;
 public final class UpdateActionEvent extends Event {
 	private final long creatureId;
 	private final String actionString;
-	private final short timeleft;
+	private final short timeRemaining;
 
 	public UpdateActionEvent(long creatureId, String actionString, short timeleft) {
 		this.creatureId = creatureId;
 		this.actionString = actionString;
-		this.timeleft = timeleft;
+		this.timeRemaining = timeleft;
 	}
 
 	public long getCreatureId() {
@@ -21,7 +21,7 @@ public final class UpdateActionEvent extends Event {
 		return actionString;
 	}
 
-	public short getTimeleft() {
-		return timeleft;
+	public short getTimeRemaining() {
+		return timeRemaining;
 	}
 }

@@ -3,13 +3,13 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class TradeStatusEvent extends Event {
-	private final boolean isAgree;
+	private final boolean isAccepting;
 
 	public TradeStatusEvent(boolean isAgree) {
-		this.isAgree = isAgree;
+		this.isAccepting = isAgree;
 	}
 
-	public boolean isAgree() {
-		return isAgree;
+	public boolean isAccepting() {
+		return isAccepting;
 	}
 }

@@ -5,13 +5,13 @@ import com.wyverngame.anvil.api.event.Event;
 public final class AddBridgeEvent extends Event {
 	private final long id;
 	private final String name;
-	private final short xCenter, yCenter;
+	private final short centerX, centerY;
 
 	public AddBridgeEvent(long id, String name, short xCenter, short yCenter) {
 		this.id = id;
 		this.name = name;
-		this.xCenter = xCenter;
-		this.yCenter = yCenter;
+		this.centerX = xCenter;
+		this.centerY = yCenter;
 	}
 
 	public long getId() {
@@ -22,11 +22,11 @@ public final class AddBridgeEvent extends Event {
 		return name;
 	}
 
-	public short getxCenter() {
-		return xCenter;
+	public short getCenterX() {
+		return centerX;
 	}
 
-	public short getyCenter() {
-		return yCenter;
+	public short getCenterY() {
+		return centerY;
 	}
 }

@@ -5,12 +5,12 @@ import com.wyverngame.anvil.api.event.Event;
 public final class AddGroundItemEvent extends Event {
 	private final long id;
 	private final String modelName;
-	private final String lName;
+	private final String name;
 	private final byte materialId;
-	private final float x, y, h, rot;
+	private final float x, y, height, rotation;
 	private final byte layer;
 	private final String description;
-	private final short iconid;
+	private final short iconId;
 	private final float scale;
 	private final long bridgeId;
 	private final byte rarity;
@@ -18,15 +18,15 @@ public final class AddGroundItemEvent extends Event {
 	public AddGroundItemEvent(long id, String modelName, String lName, byte materialId, float x, float y, float h, float rot, byte layer, String description, short iconid, float scale, long bridgeId, byte rarity) {
 		this.id = id;
 		this.modelName = modelName;
-		this.lName = lName;
+		this.name = lName;
 		this.materialId = materialId;
 		this.x = x;
 		this.y = y;
-		this.h = h;
-		this.rot = rot;
+		this.height = h;
+		this.rotation = rot;
 		this.layer = layer;
 		this.description = description;
-		this.iconid = iconid;
+		this.iconId = iconid;
 		this.scale = scale;
 		this.bridgeId = bridgeId;
 		this.rarity = rarity;
@@ -40,8 +40,8 @@ public final class AddGroundItemEvent extends Event {
 		return modelName;
 	}
 
-	public String getlName() {
-		return lName;
+	public String getName() {
+		return name;
 	}
 
 	public byte getMaterialId() {
@@ -56,12 +56,12 @@ public final class AddGroundItemEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
-	public float getRot() {
-		return rot;
+	public float getRotation() {
+		return rotation;
 	}
 
 	public byte getLayer() {
@@ -72,8 +72,8 @@ public final class AddGroundItemEvent extends Event {
 		return description;
 	}
 
-	public short getIconid() {
-		return iconid;
+	public short getIconId() {
+		return iconId;
 	}
 
 	public float getScale() {

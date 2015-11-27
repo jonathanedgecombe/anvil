@@ -6,7 +6,7 @@ public final class AddMapAnnotationEvent extends Event {
 	private final long id;
 	private final byte type;
 	private final String serverName;
-	private final int positionX, positionY;
+	private final int x, y;
 	private final String annotationName;
 	private final byte iconId;
 
@@ -14,8 +14,8 @@ public final class AddMapAnnotationEvent extends Event {
 		this.id = id;
 		this.type = type;
 		this.serverName = serverName;
-		this.positionX = positionX;
-		this.positionY = positionY;
+		this.x = positionX;
+		this.y = positionY;
 		this.annotationName = annotationName;
 		this.iconId = iconId;
 	}
@@ -32,12 +32,12 @@ public final class AddMapAnnotationEvent extends Event {
 		return serverName;
 	}
 
-	public int getPositionX() {
-		return positionX;
+	public int getX() {
+		return x;
 	}
 
-	public int getPositionY() {
-		return positionY;
+	public int getY() {
+		return y;
 	}
 
 	public String getAnnotationName() {

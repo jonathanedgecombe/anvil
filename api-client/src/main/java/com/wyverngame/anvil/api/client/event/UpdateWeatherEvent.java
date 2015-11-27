@@ -3,7 +3,7 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class UpdateWeatherEvent extends Event {
-	private final float cloudiness, fog, rain, windRot, windPower, temp;
+	private final float cloudiness, fog, rain, windRot, windPower, temperature;
 
 	public UpdateWeatherEvent(float cloudiness, float fog, float rain, float windRot, float windPower, float temp) {
 		this.cloudiness = cloudiness;
@@ -11,7 +11,7 @@ public final class UpdateWeatherEvent extends Event {
 		this.rain = rain;
 		this.windRot = windRot;
 		this.windPower = windPower;
-		this.temp = temp;
+		this.temperature = temp;
 	}
 
 	public float getCloudiness() {
@@ -34,7 +34,7 @@ public final class UpdateWeatherEvent extends Event {
 		return windPower;
 	}
 
-	public float getTemp() {
-		return temp;
+	public float getTemperature() {
+		return temperature;
 	}
 }

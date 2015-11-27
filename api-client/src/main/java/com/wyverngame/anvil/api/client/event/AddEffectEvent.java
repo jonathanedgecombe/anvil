@@ -5,7 +5,7 @@ import com.wyverngame.anvil.api.event.Event;
 public final class AddEffectEvent extends Event {
 	private final long id;
 	private final short type;
-	private final float x, y, h;
+	private final float x, y, height;
 	private final int layer;
 
 	public AddEffectEvent(long id, short type, float x, float y, float h, int layer) {
@@ -13,7 +13,7 @@ public final class AddEffectEvent extends Event {
 		this.type = type;
 		this.x = x;
 		this.y = y;
-		this.h = h;
+		this.height = h;
 		this.layer = layer;
 	}
 
@@ -33,8 +33,8 @@ public final class AddEffectEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
 	public int getLayer() {

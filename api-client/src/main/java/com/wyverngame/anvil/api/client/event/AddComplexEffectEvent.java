@@ -5,9 +5,9 @@ import com.wyverngame.anvil.api.event.Event;
 public final class AddComplexEffectEvent extends Event {
 	private final long id, target;
 	private final short type;
-	private final float x, y, h;
+	private final float x, y, height;
 	private final int layer;
-	private final float radiusMeters, lengthMeters;
+	private final float radius, length;
 	private final int direction;
 	private final byte kingdom;
 	private final byte entityId;
@@ -18,10 +18,10 @@ public final class AddComplexEffectEvent extends Event {
 		this.type = type;
 		this.x = x;
 		this.y = y;
-		this.h = h;
+		this.height = h;
 		this.layer = layer;
-		this.radiusMeters = radiusMeters;
-		this.lengthMeters = lengthMeters;
+		this.radius = radiusMeters;
+		this.length = lengthMeters;
 		this.direction = direction;
 		this.kingdom = kingdom;
 		this.entityId = entityId;
@@ -47,20 +47,20 @@ public final class AddComplexEffectEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
 	public int getLayer() {
 		return layer;
 	}
 
-	public float getRadiusMeters() {
-		return radiusMeters;
+	public float getRadius() {
+		return radius;
 	}
 
-	public float getLengthMeters() {
-		return lengthMeters;
+	public float getLength() {
+		return length;
 	}
 
 	public int getDirection() {

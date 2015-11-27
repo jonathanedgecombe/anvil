@@ -3,18 +3,18 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class HudInitEvent extends Event {
-	private final int aWidth, aHeight;
+	private final int width, height;
 
 	public HudInitEvent(int aWidth, int aHeight) {
-		this.aWidth = aWidth;
-		this.aHeight = aHeight;
+		this.width = aWidth;
+		this.height = aHeight;
 	}
 
-	public int getaWidth() {
-		return aWidth;
+	public int getWidth() {
+		return width;
 	}
 
-	public int getaHeight() {
-		return aHeight;
+	public int getHeight() {
+		return height;
 	}
 }

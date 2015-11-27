@@ -3,13 +3,13 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class TradeChangedEvent extends Event {
-	private final int changeId;
+	private final int id;
 
 	public TradeChangedEvent(int changeId) {
-		this.changeId = changeId;
+		this.id = changeId;
 	}
 
-	public int getChangeId() {
-		return changeId;
+	public int getId() {
+		return id;
 	}
 }

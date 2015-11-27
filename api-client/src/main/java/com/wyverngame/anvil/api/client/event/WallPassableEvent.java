@@ -4,8 +4,8 @@ import com.wyverngame.anvil.api.event.Event;
 
 public final class WallPassableEvent extends Event {
 	private final long houseId;
-	private final int x, y, heightOffset;
-	private final byte dir;
+	private final int x, y, height;
+	private final byte direction;
 	private final boolean passable;
 	private final byte layer;
 
@@ -13,8 +13,8 @@ public final class WallPassableEvent extends Event {
 		this.houseId = houseId;
 		this.x = x;
 		this.y = y;
-		this.heightOffset = heightOffset;
-		this.dir = dir;
+		this.height = heightOffset;
+		this.direction = dir;
 		this.passable = passable;
 		this.layer = layer;
 	}
@@ -31,12 +31,12 @@ public final class WallPassableEvent extends Event {
 		return y;
 	}
 
-	public int getHeightOffset() {
-		return heightOffset;
+	public int getHeight() {
+		return height;
 	}
 
-	public byte getDir() {
-		return dir;
+	public byte getDirection() {
+		return direction;
 	}
 
 	public boolean isPassable() {

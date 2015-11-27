@@ -3,21 +3,21 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class PlayMusicEvent extends Event {
-	private final String soundName;
-	private final float x, y, h, pitch, volume, prio;
+	private final String name;
+	private final float x, y, height, pitch, volume, priority;
 
 	public PlayMusicEvent(String soundName, float x, float y, float h, float pitch, float volume, float prio) {
-		this.soundName = soundName;
+		this.name = soundName;
 		this.x = x;
 		this.y = y;
-		this.h = h;
+		this.height = h;
 		this.pitch = pitch;
 		this.volume = volume;
-		this.prio = prio;
+		this.priority = prio;
 	}
 
-	public String getSoundName() {
-		return soundName;
+	public String getName() {
+		return name;
 	}
 
 	public float getX() {
@@ -28,8 +28,8 @@ public final class PlayMusicEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
 	public float getPitch() {
@@ -40,7 +40,7 @@ public final class PlayMusicEvent extends Event {
 		return volume;
 	}
 
-	public float getPrio() {
-		return prio;
+	public float getPriority() {
+		return priority;
 	}
 }

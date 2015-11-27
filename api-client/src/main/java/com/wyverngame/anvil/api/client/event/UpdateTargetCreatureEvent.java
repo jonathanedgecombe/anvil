@@ -3,13 +3,13 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class UpdateTargetCreatureEvent extends Event {
-	private final long creatureID;
+	private final long id;
 
 	public UpdateTargetCreatureEvent(long creatureID) {
-		this.creatureID = creatureID;
+		this.id = creatureID;
 	}
 
-	public long getCreatureID() {
-		return creatureID;
+	public long getId() {
+		return id;
 	}
 }

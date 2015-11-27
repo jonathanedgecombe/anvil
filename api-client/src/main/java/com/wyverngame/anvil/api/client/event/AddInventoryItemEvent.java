@@ -5,8 +5,8 @@ import com.wyverngame.anvil.api.event.Event;
 public final class AddInventoryItemEvent extends Event {
 	private final long inventoryWindowId, id, parentId;
 	private final short iconId, impIconId, typeBits;
-	private final String baseName, customName;
-	private final byte materialId, temperature, rarity, auxdata;
+	private final String name, description;
+	private final byte materialId, temperature, rarity, auxData;
 	private final float quality, damage, weight;
 	private final float r, g, b;
 	private final int price;
@@ -18,8 +18,8 @@ public final class AddInventoryItemEvent extends Event {
 		this.id = id;
 		this.parentId = parentId;
 		this.iconId = iconId;
-		this.baseName = baseName;
-		this.customName = customName;
+		this.name = baseName;
+		this.description = customName;
 		this.materialId = materialId;
 		this.quality = quality;
 		this.damage = damage;
@@ -32,7 +32,7 @@ public final class AddInventoryItemEvent extends Event {
 		this.typeBits = typeBits;
 		this.temperature = temperature;
 		this.rarity = rarity;
-		this.auxdata = auxData;
+		this.auxData = auxData;
 	}
 
 	public long getInventoryWindowId() {
@@ -59,12 +59,12 @@ public final class AddInventoryItemEvent extends Event {
 		return typeBits;
 	}
 
-	public String getBaseName() {
-		return baseName;
+	public String getName() {
+		return name;
 	}
 
-	public String getCustomName() {
-		return customName;
+	public String getDescription() {
+		return description;
 	}
 
 	public byte getMaterialId() {
@@ -79,8 +79,8 @@ public final class AddInventoryItemEvent extends Event {
 		return rarity;
 	}
 
-	public byte getAuxdata() {
-		return auxdata;
+	public byte getAuxData() {
+		return auxData;
 	}
 
 	public float getQuality() {

@@ -4,15 +4,15 @@ import com.wyverngame.anvil.api.event.Event;
 
 public final class AttachCreatureEvent extends Event {
 	private final long passenger, carrier;
-	private final float xOffset, yOffset, hOffset;
+	private final float deltaX, deltaY, deltaHeight;
 	private final byte placeId;
 
 	public AttachCreatureEvent(long passenger, long carrier, float xOffset, float yOffset, float hOffset, byte placeId) {
 		this.passenger = passenger;
 		this.carrier = carrier;
-		this.xOffset = xOffset;
-		this.yOffset = yOffset;
-		this.hOffset = hOffset;
+		this.deltaX = xOffset;
+		this.deltaY = yOffset;
+		this.deltaHeight = hOffset;
 		this.placeId = placeId;
 	}
 
@@ -24,16 +24,16 @@ public final class AttachCreatureEvent extends Event {
 		return carrier;
 	}
 
-	public float getxOffset() {
-		return xOffset;
+	public float getDeltaX() {
+		return deltaX;
 	}
 
-	public float getyOffset() {
-		return yOffset;
+	public float getDeltaY() {
+		return deltaY;
 	}
 
-	public float gethOffset() {
-		return hOffset;
+	public float getDeltaHeight() {
+		return deltaHeight;
 	}
 
 	public byte getPlaceId() {

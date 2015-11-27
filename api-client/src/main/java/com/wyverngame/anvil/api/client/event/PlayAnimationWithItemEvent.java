@@ -4,13 +4,13 @@ import com.wyverngame.anvil.api.event.Event;
 
 public final class PlayAnimationWithItemEvent extends Event {
 	private final long id;
-	private final String animationName;
+	private final String name;
 	private final boolean looping, freeze;
 	private final long targetItemId;
 
 	public PlayAnimationWithItemEvent(long id, String animationName, boolean looping, boolean freeze, long targetItemId) {
 		this.id = id;
-		this.animationName = animationName;
+		this.name = animationName;
 		this.looping = looping;
 		this.freeze = freeze;
 		this.targetItemId = targetItemId;
@@ -20,8 +20,8 @@ public final class PlayAnimationWithItemEvent extends Event {
 		return id;
 	}
 
-	public String getAnimationName() {
-		return animationName;
+	public String getName() {
+		return name;
 	}
 
 	public boolean isLooping() {

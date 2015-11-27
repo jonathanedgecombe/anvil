@@ -4,17 +4,17 @@ import com.wyverngame.anvil.api.event.Event;
 
 public final class LoginEvent extends Event {
 	private final String message, model;
-	private final float x, y, h, rotation, groundOffset;
+	private final float x, y, height, rotation, groundOffset;
 	private final int layer, counter;
 	private final long wurmTimeSeconds, serverTimeMillis, bridgeId;
-	private final byte commandType, kingdomId, bloodKingdom;
+	private final byte commandType, kingdomId, kingdomBlood;
 
 	public LoginEvent(String message, String model, float x, float y, float h, float yRot, int layer, long wurmTimeSeconds, long serverTimeMillis, byte commandType, byte kingdomId, int counter, byte bloodKingdom, long bridgeId, float groundOffset) {
 		this.message = message;
 		this.model = model;
 		this.x = x;
 		this.y = y;
-		this.h = h;
+		this.height = h;
 		this.rotation = yRot;
 		this.layer = layer;
 		this.wurmTimeSeconds = wurmTimeSeconds;
@@ -22,7 +22,7 @@ public final class LoginEvent extends Event {
 		this.commandType = commandType;
 		this.kingdomId = kingdomId;
 		this.counter = counter;
-		this.bloodKingdom = bloodKingdom;
+		this.kingdomBlood = bloodKingdom;
 		this.bridgeId = bridgeId;
 		this.groundOffset = groundOffset;
 	}
@@ -43,8 +43,8 @@ public final class LoginEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
 	public float getRotation() {
@@ -83,7 +83,7 @@ public final class LoginEvent extends Event {
 		return kingdomId;
 	}
 
-	public byte getBloodKingdom() {
-		return bloodKingdom;
+	public byte getKingdomBlood() {
+		return kingdomBlood;
 	}
 }

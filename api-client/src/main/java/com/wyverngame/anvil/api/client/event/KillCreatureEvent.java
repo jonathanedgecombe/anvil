@@ -6,9 +6,9 @@ public final class KillCreatureEvent extends Event {
 	private final long creatureId;
 	private final long corpseId;
 	private final String modelName;
-	private final String lName;
+	private final String name;
 	private final byte materialId;
-	private final float x, y, h, rot;
+	private final float x, y, height, rotation;
 	private final byte layer;
 	private final String description;
 	private final short iconId;
@@ -18,12 +18,12 @@ public final class KillCreatureEvent extends Event {
 		this.creatureId = creatureId;
 		this.corpseId = corpseId;
 		this.modelName = modelName;
-		this.lName = lName;
+		this.name = lName;
 		this.materialId = materialId;
 		this.x = x;
 		this.y = y;
-		this.h = h;
-		this.rot = rot;
+		this.height = h;
+		this.rotation = rot;
 		this.layer = layer;
 		this.description = description;
 		this.iconId = iconId;
@@ -42,8 +42,8 @@ public final class KillCreatureEvent extends Event {
 		return modelName;
 	}
 
-	public String getlName() {
-		return lName;
+	public String getName() {
+		return name;
 	}
 
 	public byte getMaterialId() {
@@ -58,12 +58,12 @@ public final class KillCreatureEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
-	public float getRot() {
-		return rot;
+	public float getRotation() {
+		return rotation;
 	}
 
 	public byte getLayer() {

@@ -4,8 +4,8 @@ import com.wyverngame.anvil.api.event.Event;
 
 public final class TeleportEvent extends Event {
 	private final boolean local;
-	private final float x, y, h;
-	private final float yRot;
+	private final float x, y, height;
+	private final float rotation;
 	private final int layer;
 	private final int count;
 	private final boolean disembark;
@@ -16,8 +16,8 @@ public final class TeleportEvent extends Event {
 		this.local = local;
 		this.x = x;
 		this.y = y;
-		this.h = h;
-		this.yRot = yRot;
+		this.height = h;
+		this.rotation = yRot;
 		this.layer = layer;
 		this.count = count;
 		this.disembark = disembark;
@@ -37,12 +37,12 @@ public final class TeleportEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
-	public float getyRot() {
-		return yRot;
+	public float getRotation() {
+		return rotation;
 	}
 
 	public int getLayer() {

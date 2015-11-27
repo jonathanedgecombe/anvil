@@ -6,14 +6,14 @@ public final class ListPersonalGoalEvent extends Event {
 	private final int id;
 	private final String name, description;
 	private final byte type;
-	private final boolean isDone;
+	private final boolean isComplete;
 
 	public ListPersonalGoalEvent(int id, String name, String description, byte type, boolean isDone) {
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.type = type;
-		this.isDone = isDone;
+		this.isComplete = isDone;
 	}
 
 	public int getId() {
@@ -32,7 +32,7 @@ public final class ListPersonalGoalEvent extends Event {
 		return type;
 	}
 
-	public boolean isDone() {
-		return isDone;
+	public boolean isComplete() {
+		return isComplete;
 	}
 }

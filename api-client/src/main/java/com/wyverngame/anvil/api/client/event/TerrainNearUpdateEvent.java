@@ -5,14 +5,14 @@ import com.wyverngame.anvil.api.event.Event;
 public final class TerrainNearUpdateEvent extends Event {
 	private final short width, height;
 	private final int[][] tileData;
-	private final short xStart, yStart;
+	private final short x, y;
 
 	public TerrainNearUpdateEvent(short width, short height, int[][] tileData, short xStart, short yStart) {
 		this.width = width;
 		this.height = height;
 		this.tileData = tileData;
-		this.xStart = xStart;
-		this.yStart = yStart;
+		this.x = xStart;
+		this.y = yStart;
 	}
 
 	public short getWidth() {
@@ -27,11 +27,11 @@ public final class TerrainNearUpdateEvent extends Event {
 		return tileData;
 	}
 
-	public short getxStart() {
-		return xStart;
+	public short getX() {
+		return x;
 	}
 
-	public short getyStart() {
-		return yStart;
+	public short getY() {
+		return y;
 	}
 }

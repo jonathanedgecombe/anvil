@@ -5,14 +5,14 @@ import com.wyverngame.anvil.api.event.Event;
 public final class AddHouseEvent extends Event {
 	private final long id;
 	private final String name;
-	private final short xCenter, yCenter;
+	private final short centerX, centerY;
 	private final byte layer;
 
 	public AddHouseEvent(long id, String name, short xCenter, short yCenter, byte layer) {
 		this.id = id;
 		this.name = name;
-		this.xCenter = xCenter;
-		this.yCenter = yCenter;
+		this.centerX = xCenter;
+		this.centerY = yCenter;
 		this.layer = layer;
 	}
 
@@ -24,12 +24,12 @@ public final class AddHouseEvent extends Event {
 		return name;
 	}
 
-	public short getxCenter() {
-		return xCenter;
+	public short getCenterX() {
+		return centerX;
 	}
 
-	public short getyCenter() {
-		return yCenter;
+	public short getCenterY() {
+		return centerY;
 	}
 
 	public byte getLayer() {

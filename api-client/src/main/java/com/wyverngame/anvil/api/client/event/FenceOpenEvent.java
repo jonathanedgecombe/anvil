@@ -3,9 +3,9 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class FenceOpenEvent extends Event {
-	private final int x, y, heightOffset;
+	private final int x, y, height;
 	private final byte dir;
-	private final boolean open, changePassable, mayPass;
+	private final boolean isOpen, passableChanged, isPassable;
 	private final byte layer;
 
 	public FenceOpenEvent(int x, int y, int heightOffset, byte dir, boolean open, boolean mayPass, byte layer) {
@@ -15,11 +15,11 @@ public final class FenceOpenEvent extends Event {
 	public FenceOpenEvent(int x, int y, int heightOffset, byte dir, boolean open, boolean changePassable, boolean mayPass, byte layer) {
 		this.x = x;
 		this.y = y;
-		this.heightOffset = heightOffset;
+		this.height = heightOffset;
 		this.dir = dir;
-		this.open = open;
-		this.changePassable = changePassable;
-		this.mayPass = mayPass;
+		this.isOpen = open;
+		this.passableChanged = changePassable;
+		this.isPassable = mayPass;
 		this.layer = layer;
 	}
 
@@ -31,8 +31,8 @@ public final class FenceOpenEvent extends Event {
 		return y;
 	}
 
-	public int getHeightOffset() {
-		return heightOffset;
+	public int getHeight() {
+		return height;
 	}
 
 	public byte getDir() {
@@ -40,15 +40,15 @@ public final class FenceOpenEvent extends Event {
 	}
 
 	public boolean isOpen() {
-		return open;
+		return isOpen;
 	}
 
-	public boolean isChangePassable() {
-		return changePassable;
+	public boolean isPassableChanged() {
+		return passableChanged;
 	}
 
-	public boolean isMayPass() {
-		return mayPass;
+	public boolean isPassable() {
+		return isPassable;
 	}
 
 	public byte getLayer() {

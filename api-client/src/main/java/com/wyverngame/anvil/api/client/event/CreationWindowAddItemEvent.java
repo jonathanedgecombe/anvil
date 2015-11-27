@@ -4,30 +4,30 @@ import com.wyverngame.anvil.api.event.Event;
 
 public final class CreationWindowAddItemEvent extends Event {
 	private final String itemName;
-	private final short procent;
+	private final short chance;
 	private final short actionId;
-	private final short iconid;
+	private final short iconId;
 
 	public CreationWindowAddItemEvent(String itemName, short procent, short actionId, short iconid) {
 		this.itemName = itemName;
-		this.procent = procent;
+		this.chance = procent;
 		this.actionId = actionId;
-		this.iconid = iconid;
+		this.iconId = iconid;
 	}
 
 	public String getItemName() {
 		return itemName;
 	}
 
-	public short getProcent() {
-		return procent;
+	public short getChance() {
+		return chance;
 	}
 
 	public short getActionId() {
 		return actionId;
 	}
 
-	public short getIconid() {
-		return iconid;
+	public short getIconId() {
+		return iconId;
 	}
 }

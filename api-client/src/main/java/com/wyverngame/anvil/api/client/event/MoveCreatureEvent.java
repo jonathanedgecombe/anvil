@@ -5,15 +5,15 @@ import com.wyverngame.anvil.api.event.Event;
 public final class MoveCreatureEvent extends Event {
 	private final long id;
 	private final byte x, y;
-	private final short h;
-	private final byte rot;
+	private final short height;
+	private final byte rotation;
 
 	public MoveCreatureEvent(long id, byte x, byte y, short h, byte rot) {
 		this.id = id;
 		this.x = x;
 		this.y = y;
-		this.h = h;
-		this.rot = rot;
+		this.height = h;
+		this.rotation = rot;
 	}
 
 	public long getId() {
@@ -28,11 +28,11 @@ public final class MoveCreatureEvent extends Event {
 		return y;
 	}
 
-	public short getH() {
-		return h;
+	public short getHeight() {
+		return height;
 	}
 
-	public byte getRot() {
-		return rot;
+	public byte getRotation() {
+		return rotation;
 	}
 }

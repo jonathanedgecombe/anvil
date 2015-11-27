@@ -5,35 +5,35 @@ import com.wyverngame.anvil.api.event.Event;
 public final class AddCreatureEvent extends Event {
 	private final long id;
 	private final String modelName;
-	private final String lName;
+	private final String name;
 	private final byte materialId;
-	private final float x, y, h, rot;
+	private final float x, y, height, rotation;
 	private final byte layer;
 	private final boolean floating;
 	private final byte type;
 	private final boolean solid;
 	private final int soundSourceID;
 	private final byte kingdomId;
-	private final byte bloodKingdom;
+	private final byte kingdomBlood;
 	private final byte rarity;
 	private final long bridgeId;
 
 	public AddCreatureEvent(long id, String modelName, String lName, byte materialId, float x, float y, float h, float rot, byte layer, boolean floating, byte type, boolean solid, int soundSourceID, byte kingdomId, byte bloodKingdom, byte rarity, long bridgeId) {
 		this.id = id;
 		this.modelName = modelName;
-		this.lName = lName;
+		this.name = lName;
 		this.materialId = materialId;
 		this.x = x;
 		this.y = y;
-		this.h = h;
-		this.rot = rot;
+		this.height = h;
+		this.rotation = rot;
 		this.layer = layer;
 		this.floating = floating;
 		this.type = type;
 		this.solid = solid;
 		this.soundSourceID = soundSourceID;
 		this.kingdomId = kingdomId;
-		this.bloodKingdom = bloodKingdom;
+		this.kingdomBlood = bloodKingdom;
 		this.rarity = rarity;
 		this.bridgeId = bridgeId;
 	}
@@ -46,8 +46,8 @@ public final class AddCreatureEvent extends Event {
 		return modelName;
 	}
 
-	public String getlName() {
-		return lName;
+	public String getName() {
+		return name;
 	}
 
 	public byte getMaterialId() {
@@ -62,12 +62,12 @@ public final class AddCreatureEvent extends Event {
 		return y;
 	}
 
-	public float getH() {
-		return h;
+	public float getHeight() {
+		return height;
 	}
 
-	public float getRot() {
-		return rot;
+	public float getRotation() {
+		return rotation;
 	}
 
 	public byte getLayer() {
@@ -94,8 +94,8 @@ public final class AddCreatureEvent extends Event {
 		return kingdomId;
 	}
 
-	public byte getBloodKingdom() {
-		return bloodKingdom;
+	public byte getKingdomBlood() {
+		return kingdomBlood;
 	}
 
 	public byte getRarity() {

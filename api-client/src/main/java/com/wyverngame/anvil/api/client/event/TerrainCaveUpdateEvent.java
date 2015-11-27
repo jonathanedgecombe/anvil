@@ -3,25 +3,25 @@ package com.wyverngame.anvil.api.client.event;
 import com.wyverngame.anvil.api.event.Event;
 
 public final class TerrainCaveUpdateEvent extends Event {
-	private final short xStart, yStart;
+	private final short x, y;
 	private final short width;
 	private final int[][] tiles;
 	private final short height;
 
 	public TerrainCaveUpdateEvent(short xStart, short yStart, short width, int[][] tiles, short height) {
-		this.xStart = xStart;
-		this.yStart = yStart;
+		this.x = xStart;
+		this.y = yStart;
 		this.width = width;
 		this.tiles = tiles;
 		this.height = height;
 	}
 
-	public short getxStart() {
-		return xStart;
+	public short getX() {
+		return x;
 	}
 
-	public short getyStart() {
-		return yStart;
+	public short getY() {
+		return y;
 	}
 
 	public short getWidth() {

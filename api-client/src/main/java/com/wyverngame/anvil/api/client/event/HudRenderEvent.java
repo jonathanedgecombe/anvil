@@ -5,13 +5,13 @@ import com.wyverngame.anvil.api.event.Event;
 public final class HudRenderEvent extends Event {
 	private final float alpha;
 	private final boolean mouseAvailable;
-	private final int xMouse, yMouse;
+	private final int mouseX, mouseY;
 
 	public HudRenderEvent(float alpha, boolean mouseAvailable, int xMouse, int yMouse) {
 		this.alpha = alpha;
 		this.mouseAvailable = mouseAvailable;
-		this.xMouse = xMouse;
-		this.yMouse = yMouse;
+		this.mouseX = xMouse;
+		this.mouseY = yMouse;
 	}
 
 	public float getAlpha() {
@@ -22,11 +22,11 @@ public final class HudRenderEvent extends Event {
 		return mouseAvailable;
 	}
 
-	public int getxMouse() {
-		return xMouse;
+	public int getMouseX() {
+		return mouseX;
 	}
 
-	public int getyMouse() {
-		return yMouse;
+	public int getMouseY() {
+		return mouseY;
 	}
 }

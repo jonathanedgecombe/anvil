@@ -7,7 +7,7 @@ public final class UpdateGroundItemEvent extends Event {
 	private final String name;
 	private final String modelName;
 	private final byte materialId;
-	private final String lDesc;
+	private final String description;
 	private final short iconId;
 	private final byte rarity;
 
@@ -16,7 +16,7 @@ public final class UpdateGroundItemEvent extends Event {
 		this.name = name;
 		this.modelName = modelName;
 		this.materialId = materialId;
-		this.lDesc = lDesc;
+		this.description = lDesc;
 		this.iconId = iconId;
 		this.rarity = rarity;
 	}
@@ -37,8 +37,8 @@ public final class UpdateGroundItemEvent extends Event {
 		return materialId;
 	}
 
-	public String getlDesc() {
-		return lDesc;
+	public String getDescription() {
+		return description;
 	}
 
 	public short getIconId() {
