@@ -5,15 +5,15 @@ import java.lang.reflect.Field;
 import com.wurmonline.client.WurmClientBase;
 import com.wurmonline.client.game.World;
 import com.wurmonline.client.renderer.gui.HeadsUpDisplay;
+import com.wyverngame.anvil.api.Plugin;
 import com.wyverngame.anvil.api.PluginContext;
+import com.wyverngame.anvil.api.PluginManager;
 import com.wyverngame.anvil.api.client.action.ActionHandler;
 
 public final class ClientPluginContext extends PluginContext {
 	private final WurmClientBase client;
 	private final World world;
 	private final HeadsUpDisplay hud;
-
-	private final ActionHandler actionHandler;
 
 	public ClientPluginContext(WurmClientBase client) throws NoSuchFieldException, IllegalAccessException {
 		Field field = WurmClientBase.class.getDeclaredField("world");
@@ -22,7 +22,6 @@ public final class ClientPluginContext extends PluginContext {
 		this.client = client;
 		this.world = (World) field.get(this.client);
 		this.hud = this.world.getHud();
-		this.actionHandler = new ActionHandler(this.client, this.hud);
 	}
 
 	public WurmClientBase getClient() {
@@ -37,7 +36,7 @@ public final class ClientPluginContext extends PluginContext {
 		return hud;
 	}
 
-	public ActionHandler getActionHandler() {
-		return actionHandler;
+	public ActionHandler createActionHandler(Plugin<ClientPluginContext> plugin) throws NoSuchFieldException {
+		return new ActionHandler(client, hud, plugin);
 	}
 }

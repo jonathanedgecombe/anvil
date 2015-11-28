@@ -67,4 +67,8 @@ public final class PluginManager {
 	public <T extends Event> EventContext fire(T evt) {
 		return eventBus.fire(evt);
 	}
+
+	public EventBus getEventBus() {
+		return eventBus;
+	}
 }
