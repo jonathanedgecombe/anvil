@@ -98,7 +98,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"teleport(ZFFFFIIZBI)V",
-			"com/wyverngame/anvil/api/client/event/TeleportEvent",
+			"com/wyverngame/anvil/api/client/event/player/TeleportEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
@@ -184,17 +184,17 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setActionString(JLjava/lang/String;S)V",
-			"com/wyverngame/anvil/api/client/event/UpdateActionEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateActionEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setUpdatePlayerKingdom(B)V",
-			"com/wyverngame/anvil/api/client/event/UpdateKingdomEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateKingdomEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setTargetCreature(J)V",
-			"com/wyverngame/anvil/api/client/event/UpdateTargetCreatureEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateTargetCreatureEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
@@ -239,17 +239,17 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setStamina(FF)V",
-			"com/wyverngame/anvil/api/client/event/UpdateStaminaEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateStaminaEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setHunger(FB)V",
-			"com/wyverngame/anvil/api/client/event/UpdateHungerEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateHungerEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setThirst(F)V",
-			"com/wyverngame/anvil/api/client/event/UpdateThirstEvent",
+			"com/wyverngame/anvil/api/client/event/player/player/UpdateThirstEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
@@ -349,17 +349,17 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setStatusString(Ljava/lang/String;)V",
-			"com/wyverngame/anvil/api/client/event/UpdateStatusEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateStatusEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"joinGroup(Ljava/lang/String;Ljava/lang/String;J)V",
-			"com/wyverngame/anvil/api/client/event/JoinGroupEvent",
+			"com/wyverngame/anvil/api/client/event/player/JoinGroupEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"partGroup(Ljava/lang/String;Ljava/lang/String;)V",
-			"com/wyverngame/anvil/api/client/event/LeaveGroupEvent",
+			"com/wyverngame/anvil/api/client/event/player/LeaveGroupEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
@@ -404,12 +404,12 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setClimbing(Z)V",
-			"com/wyverngame/anvil/api/client/event/UpdateClimbingEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateClimbingEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setStunned(Z)V",
-			"com/wyverngame/anvil/api/client/event/UpdateStunnedEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateStunnedEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
@@ -424,7 +424,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setDead(Z)V",
-			"com/wyverngame/anvil/api/client/event/UpdateDeadEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateDeadEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
@@ -519,7 +519,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setMountSpeed(B)V",
-			"com/wyverngame/anvil/api/client/event/UpdateMountSpeedEvent",
+			"com/wyverngame/anvil/api/client/event/player/UpdateMountSpeedEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
@@ -554,72 +554,72 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setIsUnfinishedViewForCreationWindow(Z)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowUpdateUnfinishedEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowUpdateUnfinishedEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"clearItemListsForCreationWindow()V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowClearItemListEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowClearItemListEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setCurrentCategoryForCreationWindow(Ljava/lang/String;)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowUpdateCategoryEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowUpdateCategoryEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"addCreationGroundItem(Ljava/lang/String;JFFFSLcom/wurmonline/client/renderer/gui/CreationFrame$ItemType;)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowAddGroundItemEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowAddGroundItemEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"replaceCreationGroundItem(JLjava/lang/String;JFFFSLcom/wurmonline/client/renderer/gui/CreationFrame$ItemType;)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowReplaceGroundItemEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowReplaceGroundItemEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"setActionResult(Z)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowActionResultEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowActionResultEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"updateCreationGroundItem(JFFF)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowUpdateGroundItemEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowUpdateGroundItemEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"removeCreationGroundItem(J)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowRemoveGroundItemEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowRemoveGroundItemEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"addCreationCategoryLists(Ljava/util/Map;S)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowAddCategoryListEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowAddCategoryListEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"addItemToCreationList(Lcom/wurmonline/client/renderer/gui/CreationListItem;)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowAddItemToListEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowAddItemToListEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"addCreationItem(Ljava/lang/String;SSS)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowAddItemEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowAddItemEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"creationItemTreeSent()V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowItemTreeSentEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowItemTreeSentEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"sortCreationItemList()V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowSortItemListEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowSortItemListEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"requestStructureCreationList(J)V",
-			"com/wyverngame/anvil/api/client/event/CreationWindowRequestStructureListEvent",
+			"com/wyverngame/anvil/api/client/event/creationwindow/CreationWindowRequestStructureListEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",

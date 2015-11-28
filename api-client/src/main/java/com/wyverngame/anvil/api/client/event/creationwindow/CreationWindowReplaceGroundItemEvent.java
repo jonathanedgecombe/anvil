@@ -1,16 +1,18 @@
-package com.wyverngame.anvil.api.client.event;
+package com.wyverngame.anvil.api.client.event.creationwindow;
 
 import com.wurmonline.client.renderer.gui.CreationFrame;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CreationWindowAddGroundItemEvent extends Event {
+public final class CreationWindowReplaceGroundItemEvent extends Event {
+	private final long replaceWithId;
 	private final String name;
 	private final long id;
 	private final float quality, damage, weight;
 	private final short iconId;
 	private final CreationFrame.ItemType itemType;
 
-	public CreationWindowAddGroundItemEvent(String name, long id, float quality, float damage, float weight, short iconId, CreationFrame.ItemType itemType) {
+	public CreationWindowReplaceGroundItemEvent(long replaceWithId, String name, long id, float quality, float damage, float weight, short iconId, CreationFrame.ItemType itemType) {
+		this.replaceWithId = replaceWithId;
 		this.name = name;
 		this.id = id;
 		this.quality = quality;
@@ -18,6 +20,10 @@ public final class CreationWindowAddGroundItemEvent extends Event {
 		this.weight = weight;
 		this.iconId = iconId;
 		this.itemType = itemType;
+	}
+
+	public long getReplaceWithId() {
+		return replaceWithId;
 	}
 
 	public String getName() {

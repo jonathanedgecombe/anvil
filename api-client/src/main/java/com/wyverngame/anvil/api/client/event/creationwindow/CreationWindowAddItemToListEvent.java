@@ -1,4 +1,4 @@
-package com.wyverngame.anvil.api.client.event;
+package com.wyverngame.anvil.api.client.event.creationwindow;
 
 import com.wurmonline.client.renderer.gui.CreationListItem;
 import com.wyverngame.anvil.api.event.Event;
