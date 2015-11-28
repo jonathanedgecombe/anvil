@@ -133,17 +133,17 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"tileSomeStripFar(SS[[SSS[[B)V",
-			"com/wyverngame/anvil/api/client/event/TerrainFarUpdateEvent",
+			"com/wyverngame/anvil/api/client/event/terrain/TerrainFarUpdateEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"tileSomeStrip(SS[[ISS)V",
-			"com/wyverngame/anvil/api/client/event/TerrainNearUpdateEvent",
+			"com/wyverngame/anvil/api/client/event/terrain/TerrainNearUpdateEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"tileSomeStripCave(SSS[[IS)V",
-			"com/wyverngame/anvil/api/client/event/TerrainCaveUpdateEvent",
+			"com/wyverngame/anvil/api/client/event/terrain/TerrainCaveUpdateEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
