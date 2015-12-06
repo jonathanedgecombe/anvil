@@ -10,7 +10,6 @@ import com.wyverngame.anvil.injector.trans.FireEventInsnGenerator;
 import com.wyverngame.anvil.injector.util.AsmUtils;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
 import org.objectweb.asm.tree.JumpInsnNode;
@@ -64,7 +63,7 @@ public final class MethodHookTransformer extends ClassTransformer {
 			}
 
 			method.visitMaxs(method.maxStack + vars.size() + 2, method.maxLocals);
-			InsnList list = FireEventInsnGenerator.generate(eventType, vars.toArray(new LocalVariableNode[vars.size()]));
+			InsnList list = FireEventInsnGenerator.generate(eventType, (Object[]) vars.toArray(new LocalVariableNode[vars.size()]));
 
 			if (method.desc.endsWith("V")) {
 				int index = method.maxLocals++;
