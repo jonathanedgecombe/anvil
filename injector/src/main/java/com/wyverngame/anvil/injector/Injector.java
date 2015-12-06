@@ -24,7 +24,6 @@ import com.wyverngame.anvil.injector.trans.server.CreateCreatureTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
-import com.wyverngame.anvil.injector.trans.server.FreedomAltarTransformer;
 import com.wyverngame.anvil.injector.trans.server.LootTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
@@ -628,7 +627,6 @@ public final class Injector {
 
 	private final ImmutableList<Transformer> serverTransformers = ImmutableList.of(
 		new ServerTransformer(),
-		new FreedomAltarTransformer(),
 		new ChaosTransformer(),
 		new LootTransformer(),
 		new SkillGainTransformer(),
