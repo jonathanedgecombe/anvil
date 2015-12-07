@@ -26,6 +26,7 @@ import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransforme
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
 import com.wyverngame.anvil.injector.trans.server.InvulnerableTraderTransformer;
 import com.wyverngame.anvil.injector.trans.server.LootTransformer;
+import com.wyverngame.anvil.injector.trans.server.MaxGuardsTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
@@ -651,7 +652,9 @@ public final class Injector {
 		new ActionTimeTransformer("getDestroyActionTime", "(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/skills/Skill;Lcom/wurmonline/server/items/Item;D)I", 300D, 50D),
 		new SowActionTimeTransformer(),
 		new SpyPreventionTransformer(),
-		new InvulnerableTraderTransformer()
+		new InvulnerableTraderTransformer(),
+		new MaxGuardsTransformer("<clinit>", "()V"),
+		new MaxGuardsTransformer("getCostForGuards", "(I)J")
 	);
 	private final Module common, client, server;
 
