@@ -17,6 +17,7 @@ import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTr
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionTimeTransformer;
+import com.wyverngame.anvil.injector.trans.server.CaWindowTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChangeKingdomTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChatTransformer;
@@ -654,7 +655,8 @@ public final class Injector {
 		new SpyPreventionTransformer(),
 		new InvulnerableTraderTransformer(),
 		new MaxGuardsTransformer("<clinit>", "()V"),
-		new MaxGuardsTransformer("getCostForGuards", "(I)J")
+		new MaxGuardsTransformer("getCostForGuards", "(I)J"),
+		new CaWindowTransformer()
 	);
 	private final Module common, client, server;
 
