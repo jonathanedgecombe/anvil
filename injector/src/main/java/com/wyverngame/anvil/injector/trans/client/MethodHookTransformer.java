@@ -7,8 +7,11 @@ import java.util.regex.Pattern;
 
 import com.wyverngame.anvil.injector.trans.ClassTransformer;
 import com.wyverngame.anvil.injector.trans.FireEventInsnGenerator;
+import com.wyverngame.anvil.injector.trans.MethodTransformer;
 import com.wyverngame.anvil.injector.util.AsmUtils;
+import com.wyverngame.anvil.injector.util.InsnMatcher;
 import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.commons.Method;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.InsnList;
 import org.objectweb.asm.tree.InsnNode;
@@ -19,29 +22,22 @@ import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
-public final class MethodHookTransformer extends ClassTransformer {
-	private final String methodId;
+public final class MethodHookTransformer extends MethodTransformer {
 	private final String eventType;
 	private final boolean includeThis;
 
-	public MethodHookTransformer(String clazz, String methodId, String eventType) {
-		this(clazz, methodId, eventType, true);
+	public MethodHookTransformer(String clazz, String name, String desc, String eventType) {
+		this(clazz, name, desc, eventType, true);
 	}
 
-	public MethodHookTransformer(String clazz, String methodId, String eventType, boolean includeThis) {
-		super(clazz);
-		this.methodId = methodId;
+	public MethodHookTransformer(String clazz, String name, String desc, String eventType, boolean includeThis) {
+		super(clazz, name, desc);
 		this.eventType = eventType;
 		this.includeThis = includeThis;
 	}
 
 	@Override
-	public void transform(ClassNode clazz) {
-		for (MethodNode method : clazz.methods) {
-			if (!(method.name + method.desc).equals(methodId)) {
-				continue;
-			}
-
+	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
 			boolean isStatic = (method.access & Opcodes.ACC_STATIC) != 0;
 
 			List<String> params = getParameters(method.desc);
@@ -88,7 +84,6 @@ public final class MethodHookTransformer extends ClassTransformer {
 			}
 
 			return;
-		}
 	}
 
 	private static Pattern PATTERN = Pattern.compile("(\\[*(?:[ZCBSIJFD]|(?:L[^;]+;)))");
