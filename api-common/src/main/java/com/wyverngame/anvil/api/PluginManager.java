@@ -61,6 +61,8 @@ public final class PluginManager {
 			}
 		}
 
+		ctx.init();
+
 		return builder.build();
 	}
 

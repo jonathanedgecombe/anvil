@@ -39,4 +39,9 @@ public final class ClientPluginContext extends PluginContext {
 	public ActionHandler createActionHandler(Plugin<ClientPluginContext> plugin) throws NoSuchFieldException {
 		return new ActionHandler(client, hud, plugin);
 	}
+
+	@Override
+	public void init() {
+
+	}
 }

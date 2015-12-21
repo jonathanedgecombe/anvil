@@ -1,34 +1,103 @@
 package com.wyverngame.anvil.api.server;
 
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
+import com.google.common.base.Preconditions;
 import com.wurmonline.server.items.ItemTemplate;
 import com.wurmonline.server.items.ItemTemplateFactory;
 import com.wurmonline.server.items.NoSuchTemplateException;
+import com.wyverngame.anvil.api.Plugin;
 
 public final class TemplateRegistry {
+	private static final Path CONFIG_PATH = Paths.get("anvil_templates.csv");
+
 	private static final int MAXIMUM_ID = 22767;
 	private static final int MINIMUM_ID = ItemTemplateFactory.getInstance().getTemplates().length;
 
-	private static final TemplateRegistry templateRegistry = new TemplateRegistry();
+	private static final TemplateRegistry instance;
+
+	static {
+		instance = new TemplateRegistry();
+
+		try {
+			instance.load();
+		} catch (IOException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 
 	public static TemplateRegistry getInstance() {
-		return templateRegistry;
+		return instance;
 	}
 
 	private final Map<TemplateKey, Integer> registry = new HashMap<>();
 	private int currentId = MAXIMUM_ID;
+	private boolean dirty = false;
 
-	public int get(ServerPluginContext pluginContext, String key) throws ItemTemplateOverflowException {
-		TemplateKey tk = new TemplateKey(pluginContext, key);
+	public void load() throws IOException {
+		for (String line : Files.readAllLines(CONFIG_PATH)) {
+			String[] parts = line.split(",", 3);
+			if (parts.length != 3) {
+				continue;
+			}
+
+			String plugin = parts[0];
+			String key = parts[1];
+			int id = Integer.parseInt(parts[2]);
+
+			TemplateKey tk = new TemplateKey(plugin, key);
+			registry.put(tk, id);
+		}
+	}
+
+	public void save() throws IOException {
+		if (!dirty) return;
+
+		try (BufferedWriter writer = Files.newBufferedWriter(CONFIG_PATH)) {
+			for (Entry<TemplateKey, Integer> entry : registry.entrySet()) {
+				TemplateKey tk = entry.getKey();
+				int id = entry.getValue();
+
+				StringBuilder sb = new StringBuilder(tk.getPlugin());
+				sb.append(',');
+				sb.append(tk.getKey());
+				sb.append(',');
+				sb.append(id);
+
+				writer.write(sb.toString());
+				writer.newLine();
+			}
+		}
+
+		dirty = false;
+	}
+
+	public int get(Plugin<ServerPluginContext> plugin, String key) {
+		Preconditions.checkArgument(key.indexOf(',') == -1, "Template key must not contain commas.");
+
+		TemplateKey tk = new TemplateKey(plugin, key);
 		Integer id = registry.get(tk);
 
 		if (id != null) {
 			return id;
 		}
 
+		throw new IllegalArgumentException("No item template found with key '" + key + "'.");
+	}
+
+	public int register(Plugin<ServerPluginContext> plugin, String key) throws ItemTemplateOverflowException {
+		Preconditions.checkArgument(key.indexOf(',') == -1, "Template key must not contain commas.");
+
+		TemplateKey tk = new TemplateKey(plugin, key);
 		int newId;
+
 		while (true) {
 			newId = currentId--;
 
@@ -47,21 +116,34 @@ public final class TemplateRegistry {
 		}
 
 		registry.put(tk, newId);
+		dirty = true;
 		return newId;
 	}
 
 	public final class TemplateKey {
-		private final ServerPluginContext pluginContext;
+		private final String plugin;
 		private final String key;
 
-		public TemplateKey(ServerPluginContext pluginContext, String key) {
-			this.pluginContext = pluginContext;
+		public TemplateKey(Plugin<ServerPluginContext> plugin, String key) {
+			this(plugin.getClass().getCanonicalName(), key);
+		}
+
+		public TemplateKey(String plugin, String key) {
+			this.plugin = plugin;
 			this.key = key;
+		}
+
+		public String getPlugin() {
+			return plugin;
+		}
+
+		public String getKey() {
+			return key;
 		}
 
 		@Override
 		public int hashCode() {
-			return (pluginContext.hashCode()) * 941 + (key.hashCode() * 461) + 3;
+			return (plugin.hashCode()) * 941 + (key.hashCode() * 461) + 3;
 		}
 
 		@Override
@@ -69,7 +151,7 @@ public final class TemplateRegistry {
 			if (o == null) return false;
 			if (!(o instanceof TemplateKey)) return false;
 			TemplateKey k = (TemplateKey) o;
-			return k.pluginContext.equals(pluginContext) && k.key.equals(key);
+			return k.plugin.equals(plugin) && k.key.equals(key);
 		}
 	}
 
