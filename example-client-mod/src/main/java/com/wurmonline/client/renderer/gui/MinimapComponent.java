@@ -112,14 +112,14 @@ public final class MinimapComponent extends StaticComponent implements WindowSer
 					int b = colour & 0xFF;
 
 					float tileHeight = buffer.getHeight(playerX + tx, playerY + ty) / 4;
-					float tileHeightN = buffer.getHeight(playerX + tx + 1, playerY + ty + 1) / 4;
+					//float tileHeightN = buffer.getHeight(playerX + tx + 1, playerY + ty + 1) / 4;
 
-					float delta = tileHeightN - tileHeight;
+					/*float delta = tileHeightN - tileHeight;
 					float factor = (float) (1f + Math.tanh(delta / 4f));
 
 					r = (int) (factor * r);
 					g = (int) (factor * g);
-					b = (int) (factor * b);
+					b = (int) (factor * b);*/
 
 					if (tileHeight < 0) {
 						r = (r / 5) + 41;

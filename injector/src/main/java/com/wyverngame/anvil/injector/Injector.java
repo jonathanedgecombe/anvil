@@ -738,7 +738,30 @@ public final class Injector {
 			"addPlonk",
 			"(S)V",
 			"com/wyverngame/anvil/api/client/event/AddPlonkEvent",
-			false)
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"setRotation",
+			"(JF)V",
+			"com/wyverngame/anvil/api/client/event/UpdateRotationEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"setAvailableServer",
+			"(BZ)V",
+			"com/wyverngame/anvil/api/client/event/UpdateNeighbourServersEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/comm/ServerConnectionListenerClass",
+			"addFightMove",
+			"(SLjava/lang/String;)V",
+			"com/wyverngame/anvil/api/client/event/AddFightMoveEvent",
+			false),
+		new MethodHookTransformer(
+			"com/wurmonline/client/renderer/WorldRender",
+			"render",
+			"(II)V",
+			"com/wyverngame/anvil/api/client/event/render/WorldRenderEvent")
 	);
 
 	private final ImmutableList<Transformer> serverTransformers = ImmutableList.of(
