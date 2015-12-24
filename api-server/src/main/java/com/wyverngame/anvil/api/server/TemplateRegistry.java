@@ -42,6 +42,10 @@ public final class TemplateRegistry {
 	private boolean dirty = false;
 
 	public void load() throws IOException {
+		if (Files.notExists(CONFIG_PATH)) {
+			Files.createFile(CONFIG_PATH);
+		}
+
 		for (String line : Files.readAllLines(CONFIG_PATH)) {
 			String[] parts = line.split(",", 3);
 			if (parts.length != 3) {
