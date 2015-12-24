@@ -13,6 +13,7 @@
 /patched-src
 /steamcmd
 /wurm
+/wurm-patched
 *.done
 *.tar.gz
 Makefile.rc
