@@ -81,7 +81,7 @@ $(STEAMCMD_DONE): $(STEAMCMD_ARCHIVE)
 $(CLIENT_DONE): $(STEAMCMD_DONE)
 	mkdir -p $(CLIENT_DIR)
 	$(STEAMCMD) +login $(STEAM_USER) +force_install_dir ../$(CLIENT_DIR) \
-		+app_update $(CLIENT_APPID) -beta beta_branch +quit
+		+app_update $(CLIENT_APPID) +quit
 	touch $@
 
 # download wurm server
