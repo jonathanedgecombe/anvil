@@ -29,6 +29,7 @@ import com.wyverngame.anvil.injector.trans.server.InvulnerableTraderTransformer;
 import com.wyverngame.anvil.injector.trans.server.LootTransformer;
 import com.wyverngame.anvil.injector.trans.server.MaxGuardsTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
+import com.wyverngame.anvil.injector.trans.server.ReimburseMethodTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.trans.server.SowActionTimeTransformer;
@@ -36,6 +37,10 @@ import com.wyverngame.anvil.injector.trans.server.SpyPreventionTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
+import com.wyverngame.anvil.injector.trans.server.XmasAfterCalendarTransformer;
+import com.wyverngame.anvil.injector.trans.server.XmasBeforeCalendarTransformer;
+import com.wyverngame.anvil.injector.trans.server.XmasCalendarTransformer;
+import com.wyverngame.anvil.injector.trans.server.XmasPresentTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -792,7 +797,12 @@ public final class Injector {
 		new InvulnerableTraderTransformer(),
 		new MaxGuardsTransformer("<clinit>", "()V"),
 		new MaxGuardsTransformer("getCostForGuards", "(I)J"),
-		new CaWindowTransformer()
+		new CaWindowTransformer(),
+		new XmasCalendarTransformer(),
+		new XmasBeforeCalendarTransformer(),
+		new XmasAfterCalendarTransformer(),
+		new XmasPresentTransformer(),
+		new ReimburseMethodTransformer()
 	);
 	private final Module common, client, server;
 
