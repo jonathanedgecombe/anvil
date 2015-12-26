@@ -24,63 +24,21 @@ import org.objectweb.asm.tree.VarInsnNode;
 
 public final class ChatTransformer extends MethodTransformer {
 	public ChatTransformer() {
-		super("com/wurmonline/server/creatures/Communicator", "reallyHandle", "(ILjava/nio/ByteBuffer;)V");
+		super("com/wurmonline/server/creatures/Communicator", "reallyHandle_CMD_MESSAGE", "(Ljava/nio/ByteBuffer;)V");
 	}
 
 	// TODO this is really far too ugly!
 	@Override
 	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
-		LocalVariableNode var = AsmUtils.getLocalVariable(method, "cmd", "B");
-		if (var == null)
-			throw new InjectorException("couldn't find cmd variable");
-
-		Iterator<AbstractInsnNode[]> it = matcher.match("ILOAD BIPUSH IF_ICMPEQ", match -> {
-			VarInsnNode varInsn = (VarInsnNode) match[0];
-			IntInsnNode intInsn = (IntInsnNode) match[1];
-			return varInsn.var == var.index && intInsn.operand == 99;
-		});
-
-		if (!it.hasNext())
-			throw new InjectorException("couldn't find injection point");
-
-		AbstractInsnNode[] match = it.next();
-
-		if (it.hasNext())
-			throw new InjectorException("too many injection points");
-
-		LocalVariableNode messageVar = null, tabVar = null;
-
-		for (AbstractInsnNode node = match[0]; node != null; node = node.getNext()) {
-			AbstractInsnNode next = node.getNext();
-
-			if (node.getOpcode() == Opcodes.INVOKESPECIAL && next.getOpcode() == Opcodes.ASTORE) {
-				MethodInsnNode invoke = (MethodInsnNode) node;
-				VarInsnNode store = (VarInsnNode) next;
-
-				if (invoke.owner.equals("java/lang/String") && invoke.name.equals("<init>")) {
-					if (messageVar == null) {
-						messageVar = AsmUtils.getLocalVariable(method, store.var, store.getNext());
-						if (messageVar == null)
-							throw new InjectorException("couldn't find local variable in scope");
-					} else if (tabVar == null) {
-						tabVar = AsmUtils.getLocalVariable(method, store.var, store.getNext());
-						if (tabVar == null)
-							throw new InjectorException("couldn't find local variable in scope");
-
-						break;
-					}
-				}
-			}
-		}
+		LocalVariableNode messageVar = AsmUtils.getLocalVariable(method, "message", "Ljava/lang/String;");
+		LocalVariableNode tabVar = AsmUtils.getLocalVariable(method, "title", "Ljava/lang/String;");
 
 		if (messageVar == null || tabVar == null)
 			throw new InjectorException("couldn't find message or tab variables");
 
-		final LocalVariableNode fMessageVar = messageVar;
-
-		it = matcher.match("ALOAD ICONST_0 INVOKEVIRTUAL BIPUSH IF_ICMPNE", match0 -> {
+		Iterator<AbstractInsnNode[]> it = matcher.match("ALOAD ICONST_0 INVOKEVIRTUAL BIPUSH IF_ICMPNE", match0 -> {
 			VarInsnNode load = (VarInsnNode) match0[0];
-			if (load.var != fMessageVar.index)
+			if (load.var != messageVar.index)
 				return false;
 
 			MethodInsnNode invoke = (MethodInsnNode) match0[2];
@@ -94,12 +52,8 @@ public final class ChatTransformer extends MethodTransformer {
 			return push.operand == 35;
 		});
 
-		if (!it.hasNext())
-			throw new InjectorException("couldn't find injection point");
-
-		match = it.next();
-
 		// TODO: there are later matches as well, be more specific?
+		AbstractInsnNode[] match = it.next();
 
 		FieldNode playerField = AsmUtils.getField(clazz, "player", "Lcom/wurmonline/server/players/Player;");
 		if (playerField == null)
