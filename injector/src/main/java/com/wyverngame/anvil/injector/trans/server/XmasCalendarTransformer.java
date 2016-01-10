@@ -18,7 +18,7 @@ public final class XmasCalendarTransformer extends MethodTransformer {
 		method.localVariables.clear();
 		method.tryCatchBlocks.clear();
 
-		method.instructions.add(new InsnNode(Opcodes.ICONST_1));
+		method.instructions.add(new InsnNode(Opcodes.ICONST_0));
 		method.instructions.add(new InsnNode(Opcodes.IRETURN));
 
 		// TODO adjust maxLocals and maxStack?
