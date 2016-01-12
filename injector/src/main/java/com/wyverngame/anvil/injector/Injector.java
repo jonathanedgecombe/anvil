@@ -37,6 +37,7 @@ import com.wyverngame.anvil.injector.trans.server.SpyPreventionTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
+import com.wyverngame.anvil.injector.trans.server.TreasureChestTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasAfterCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasBeforeCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasCalendarTransformer;
@@ -802,7 +803,8 @@ public final class Injector {
 		new XmasBeforeCalendarTransformer(),
 		new XmasAfterCalendarTransformer(),
 		new XmasPresentTransformer(),
-		new ReimburseMethodTransformer()
+		new ReimburseMethodTransformer(),
+		new TreasureChestTransformer()
 	);
 	private final Module common, client, server;
 
