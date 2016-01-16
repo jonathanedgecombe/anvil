@@ -130,7 +130,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"moveCreature",
-			"(JBBSB)V",
+			"(JBBFB)V",
 			"com/wyverngame/anvil/api/client/event/MoveCreatureEvent",
 			false),
 		new MethodHookTransformer(
@@ -160,13 +160,13 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"tileSomeStrip",
-			"(SS[[ISS)V",
+			"(SS[[I[[SSS)V",
 			"com/wyverngame/anvil/api/client/event/terrain/TerrainNearUpdateEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"tileSomeStripCave",
-			"(SSS[[IS)V",
+			"(SSS[[IS[[S)V",
 			"com/wyverngame/anvil/api/client/event/terrain/TerrainCaveUpdateEvent",
 			false),
 		new MethodHookTransformer(
@@ -317,7 +317,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"buildMark",
-			"(JSS)V",
+			"(JSSB)V",
 			"com/wyverngame/anvil/api/client/event/MarkStructureEvent",
 			false),
 		new MethodHookTransformer(

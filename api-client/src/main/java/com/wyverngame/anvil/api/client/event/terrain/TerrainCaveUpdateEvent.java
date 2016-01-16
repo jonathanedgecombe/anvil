@@ -7,13 +7,15 @@ public final class TerrainCaveUpdateEvent extends Event {
 	private final short width;
 	private final int[][] tiles;
 	private final short height;
+	private final short[][] waterHeights;
 
-	public TerrainCaveUpdateEvent(short xStart, short yStart, short width, int[][] tiles, short height) {
+	public TerrainCaveUpdateEvent(short xStart, short yStart, short width, int[][] tiles, short height, short[][] waterHeights) {
 		this.x = xStart;
 		this.y = yStart;
 		this.width = width;
 		this.tiles = tiles;
 		this.height = height;
+		this.waterHeights = waterHeights;
 	}
 
 	public short getX() {
@@ -34,5 +36,9 @@ public final class TerrainCaveUpdateEvent extends Event {
 
 	public short getHeight() {
 		return height;
+	}
+
+	public short[][] getWaterHeights() {
+		return waterHeights;
 	}
 }
