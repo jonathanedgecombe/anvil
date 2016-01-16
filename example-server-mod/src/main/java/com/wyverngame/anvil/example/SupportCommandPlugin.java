@@ -16,7 +16,7 @@ public final class SupportCommandPlugin extends Plugin<ServerPluginContext> {
 			String message = evt.getMessage();
 
 			if (message.startsWith("/support")) {
-				player.getCommunicator().sendNormalServerMessage("Please use Wyvern's online support ticket system at http://wyverngame.com/support");
+				player.getCommunicator().sendServerMessage("Please use Wyvern's online support ticket system at http://wyverngame.com/support", 255, 165, 0);
 				ctx.preventDefault();
 			}
 		});
@@ -24,7 +24,7 @@ public final class SupportCommandPlugin extends Plugin<ServerPluginContext> {
 		on(TicketAddEvent.class, (ctx, evt) -> {
 			Player player = evt.getPlayer();
 
-			player.getCommunicator().sendNormalServerMessage("Please use Wyvern's online support ticket system at http://wyverngame.com/support");
+			player.getCommunicator().sendServerMessage("Please use Wyvern's online support ticket system at http://wyverngame.com/support", 255, 165, 0);
 			ctx.preventDefault();
 		});
 	}
