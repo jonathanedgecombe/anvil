@@ -30,6 +30,7 @@ import com.wyverngame.anvil.injector.trans.server.LootTransformer;
 import com.wyverngame.anvil.injector.trans.server.MaxGuardsTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ReimburseMethodTransformer;
+import com.wyverngame.anvil.injector.trans.server.SecureLoginTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.trans.server.SowActionTimeTransformer;
@@ -804,7 +805,8 @@ public final class Injector {
 		new XmasAfterCalendarTransformer(),
 		new XmasPresentTransformer(),
 		new ReimburseMethodTransformer(),
-		new TreasureChestTransformer()
+		new TreasureChestTransformer(),
+		new SecureLoginTransformer()
 	);
 	private final Module common, client, server;
 
