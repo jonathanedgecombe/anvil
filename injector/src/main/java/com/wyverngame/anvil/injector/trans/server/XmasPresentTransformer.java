@@ -20,7 +20,7 @@ public final class XmasPresentTransformer extends MethodTransformer {
 	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
 		Iterator<AbstractInsnNode[]> it = matcher.match("BIPUSH INVOKEVIRTUAL", match -> {
 			IntInsnNode push = (IntInsnNode) match[0];
-			if (push.operand != 7)
+			if (push.operand != 8)
 				return false;
 
 			MethodInsnNode invoke = (MethodInsnNode) match[1];
