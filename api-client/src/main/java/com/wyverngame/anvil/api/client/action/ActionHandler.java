@@ -29,7 +29,7 @@ public final class ActionHandler {
 				return;
 			}
 
-			ctx.preventDefault();
+			ctx.cancel();
 
 			ActionRequest actionRequest = actionRequests.get(event.getRequestId());
 			actionRequests.remove(event.getRequestId());

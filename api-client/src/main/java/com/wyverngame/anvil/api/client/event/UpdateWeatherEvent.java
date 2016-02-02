@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateWeatherEvent extends Event {
+public final class UpdateWeatherEvent extends Event<Void> {
 	private final float cloudiness, fog, rain, windRot, windPower, temperature;
 
 	public UpdateWeatherEvent(float cloudiness, float fog, float rain, float windRot, float windPower, float temp) {

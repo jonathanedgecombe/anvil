@@ -3,7 +3,7 @@ package com.wyverngame.anvil.api.client.event.render;
 import com.wurmonline.client.renderer.WorldRender;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class WorldRenderEvent extends Event {
+public final class WorldRenderEvent extends Event<Void> {
 	private final WorldRender renderer;
 	private final int width, height;
 

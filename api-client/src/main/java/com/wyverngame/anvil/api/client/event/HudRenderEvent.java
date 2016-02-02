@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class HudRenderEvent extends Event {
+public final class HudRenderEvent extends Event<Void> {
 	private final float alpha;
 	private final boolean mouseAvailable;
 	private final int mouseX, mouseY;

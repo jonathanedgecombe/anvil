@@ -3,6 +3,7 @@ package com.wyverngame.anvil.api;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 
 import com.google.common.collect.ImmutableList;
 import com.wyverngame.anvil.api.event.Event;
@@ -41,6 +42,10 @@ public final class PluginManager {
 			try {
 				Class<Plugin<?>> type = (Class<Plugin<?>>) Class.forName(name);
 
+				if (Modifier.isAbstract(type.getModifiers())) {
+					continue;
+				}
+
 				Plugin<?> plugin = type.newInstance();
 
 				Field field = Plugin.class.getDeclaredField("ctx");
@@ -51,7 +56,11 @@ public final class PluginManager {
 				field.setAccessible(true);
 				field.set(plugin, eventBus);
 
-				Method method = type.getDeclaredMethod("init");
+				Method method = Plugin.class.getDeclaredMethod("initRegistries");
+				method.setAccessible(true);
+				method.invoke(plugin);
+
+				method = type.getDeclaredMethod("init");
 				method.setAccessible(true);
 				method.invoke(plugin);
 
@@ -66,7 +75,7 @@ public final class PluginManager {
 		return builder.build();
 	}
 
-	public <T extends Event> EventContext fire(T evt) {
+	public <T extends Event<R>, R> EventContext fire(T evt) {
 		return eventBus.fire(evt);
 	}
 

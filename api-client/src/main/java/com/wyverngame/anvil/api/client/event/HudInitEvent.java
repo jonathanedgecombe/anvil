@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class HudInitEvent extends Event {
+public final class HudInitEvent extends Event<Void> {
 	private final int width, height;
 
 	public HudInitEvent(int aWidth, int aHeight) {

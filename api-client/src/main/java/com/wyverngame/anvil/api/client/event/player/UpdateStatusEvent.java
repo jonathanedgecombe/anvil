@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.player;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateStatusEvent extends Event {
+public final class UpdateStatusEvent extends Event<Void> {
 	private final String status;
 
 	public UpdateStatusEvent(String status) {

@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AddFenceEvent extends Event {
+public final class AddFenceEvent extends Event<Void> {
 	private final int x, y, height;
 	private final byte dir, type;
 	private final float r, g, b, a;

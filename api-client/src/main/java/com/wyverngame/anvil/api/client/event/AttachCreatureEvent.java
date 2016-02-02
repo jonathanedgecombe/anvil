@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AttachCreatureEvent extends Event {
+public final class AttachCreatureEvent extends Event<Void> {
 	private final long passenger, carrier;
 	private final float deltaX, deltaY, deltaHeight;
 	private final byte placeId;

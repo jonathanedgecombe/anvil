@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class MarkStructureEvent extends Event {
+public final class MarkStructureEvent extends Event<Void> {
 	private final long id;
 	private final short x, y;
 	private final byte layer;

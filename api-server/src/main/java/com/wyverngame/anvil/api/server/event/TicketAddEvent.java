@@ -3,7 +3,7 @@ package com.wyverngame.anvil.api.server.event;
 import com.wurmonline.server.players.Player;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class TicketAddEvent extends Event {
+public final class TicketAddEvent extends Event<Void> {
 	private final Player player;
 	private final String message;
 

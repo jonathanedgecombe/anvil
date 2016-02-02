@@ -5,7 +5,7 @@ import java.util.List;
 import com.wurmonline.shared.constants.PlayerAction;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AvailableSelectionBarActionsEvent extends Event {
+public final class AvailableSelectionBarActionsEvent extends Event<Void> {
 	private final byte requestId;
 	private final List<PlayerAction> actionList;
 

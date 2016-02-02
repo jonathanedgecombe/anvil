@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AttachEffectEvent extends Event {
+public final class AttachEffectEvent extends Event<Void> {
 	private final long wurmId;
 	private final byte effectType, data0, data1, data2, data3;
 

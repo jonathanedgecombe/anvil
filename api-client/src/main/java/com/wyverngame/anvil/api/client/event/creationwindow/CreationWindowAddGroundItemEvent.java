@@ -3,7 +3,7 @@ package com.wyverngame.anvil.api.client.event.creationwindow;
 import com.wurmonline.client.renderer.gui.CreationFrame;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CreationWindowAddGroundItemEvent extends Event {
+public final class CreationWindowAddGroundItemEvent extends Event<Void> {
 	private final String name;
 	private final long id;
 	private final float quality, damage, weight;

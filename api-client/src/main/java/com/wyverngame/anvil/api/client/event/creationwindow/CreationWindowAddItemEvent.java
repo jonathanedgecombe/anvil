@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.creationwindow;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CreationWindowAddItemEvent extends Event {
+public final class CreationWindowAddItemEvent extends Event<Void> {
 	private final String itemName;
 	private final short chance;
 	private final short actionId;

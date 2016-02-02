@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateFaceEvent extends Event {
+public final class UpdateFaceEvent extends Event<Void> {
 	private final long target;
 	private final long newFace;
 

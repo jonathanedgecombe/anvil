@@ -5,7 +5,7 @@ import java.util.List;
 import com.wurmonline.shared.util.MulticolorLineSegment;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class SegmentedMessageEvent extends Event {
+public final class SegmentedMessageEvent extends Event<Void> {
 	private final String title;
 	private final List<MulticolorLineSegment> segments;
 

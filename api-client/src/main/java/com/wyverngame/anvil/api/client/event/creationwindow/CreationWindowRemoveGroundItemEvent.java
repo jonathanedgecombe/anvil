@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.creationwindow;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CreationWindowRemoveGroundItemEvent extends Event {
+public final class CreationWindowRemoveGroundItemEvent extends Event<Void> {
 	private final long id;
 
 	public CreationWindowRemoveGroundItemEvent(long id) {

@@ -41,6 +41,10 @@ public enum Type {
 		}
 	}
 
+	public static Type forId(long id) {
+		return TYPES[(int) (id & 0xFF)];
+	}
+
 	private final int id;
 
 	Type(int id) {
@@ -49,5 +53,9 @@ public enum Type {
 
 	public int getId() {
 		return id;
+	}
+
+	public boolean isItem() {
+		return id == 2 || id == 6 || id == 19 || id == 20;
 	}
 }

@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AttachControllerEvent extends Event {
+public final class AttachControllerEvent extends Event<Void> {
 	private final long controller, carrier;
 	private final float deltaX, deltaY, deltaHeight, maxDepth, maxHeight, mexDeltaHeight, vehicleRotation;
 	private final byte placeId;

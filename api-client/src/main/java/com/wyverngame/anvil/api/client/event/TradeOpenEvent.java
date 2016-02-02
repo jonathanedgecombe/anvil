@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class TradeOpenEvent extends Event {
+public final class TradeOpenEvent extends Event<Void> {
 	private final String opponent;
 	private final boolean playerInitiated;
 

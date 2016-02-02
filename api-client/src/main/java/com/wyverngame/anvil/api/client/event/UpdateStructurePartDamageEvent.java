@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateStructurePartDamageEvent extends Event {
+public final class UpdateStructurePartDamageEvent extends Event<Void> {
 	private final long houseId, wallId;
 	private final byte damage;
 

@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateCurrentServerInformationEvent extends Event {
+public final class UpdateCurrentServerInformationEvent extends Event<Void> {
 	private final boolean isEpic;
 	private final int cluster;
 	private final String serverName;

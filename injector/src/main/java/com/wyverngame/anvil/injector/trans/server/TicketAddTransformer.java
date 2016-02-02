@@ -47,7 +47,7 @@ public final class TicketAddTransformer extends MethodTransformer {
 		LabelNode skipReturnLabel = new LabelNode();
 
 		InsnList list = FireEventInsnGenerator.generate("com/wyverngame/anvil/api/server/event/TicketAddEvent", new QualifiedFieldNode(clazz, playerField), var);
-		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "isPreventingDefault", "()Z", false));
+		list.add(new MethodInsnNode(Opcodes.INVOKEVIRTUAL, "com/wyverngame/anvil/api/event/EventContext", "isCancelled", "()Z", false));
 		list.add(new JumpInsnNode(Opcodes.IFEQ, skipReturnLabel));
 		list.add(new InsnNode(Opcodes.RETURN));
 		list.add(skipReturnLabel);

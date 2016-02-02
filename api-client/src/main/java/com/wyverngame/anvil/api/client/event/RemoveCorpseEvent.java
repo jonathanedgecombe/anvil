@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class RemoveCorpseEvent extends Event {
+public final class RemoveCorpseEvent extends Event<Void> {
 	private final long id;
 
 	public RemoveCorpseEvent(long id) {

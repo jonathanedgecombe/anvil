@@ -26,6 +26,13 @@
       <scope>system</scope>
       <systemPath>${project.basedir}/../wurm/client/WurmLauncher/lib/lwjgl-2.9.1.jar</systemPath>
     </dependency>
+    <dependency>
+      <groupId>com.wurmonline</groupId>
+      <artifactId>client</artifactId>
+      <version>LATEST</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/../wurm/client/WurmLauncher/client.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <properties>

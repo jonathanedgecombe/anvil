@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AddCreatureEvent extends Event {
+public final class AddCreatureEvent extends Event<Void> {
 	private final long id;
 	private final String modelName;
 	private final String name;

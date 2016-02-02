@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateEquipmentEvent extends Event {
+public final class UpdateEquipmentEvent extends Event<Void> {
 	private final long wurmId;
 	private final int slot;
 	private final String model;

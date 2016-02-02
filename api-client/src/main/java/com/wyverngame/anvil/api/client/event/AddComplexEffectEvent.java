@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AddComplexEffectEvent extends Event {
+public final class AddComplexEffectEvent extends Event<Void> {
 	private final long id, target;
 	private final short type;
 	private final float x, y, height;

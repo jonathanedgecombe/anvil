@@ -3,12 +3,13 @@ package com.wyverngame.anvil.example;
 import com.wurmonline.server.players.Player;
 import com.wyverngame.anvil.api.Plugin;
 import com.wyverngame.anvil.api.PluginMetadata;
+import com.wyverngame.anvil.api.server.ServerPlugin;
 import com.wyverngame.anvil.api.server.ServerPluginContext;
 import com.wyverngame.anvil.api.server.event.ChatEvent;
 import com.wyverngame.anvil.api.server.event.TicketAddEvent;
 
 @PluginMetadata(name = "Support Command", version = "1.0.0", author = "Graham")
-public final class SupportCommandPlugin extends Plugin<ServerPluginContext> {
+public final class SupportCommandPlugin extends ServerPlugin {
 	@Override
 	public void init() {
 		on(ChatEvent.class, (ctx, evt) -> {
@@ -17,7 +18,7 @@ public final class SupportCommandPlugin extends Plugin<ServerPluginContext> {
 
 			if (message.startsWith("/support")) {
 				player.getCommunicator().sendServerMessage("Please use Wyvern's online support ticket system at http://wyverngame.com/support", 255, 140, 0);
-				ctx.preventDefault();
+				ctx.cancel();
 			}
 		});
 
@@ -25,7 +26,7 @@ public final class SupportCommandPlugin extends Plugin<ServerPluginContext> {
 			Player player = evt.getPlayer();
 
 			player.getCommunicator().sendServerMessage("Please use Wyvern's online support ticket system at http://wyverngame.com/support", 255, 140, 0);
-			ctx.preventDefault();
+			ctx.cancel();
 		});
 	}
 }

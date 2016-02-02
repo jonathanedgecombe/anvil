@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class FenceOpenEvent extends Event {
+public final class FenceOpenEvent extends Event<Void> {
 	private final int x, y, height;
 	private final byte dir;
 	private final boolean isOpen, passableChanged, isPassable;
