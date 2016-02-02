@@ -107,7 +107,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"textMessage",
-			"(Ljava/lang/String;FFFLjava/lang/String;)V",
+			"(Ljava/lang/String;FFFLjava/lang/String;B)V",
 			"com/wyverngame/anvil/api/client/event/MessageEvent",
 			false),
 		new MethodHookTransformer(
