@@ -46,7 +46,7 @@ public final class ActionContext {
 	}
 
 	public void tick() {
-		if (action.getTickCount() == 0) {
+		if (action.getTickCount() == 0 && action.getTimeLeft() > 0 && !action.isQuick()) {
 			performer.sendActionControl(action.getActionString(), true, action.getTimeLeft());
 		}
 

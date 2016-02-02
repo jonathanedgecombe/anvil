@@ -846,7 +846,12 @@ public final class Injector {
 			"com/wurmonline/server/creatures/Creature",
 			"poll",
 			"()Z",
-			"com/wyverngame/anvil/api/server/event/CreaturePollEvent")
+			"com/wyverngame/anvil/api/server/event/CreaturePollEvent"),
+		new MethodHookTransformer(
+			"com/wurmonline/server/Server",
+			"run",
+			"()V",
+			"com/wyverngame/anvil/api/server/event/ServerTickEvent")
 	);
 	private final Module common, client, server;
 

@@ -31,18 +31,26 @@ public enum Type {
 	TILE_CORNER(27),
 	BRIDGE(28),
 	REDEEM_ID(29),
-	MENU(30);
+	MENU(30),
+	UNKNOWN(Integer.MIN_VALUE);
 
 	private static final Type[] TYPES = new Type[256];
 
 	static {
 		for (Type type : values()) {
+			if (type.equals(UNKNOWN))
+				continue;
+
 			TYPES[type.getId()] = type;
 		}
 	}
 
 	public static Type forId(long id) {
-		return TYPES[(int) (id & 0xFF)];
+		int typeId = (int) (id & 0xFF);
+		if (typeId > 30)
+			return UNKNOWN;
+
+		return TYPES[typeId];
 	}
 
 	private final int id;

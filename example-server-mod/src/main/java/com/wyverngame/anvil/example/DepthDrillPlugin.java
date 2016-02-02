@@ -30,7 +30,7 @@ import com.wyverngame.anvil.api.server.builder.ItemTemplateBuilder;
 import com.wyverngame.anvil.api.server.event.action.TileCornerActionEvent;
 
 @PluginMetadata(name = "Depth Drill", version = "1.0.0", author = "Jonneh")
-public final class DrillPlugin extends ServerPlugin {
+public final class DepthDrillPlugin extends ServerPlugin {
 	private static final String DRILL_KEY = "DEPTH_DRILL";
 
 	@Override
