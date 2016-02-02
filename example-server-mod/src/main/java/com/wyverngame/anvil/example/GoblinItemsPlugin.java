@@ -12,11 +12,12 @@ import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wyverngame.anvil.api.Plugin;
 import com.wyverngame.anvil.api.PluginMetadata;
+import com.wyverngame.anvil.api.server.ServerPlugin;
 import com.wyverngame.anvil.api.server.ServerPluginContext;
 import com.wyverngame.anvil.api.server.event.CreateCreatureEvent;
 
 @PluginMetadata(name = "Goblin Items", version = "1.0.0", author = "Graham")
-public final class GoblinItemsPlugin extends Plugin<ServerPluginContext> {
+public final class GoblinItemsPlugin extends ServerPlugin {
 	private static final ImmutableList<Integer> WEAPONS = ImmutableList.of(
 		ItemList.swordShort,
 		ItemList.shieldSmallWood,

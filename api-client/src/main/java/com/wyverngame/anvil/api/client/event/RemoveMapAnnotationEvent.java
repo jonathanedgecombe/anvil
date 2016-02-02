@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class RemoveMapAnnotationEvent extends Event {
+public final class RemoveMapAnnotationEvent extends Event<Void> {
 	private final long id;
 	private final byte type;
 	private final String serverName;

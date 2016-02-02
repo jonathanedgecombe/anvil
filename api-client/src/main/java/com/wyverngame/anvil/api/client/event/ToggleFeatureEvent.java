@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class ToggleFeatureEvent extends Event {
+public final class ToggleFeatureEvent extends Event<Void> {
 	private final int type, value;
 
 	public ToggleFeatureEvent(int type, int value) {

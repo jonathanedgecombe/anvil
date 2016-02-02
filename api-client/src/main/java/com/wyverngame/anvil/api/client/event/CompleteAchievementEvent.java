@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CompleteAchievementEvent extends Event {
+public final class CompleteAchievementEvent extends Event<Void> {
 	private final boolean isNew;
 	private final boolean isPlaySoundOnUpdate;
 	private final int achievement;

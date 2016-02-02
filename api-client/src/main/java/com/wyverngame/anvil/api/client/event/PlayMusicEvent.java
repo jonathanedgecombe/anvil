@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class PlayMusicEvent extends Event {
+public final class PlayMusicEvent extends Event<Void> {
 	private final String name;
 	private final float x, y, height, pitch, volume, priority;
 

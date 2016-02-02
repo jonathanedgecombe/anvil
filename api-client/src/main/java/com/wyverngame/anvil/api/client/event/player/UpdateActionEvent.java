@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.player;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateActionEvent extends Event {
+public final class UpdateActionEvent extends Event<Void> {
 	private final long creatureId;
 	private final String actionString;
 	private final short timeRemaining;

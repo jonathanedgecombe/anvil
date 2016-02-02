@@ -81,14 +81,14 @@ $(STEAMCMD_DONE): $(STEAMCMD_ARCHIVE)
 $(CLIENT_DONE): $(STEAMCMD_DONE)
 	mkdir -p $(CLIENT_DIR)
 	$(STEAMCMD) +login $(STEAM_USER) +force_install_dir ../$(CLIENT_DIR) \
-		+app_update $(CLIENT_APPID) +quit
+		+app_update $(CLIENT_APPID) -beta beta_branch +quit
 	touch $@
 
 # download wurm server
 $(SERVER_DONE): $(STEAMCMD_DONE)
 	mkdir -p $(SERVER_DIR)
 	$(STEAMCMD) +login $(STEAM_USER) +force_install_dir ../$(SERVER_DIR) \
-		+app_update $(SERVER_APPID) +quit
+		+app_update $(SERVER_APPID) -beta beta +quit
 	touch $@
 
 # check common.jar is identical across client and server

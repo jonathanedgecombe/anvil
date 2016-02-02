@@ -3,7 +3,7 @@ package com.wyverngame.anvil.api.client.event.creationwindow;
 import com.wurmonline.client.renderer.gui.CreationFrame;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CreationWindowReplaceGroundItemEvent extends Event {
+public final class CreationWindowReplaceGroundItemEvent extends Event<Void> {
 	private final long replaceWithId;
 	private final String name;
 	private final long id;

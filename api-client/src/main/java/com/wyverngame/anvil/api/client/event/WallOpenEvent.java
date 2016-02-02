@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class WallOpenEvent extends Event {
+public final class WallOpenEvent extends Event<Void> {
 	private final long houseId;
 	private final int x, y;
 	private final int height;

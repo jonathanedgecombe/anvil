@@ -1,4 +1,12 @@
 package com.wyverngame.anvil.api.event;
 
-public abstract class Event {
+import java.lang.reflect.ParameterizedType;
+
+public abstract class Event<T> {
+	public boolean hasReturnType() {
+		Class<T> type = (Class<T>)
+			((ParameterizedType)getClass().getGenericSuperclass())
+				.getActualTypeArguments()[0];
+		return !type.equals(Void.class);
+	}
 }

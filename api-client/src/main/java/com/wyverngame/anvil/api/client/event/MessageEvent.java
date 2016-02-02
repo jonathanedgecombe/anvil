@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class MessageEvent extends Event {
+public final class MessageEvent extends Event<Void> {
 	private final String title;
 	private final float r, g, b;
 	private final String message;

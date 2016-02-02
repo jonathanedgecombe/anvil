@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class TradeStatusEvent extends Event {
+public final class TradeStatusEvent extends Event<Void> {
 	private final boolean isAccepting;
 
 	public TradeStatusEvent(boolean isAgree) {

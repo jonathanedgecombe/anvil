@@ -11,8 +11,9 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import com.wyverngame.anvil.injector.trans.Transformer;
-import com.wyverngame.anvil.injector.trans.client.MethodHookTransformer;
+import com.wyverngame.anvil.injector.trans.MethodHookTransformer;
 import com.wyverngame.anvil.injector.trans.client.WurmClientBaseTransformer;
+import com.wyverngame.anvil.injector.trans.server.ActionEntriesMutableTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
@@ -25,6 +26,7 @@ import com.wyverngame.anvil.injector.trans.server.CreateCreatureTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsCropPollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTilePollTransformer;
 import com.wyverngame.anvil.injector.trans.server.FarmingWeedsTransformer;
+import com.wyverngame.anvil.injector.trans.server.GetBehavioursTransformer;
 import com.wyverngame.anvil.injector.trans.server.InvulnerableTraderTransformer;
 import com.wyverngame.anvil.injector.trans.server.LootTransformer;
 import com.wyverngame.anvil.injector.trans.server.MaxGuardsTransformer;
@@ -38,12 +40,17 @@ import com.wyverngame.anvil.injector.trans.server.SpyPreventionTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
+import com.wyverngame.anvil.injector.trans.server.TicketAddTransformer;
 import com.wyverngame.anvil.injector.trans.server.TreasureChestTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasAfterCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasBeforeCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasPresentTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
+import org.objectweb.asm.Opcodes;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.FieldNode;
+import org.objectweb.asm.tree.MethodNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -130,7 +137,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"moveCreature",
-			"(JBBSB)V",
+			"(JBBFB)V",
 			"com/wyverngame/anvil/api/client/event/MoveCreatureEvent",
 			false),
 		new MethodHookTransformer(
@@ -160,13 +167,13 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"tileSomeStrip",
-			"(SS[[ISS)V",
+			"(SS[[I[[SSS)V",
 			"com/wyverngame/anvil/api/client/event/terrain/TerrainNearUpdateEvent",
 			false),
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"tileSomeStripCave",
-			"(SSS[[IS)V",
+			"(SSS[[IS[[S)V",
 			"com/wyverngame/anvil/api/client/event/terrain/TerrainCaveUpdateEvent",
 			false),
 		new MethodHookTransformer(
@@ -317,7 +324,7 @@ public final class Injector {
 		new MethodHookTransformer(
 			"com/wurmonline/client/comm/ServerConnectionListenerClass",
 			"buildMark",
-			"(JSS)V",
+			"(JSSB)V",
 			"com/wyverngame/anvil/api/client/event/MarkStructureEvent",
 			false),
 		new MethodHookTransformer(
@@ -805,8 +812,41 @@ public final class Injector {
 		new XmasAfterCalendarTransformer(),
 		new XmasPresentTransformer(),
 		new ReimburseMethodTransformer(),
+		new TicketAddTransformer(),
 		new TreasureChestTransformer(),
-		new SecureLoginTransformer()
+		new SecureLoginTransformer(),
+		new ActionEntriesMutableTransformer(),
+		new GetBehavioursTransformer(),
+		new MethodHookTransformer(
+			"com/wurmonline/server/behaviours/BehaviourDispatcher",
+			"requestActions",
+			"(Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/creatures/Communicator;BJJ)V",
+			"com/wyverngame/anvil/api/server/event/RequestActionsEvent", false),
+		new MethodHookTransformer(
+			"com/wurmonline/server/behaviours/MethodsItems",
+			"take",
+			"(Lcom/wurmonline/server/behaviours/Action;Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/items/Item;)Lcom/wurmonline/server/behaviours/TakeResultEnum;",
+			"com/wyverngame/anvil/api/server/event/CheckTakeItemEvent", false),
+		new MethodHookTransformer(
+			"com/wurmonline/server/players/Player",
+			"setDead",
+			"(Z)V",
+			"com/wyverngame/anvil/api/server/event/SetDeadEvent"),
+		new MethodHookTransformer(
+			"com/wurmonline/server/players/Player",
+			"createSomeItems",
+			"(FZ)V",
+			"com/wyverngame/anvil/api/server/event/CreateStarterItemsEvent"),
+		new MethodHookTransformer(
+			"com/wurmonline/server/players/Player",
+			"sendSpawnQuestion",
+			"()V",
+			"com/wyverngame/anvil/api/server/event/SendSpawnQuestionEvent"),
+		new MethodHookTransformer(
+			"com/wurmonline/server/creatures/Creature",
+			"poll",
+			"()Z",
+			"com/wyverngame/anvil/api/server/event/CreaturePollEvent")
 	);
 	private final Module common, client, server;
 
@@ -818,6 +858,8 @@ public final class Injector {
 
 	public void run() throws IOException {
 		logger.info("Transforming classes...");
+
+		visibilityTransform(server);
 
 		/* transform common.jar */
 		Application commonApplication = new Application(common);
@@ -864,5 +906,36 @@ public final class Injector {
 		}
 
 		return new URLClassLoader(jars.toArray(EMPTY_URL_ARRAY));
+	}
+
+	private void visibilityTransform(Module... modules) {
+		for (Module module : modules) {
+			for (ClassNode clazz : module.getClasses()) {
+				if ((clazz.access & Opcodes.ACC_PRIVATE & Opcodes.ACC_PUBLIC & Opcodes.ACC_PROTECTED) == 0) {
+					logger.info("Changing visibility of " + clazz.name + " to public");
+					clazz.access = makePublic(clazz.access);
+				}
+
+				for (FieldNode field : clazz.fields) {
+					if ((field.access & Opcodes.ACC_PRIVATE & Opcodes.ACC_PUBLIC) == 0) {
+						logger.info("Changing visibility of " + clazz.name + "." + field.name + " to public");
+						field.access = makePublic(field.access);
+					}
+				}
+
+				for (MethodNode method : clazz.methods) {
+					if ((method.access & Opcodes.ACC_PRIVATE & Opcodes.ACC_PUBLIC) == 0) {
+						logger.info("Changing visibility of " + clazz.name + "." + method.name + " to public");
+						method.access = makePublic(method.access);
+					}
+				}
+			}
+		}
+	}
+
+	private static int makePublic(int access) {
+		access &= ~Opcodes.ACC_PROTECTED;
+		access &= ~Opcodes.ACC_PRIVATE;
+		return access | Opcodes.ACC_PUBLIC;
 	}
 }

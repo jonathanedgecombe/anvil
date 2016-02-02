@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class TimeEvent extends Event {
+public final class TimeEvent extends Event<Void> {
 	private final long wurmTimeSeconds;
 	private final long serverTimeMillis;
 

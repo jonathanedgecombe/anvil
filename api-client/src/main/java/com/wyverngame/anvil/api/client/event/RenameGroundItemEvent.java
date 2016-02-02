@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class RenameGroundItemEvent extends Event {
+public final class RenameGroundItemEvent extends Event<Void> {
 	private final int type;
 	private final long id;
 	private final String name;

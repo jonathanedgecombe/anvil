@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.player;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class TeleportEvent extends Event {
+public final class TeleportEvent extends Event<Void> {
 	private final boolean local;
 	private final float x, y, height;
 	private final float rotation;

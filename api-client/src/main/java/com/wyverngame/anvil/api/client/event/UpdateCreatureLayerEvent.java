@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateCreatureLayerEvent extends Event {
+public final class UpdateCreatureLayerEvent extends Event<Void> {
 	private final long id;
 	private final int layer;
 

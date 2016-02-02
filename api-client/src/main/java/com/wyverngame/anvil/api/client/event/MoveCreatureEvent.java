@@ -2,13 +2,13 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class MoveCreatureEvent extends Event {
+public final class MoveCreatureEvent extends Event<Void> {
 	private final long id;
 	private final byte x, y;
-	private final short height;
+	private final float height;
 	private final byte rotation;
 
-	public MoveCreatureEvent(long id, byte x, byte y, short h, byte rot) {
+	public MoveCreatureEvent(long id, byte x, byte y, float h, byte rot) {
 		this.id = id;
 		this.x = x;
 		this.y = y;
@@ -28,7 +28,7 @@ public final class MoveCreatureEvent extends Event {
 		return y;
 	}
 
-	public short getHeight() {
+	public float getHeight() {
 		return height;
 	}
 

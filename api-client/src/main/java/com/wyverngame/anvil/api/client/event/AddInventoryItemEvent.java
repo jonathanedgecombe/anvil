@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class AddInventoryItemEvent extends Event {
+public final class AddInventoryItemEvent extends Event<Void> {
 	private final long inventoryWindowId, id, parentId;
 	private final short iconId, impIconId, typeBits;
 	private final String name, description;

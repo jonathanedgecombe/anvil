@@ -13,12 +13,13 @@ public abstract class Plugin<T extends PluginContext> {
 	protected EventBus eventBus;
 
 	public abstract void init() throws Exception;
+	protected abstract void initRegistries();
 
 	public void exceptionCaught(Throwable t) {
 		logger.warn("Uncaught exception:", t);
 	}
 
-	public final <T extends Event> void on(Class<T> type, EventHandler<T> handler) {
+	public final <T extends Event<R>, R> void on(Class<T> type, EventHandler<T, R> handler) {
 		eventBus.on(this, type, handler);
 	}
 }

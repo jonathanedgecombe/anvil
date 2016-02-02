@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class RemoveFenceEvent extends Event {
+public final class RemoveFenceEvent extends Event<Void> {
 	private final int x, y, height;
 	private final byte direction;
 	private final byte layer;

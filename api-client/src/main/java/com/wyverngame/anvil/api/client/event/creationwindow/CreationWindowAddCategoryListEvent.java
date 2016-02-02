@@ -5,7 +5,7 @@ import java.util.Map;
 import com.wurmonline.client.renderer.gui.CreationListItem;
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CreationWindowAddCategoryListEvent extends Event {
+public final class CreationWindowAddCategoryListEvent extends Event<Void> {
 	private final Map<Short, CreationListItem> categoryList;
 	private final short numberOfItems;
 

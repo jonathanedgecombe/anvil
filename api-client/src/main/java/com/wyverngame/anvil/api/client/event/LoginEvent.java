@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class LoginEvent extends Event {
+public final class LoginEvent extends Event<Void> {
 	private final String message, model;
 	private final float x, y, height, rotation, groundOffset;
 	private final int layer, counter;

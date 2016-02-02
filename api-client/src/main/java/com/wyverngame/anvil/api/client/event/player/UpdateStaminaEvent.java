@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.player;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateStaminaEvent extends Event {
+public final class UpdateStaminaEvent extends Event<Void> {
 	private final float stamina, damage;
 
 	public UpdateStaminaEvent(float stamina, float damage) {

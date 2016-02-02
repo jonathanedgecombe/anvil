@@ -19,7 +19,7 @@
       <artifactId>common</artifactId>
       <version>LATEST</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/../wurm/server/common.jar</systemPath>
+      <systemPath>${project.basedir}/../common-patched.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>io.github.lukehutch</groupId>

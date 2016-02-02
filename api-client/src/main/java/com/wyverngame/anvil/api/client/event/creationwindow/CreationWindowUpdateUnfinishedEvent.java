@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.creationwindow;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class CreationWindowUpdateUnfinishedEvent extends Event {
+public final class CreationWindowUpdateUnfinishedEvent extends Event<Void> {
 	private final boolean isUnfinishedView;
 
 	public CreationWindowUpdateUnfinishedEvent(boolean isUnfinishedView) {

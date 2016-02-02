@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class ListAchievementEvent extends Event {
+public final class ListAchievementEvent extends Event<Void> {
 	private final int achievement;
 	private final String name, description;
 	private final byte type;

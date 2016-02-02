@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class UpdateGroundOffsetEvent extends Event {
+public final class UpdateGroundOffsetEvent extends Event<Void> {
 	private final int offset;
 	private final boolean immediate;
 

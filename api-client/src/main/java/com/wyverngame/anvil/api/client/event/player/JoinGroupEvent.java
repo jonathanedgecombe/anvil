@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.player;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class JoinGroupEvent extends Event {
+public final class JoinGroupEvent extends Event<Void> {
 	private final String group;
 	private final String name;
 	private final long id;

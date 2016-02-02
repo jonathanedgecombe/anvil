@@ -7,13 +7,12 @@ import java.lang.reflect.Method;
 import com.wurmonline.client.renderer.gui.HeadsUpDisplay;
 import com.wurmonline.client.renderer.gui.MinimapComponent;
 import com.wurmonline.client.renderer.gui.WurmComponent;
-import com.wyverngame.anvil.api.Plugin;
 import com.wyverngame.anvil.api.PluginMetadata;
-import com.wyverngame.anvil.api.client.ClientPluginContext;
+import com.wyverngame.anvil.api.client.ClientPlugin;
 import com.wyverngame.anvil.api.client.event.HudInitEvent;
 
 @PluginMetadata(name = "Minimap Plugin", version = "1.0", author = "Jonneh")
-public final class MinimapPlugin extends Plugin<ClientPluginContext> {
+public final class MinimapPlugin extends ClientPlugin {
 	@Override
 	public void init() throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, IOException, NoSuchFieldException {
 		on(HudInitEvent.class, (ctx, evt) ->
