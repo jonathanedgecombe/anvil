@@ -237,7 +237,7 @@ public final class AnvilBehaviour extends Behaviour {
 			return actCtx.isFinished();
 		}
 
-		boolean finished = behaviour.action(action, performer, onSurface, target, encodedTile, num, counter);
+		boolean finished = behaviour.action(action, performer, source, onSurface, target, encodedTile, num, counter);
 		evtCtx.runOnCompletion();
 		return finished;
 	}
