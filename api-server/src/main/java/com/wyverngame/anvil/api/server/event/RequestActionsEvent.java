@@ -241,4 +241,17 @@ public final class RequestActionsEvent extends Event<Void> {
 
 		return param;
 	}
+
+	public void sendActions(ActionEntry... additionalActionEntries) throws WurmServerException {
+		BehaviourDispatcher.RequestParam param = getRequestParam();
+		List<ActionEntry> entries = param.getAvailableActions();
+		for (ActionEntry entry : additionalActionEntries) {
+			entries.add(entry);
+		}
+
+		communicator.sendAvailableActions(
+			requestId,
+			param.getAvailableActions(),
+			param.getHelpString());
+	}
 }

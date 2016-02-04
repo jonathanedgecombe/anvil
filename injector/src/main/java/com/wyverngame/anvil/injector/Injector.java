@@ -851,7 +851,27 @@ public final class Injector {
 			"com/wurmonline/server/Server",
 			"run",
 			"()V",
-			"com/wyverngame/anvil/api/server/event/ServerTickEvent")
+			"com/wyverngame/anvil/api/server/event/ServerTickEvent"),
+		new MethodHookTransformer(
+			"com/wurmonline/server/structures/Structure",
+			"getLimitFor",
+			"(IIZ)I",
+			"com/wyverngame/anvil/api/server/event/GetStructureSkillRequirementEvent"),
+		new MethodHookTransformer(
+			"com/wurmonline/server/items/DbItem",
+			"setTemplateId",
+			"(I)V",
+			"com/wyverngame/anvil/api/server/event/SetItemTemplateEvent"),
+		new MethodHookTransformer(
+			"com/wurmonline/server/combat/Archery",
+			"getMinimumRangeForBow",
+			"(I)I",
+			"com/wyverngame/anvil/api/server/event/combat/GetMinimumBowRangeEvent", false),
+		new MethodHookTransformer(
+			"com/wurmonline/server/combat/Archery",
+			"getRangeDifficulty",
+			"(Lcom/wurmonline/server/creatures/Creature;IFF)D",
+			"com/wyverngame/anvil/api/server/event/combat/GetRangeDifficultyEvent", false)
 	);
 	private final Module common, client, server;
 

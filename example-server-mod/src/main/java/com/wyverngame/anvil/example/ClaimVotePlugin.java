@@ -1,19 +1,16 @@
 package com.wyverngame.anvil.example;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import com.wurmonline.server.Items;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.behaviours.ActionTypes;
-import com.wurmonline.server.behaviours.BehaviourDispatcher;
 import com.wurmonline.server.economy.MonetaryConstants;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.items.ItemList;
@@ -48,14 +45,7 @@ public final class ClaimVotePlugin extends ServerPlugin {
 			if (item.getTemplateId() != ItemList.villageToken) return;
 
 			ctx.cancel();
-
-			BehaviourDispatcher.RequestParam param = evt.getRequestParam();
-			param.getAvailableActions().add(claimActionEntry);
-
-			evt.getCommunicator().sendAvailableActions(
-				evt.getRequestId(),
-				param.getAvailableActions(),
-				param.getHelpString());
+			evt.sendActions(claimActionEntry);
 		});
 
 		on(ItemActionEvent.class, (ctx, evt) -> {
@@ -97,7 +87,7 @@ public final class ClaimVotePlugin extends ServerPlugin {
 							}
 						});
 					} else {
-						tasks.add(() -> evt.getPerformer().getCommunicator().sendAlertServerMessage("It appears you haven't voted recently with this steam account. You can vote for Wyvern at http://wurm-unlimited.com/server/53/vote/"));
+						tasks.add(() -> evt.getPerformer().getCommunicator().sendAlertServerMessage("It appears you haven't voted recently with this steam account or have already claimed your reward for today. You can vote for Wyvern at http://wurm-unlimited.com/server/53/vote/"));
 					}
 
 					in.close();

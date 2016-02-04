@@ -47,7 +47,6 @@ public final class DepthDrillPlugin extends ServerPlugin {
 				)
 				.setIconId(IconConstants.ICON_TOOL_SHAFT)
 				.setVolume(6, 6, 96)
-				.setPrimarySkill(SkillList.PROSPECT)
 				.setWeight(4400)
 				.setValue(15000)
 		);
@@ -74,14 +73,7 @@ public final class DepthDrillPlugin extends ServerPlugin {
 				return;
 
 			ctx.cancel();
-
-			BehaviourDispatcher.RequestParam param = evt.getRequestParam();
-			param.getAvailableActions().add(drillAction);
-
-			evt.getCommunicator().sendAvailableActions(
-				evt.getRequestId(),
-				param.getAvailableActions(),
-				param.getHelpString());
+			evt.sendActions(drillAction);
 		});
 
 		on(TileCornerActionEvent.class, (ctx, evt) -> {
