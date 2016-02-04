@@ -852,11 +852,11 @@ public final class Injector {
 			"run",
 			"()V",
 			"com/wyverngame/anvil/api/server/event/ServerTickEvent"),
-		new MethodHookTransformer(
+		/*new MethodHookTransformer(
 			"com/wurmonline/server/structures/Structure",
 			"getLimitFor",
 			"(IIZ)I",
-			"com/wyverngame/anvil/api/server/event/GetStructureSkillRequirementEvent"),
+			"com/wyverngame/anvil/api/server/event/GetStructureSkillRequirementEvent"),*/
 		new MethodHookTransformer(
 			"com/wurmonline/server/items/DbItem",
 			"setTemplateId",

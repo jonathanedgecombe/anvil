@@ -115,7 +115,7 @@ public final class MedievalWeaponsPlugin extends ServerPlugin {
 		);
 
 		ItemTemplate arbalestTemplateUnstrung = registerItemTemplate(
-			new ItemTemplateBuilder("ARBALEST", "unstrung arbalest")
+			new ItemTemplateBuilder("ARBALEST_UNSTRUNG", "unstrung arbalest")
 				.setExamineDescription("A large unstrung crossbow utilizing iron limbs for a powerful shot.")
 				.setModelName("model.bow.short.arbalest.unstrung.")
 				.setIconId(IconConstants.ICON_WEAPON_BOW_SHORT)
