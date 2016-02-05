@@ -1,5 +1,6 @@
 package com.wyverngame.anvil.injector.trans;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -22,40 +23,54 @@ import org.objectweb.asm.tree.TypeInsnNode;
 import org.objectweb.asm.tree.VarInsnNode;
 
 public final class MethodHookTransformer extends MethodTransformer {
-	private final String eventType;
+	private final Class<?> eventClass;
 	private final boolean includeThis;
 
-	public MethodHookTransformer(String clazz, String name, String desc, String eventType) {
-		this(clazz, name, desc, eventType, true);
+	public MethodHookTransformer(String clazz, String name, String desc, Class<?> eventClass) {
+		this(clazz, name, desc, eventClass, true);
 	}
 
-	public MethodHookTransformer(String clazz, String name, String desc, String eventType, boolean includeThis) {
+	public MethodHookTransformer(String clazz, String name, String desc, Class<?> eventClass, boolean includeThis) {
 		super(clazz, name, desc);
-		this.eventType = eventType;
+		this.eventClass = eventClass;
 		this.includeThis = includeThis;
 	}
 
 	@Override
 	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
-			boolean isStatic = (method.access & Opcodes.ACC_STATIC) != 0;
+		String eventType = eventClass.getCanonicalName().replace(".", "/");
+		boolean isStatic = (method.access & Opcodes.ACC_STATIC) != 0;
 
-			List<String> params = getParameters(method.desc);
-			if (!isStatic && includeThis) {
-				params.add(0, "L" + clazz.name + ";");
+		List<String> params = getParameters(method.desc);
+		if (!isStatic && includeThis) {
+			params.add(0, "L" + clazz.name + ";");
+		}
+
+		boolean matchingConstructor = false;
+		for (Constructor<?> constructor : eventClass.getConstructors()) {
+			List<String> constructorParams = generateTypeList(constructor);
+			if (constructorParams.equals(params)) {
+				matchingConstructor = true;
+				break;
+			}
+		}
+
+		if (!matchingConstructor) {
+			throw new InjectorException("Mismatching constructors for " + eventType);
+		}
+
+		int offset = !isStatic && !includeThis ? 1 : 0; // TODO
+		List<LocalVariableNode> vars = new ArrayList<>();
+		for (int i = 0; i < params.size(); i++) {
+			String param = params.get(i);
+			LocalVariableNode var = method.localVariables.get(i + offset);
+
+			if (!param.equals(var.desc)) {
+				throw new InjectorException("Mismatching parameter descriptor");
 			}
 
-			int offset = !isStatic && !includeThis ? 1 : 0; // TODO
-			List<LocalVariableNode> vars = new ArrayList<>();
-			for (int i = 0; i < params.size(); i++) {
-				String param = params.get(i);
-				LocalVariableNode var = method.localVariables.get(i + offset);
-
-				if (!param.equals(var.desc)) {
-					throw new InjectorException("Mismatching parameter descriptor");
-				}
-
-				vars.add(var);
-			}
+			vars.add(var);
+		}
 
 		String returnType = getReturnType(method.desc);
 
@@ -157,5 +172,39 @@ public final class MethodHookTransformer extends MethodTransformer {
 
 	private static String getReturnType(String descriptor) {
 		return descriptor.split("\\)", 2)[1];
+	}
+
+	private static List<String> generateTypeList(Constructor<?> constructor) {
+		List<String> params = new ArrayList<>();
+
+		for (Class<?> type : constructor.getParameterTypes()) {
+			params.add(parseParamType(type.getName()));
+		}
+
+		return params;
+	}
+
+	private static String parseParamType(String type) {
+		if (type.endsWith("[]")) {
+			return "[" + parseParamType(type.substring(0, type.length() - 2));
+		} else switch (type) {
+			case "boolean":
+				return "Z";
+			case "byte":
+				return "B";
+			case "short":
+				return "S";
+			case "int":
+				return "I";
+			case "long":
+				return "J";
+			case "float":
+				return "F";
+			case "double":
+				return "D";
+			default:
+				if (type.startsWith("[")) return type;
+				return "L" + type.replace(".", "/") + ";";
+		}
 	}
 }

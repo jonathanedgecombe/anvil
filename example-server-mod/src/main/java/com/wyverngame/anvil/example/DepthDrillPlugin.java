@@ -18,6 +18,7 @@ import com.wurmonline.server.items.CreationRequirement;
 import com.wurmonline.server.items.ItemList;
 import com.wurmonline.server.items.ItemTemplate;
 import com.wurmonline.server.items.ItemTypes;
+import com.wurmonline.server.items.Materials;
 import com.wurmonline.server.skills.NoSuchSkillException;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.IconConstants;
@@ -45,7 +46,8 @@ public final class DepthDrillPlugin extends ServerPlugin {
 					ItemTypes.ITEM_TYPE_TOOL,
 					ItemTypes.ITEM_TYPE_WEAPON_PIERCE
 				)
-				.setIconId(IconConstants.ICON_TOOL_SHAFT)
+				.setIconId(IconConstants.ICON_NONE)
+				.setMaterial(Materials.MATERIAL_IRON)
 				.setVolume(6, 6, 96)
 				.setWeight(4400)
 				.setValue(15000)
