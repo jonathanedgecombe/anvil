@@ -59,7 +59,7 @@ public final class MethodHookTransformer extends MethodTransformer {
 			throw new InjectorException("Mismatching constructors for " + eventType);
 		}
 
-		int offset = !isStatic && !includeThis ? 1 : 0; // TODO
+		int offset = !isStatic && !includeThis ? 1 : 0;
 		List<LocalVariableNode> vars = new ArrayList<>();
 		for (int i = 0; i < params.size(); i++) {
 			String param = params.get(i);
