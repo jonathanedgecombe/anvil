@@ -17,10 +17,12 @@ public final class EventBus {
 
 	private final ListMultimap<Class<?>, PluginHandlerPair> handlers = ArrayListMultimap.create();
 
+	@SuppressWarnings("unchecked") // TODO sort this mess out
 	public <T extends Event<R>, R> void on(Plugin<?> plugin, Class<T> type, EventHandler<T, R> handler) {
 		handlers.put(type, new PluginHandlerPair(plugin, handler));
 	}
 
+	@SuppressWarnings("unchecked") // ditto
 	public <T extends Event> EventContext fire(T evt) {
 		EventContext ctx = new EventContext(!evt.hasReturnType());
 
