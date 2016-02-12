@@ -1,21 +1,22 @@
-package com.wyverngame.anvil.api.client.event;
+package com.wyverngame.anvil.api.client.event.structure;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class WallPassableEvent extends Event<Void> {
+public final class WallOpenEvent extends Event<Void> {
 	private final long houseId;
-	private final int x, y, height;
+	private final int x, y;
+	private final int height;
 	private final byte direction;
-	private final boolean passable;
+	private final boolean open;
 	private final byte layer;
 
-	public WallPassableEvent(long houseId, int x, int y, int heightOffset, byte dir, boolean passable, byte layer) {
+	public WallOpenEvent(long houseId, int x, int y, int heightOffset, byte dir, boolean open, byte layer) {
 		this.houseId = houseId;
 		this.x = x;
 		this.y = y;
 		this.height = heightOffset;
 		this.direction = dir;
-		this.passable = passable;
+		this.open = open;
 		this.layer = layer;
 	}
 
@@ -39,8 +40,8 @@ public final class WallPassableEvent extends Event<Void> {
 		return direction;
 	}
 
-	public boolean isPassable() {
-		return passable;
+	public boolean isOpen() {
+		return open;
 	}
 
 	public byte getLayer() {

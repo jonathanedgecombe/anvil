@@ -1,4 +1,4 @@
-package com.wyverngame.anvil.api.client.event;
+package com.wyverngame.anvil.api.client.event.structure;
 
 import com.wyverngame.anvil.api.event.Event;
 
