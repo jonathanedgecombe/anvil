@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import com.wurmonline.server.Items;
+import com.wurmonline.server.NoSuchItemException;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.behaviours.ActionTypes;
 import com.wurmonline.server.economy.MonetaryConstants;
@@ -41,11 +42,16 @@ public final class ClaimVotePlugin extends ServerPlugin {
 
 		on(RequestActionsEvent.class, (ctx, evt) -> {
 			if (!evt.getTargetType().isItem()) return;
-			Item item = Items.getItem(evt.getTarget());
-			if (item.getTemplateId() != ItemList.villageToken) return;
 
-			ctx.cancel();
-			evt.sendActions(claimActionEntry);
+			try {
+				Item item = Items.getItem(evt.getTarget());
+				if (item.getTemplateId() != ItemList.villageToken) return;
+
+				ctx.cancel();
+				evt.sendActions(claimActionEntry);
+			} catch (NoSuchItemException ex) {
+				/* ignore */
+			}
 		});
 
 		on(ItemActionEvent.class, (ctx, evt) -> {
