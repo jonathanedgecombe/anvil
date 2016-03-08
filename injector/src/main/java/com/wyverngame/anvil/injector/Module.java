@@ -35,7 +35,7 @@ public final class Module {
 
 				String name = entry.getName();
 				if (name.endsWith(".class")) {
-					name = name.replaceAll(".class$", "");
+					name = name.replaceAll("\\.class$", "");
 
 					ClassNode clazz = new ClassNode();
 
