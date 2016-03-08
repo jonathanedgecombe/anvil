@@ -162,9 +162,6 @@ import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.trans.server.SowActionTimeTransformer;
 import com.wyverngame.anvil.injector.trans.server.SpyPreventionTransformer;
-import com.wyverngame.anvil.injector.trans.server.SteamAuthCallbackTransformer;
-import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
-import com.wyverngame.anvil.injector.trans.server.SteamAuthTransformer;
 import com.wyverngame.anvil.injector.trans.server.TicketAddTransformer;
 import com.wyverngame.anvil.injector.trans.server.TreasureChestTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasAfterCalendarTransformer;
@@ -186,9 +183,9 @@ public final class Injector {
 	public static Injector create() throws IOException {
 		logger.info("Reading jars...");
 
-		Module common = Module.read(Paths.get("wurm/server/common.jar"));
-		Module client = Module.read(Paths.get("wurm/client/WurmLauncher/client.jar"));
-		Module server = Module.read(Paths.get("wurm/server/server.jar"));
+		Module common = Module.read(Paths.get("common-public.jar"));
+		Module client = Module.read(Paths.get("client-public.jar"));
+		Module server = Module.read(Paths.get("server-public.jar"));
 		return new Injector(common, client, server);
 	}
 
