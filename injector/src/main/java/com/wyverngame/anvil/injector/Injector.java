@@ -10,14 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
-import com.wyverngame.anvil.api.client.event.structure.AddBridgeEvent;
 import com.wyverngame.anvil.api.client.event.AddComplexEffectEvent;
 import com.wyverngame.anvil.api.client.event.AddCreatureEvent;
 import com.wyverngame.anvil.api.client.event.AddEffectEvent;
-import com.wyverngame.anvil.api.client.event.structure.AddFenceEvent;
 import com.wyverngame.anvil.api.client.event.AddFightMoveEvent;
 import com.wyverngame.anvil.api.client.event.AddGroundItemEvent;
-import com.wyverngame.anvil.api.client.event.structure.AddHouseEvent;
 import com.wyverngame.anvil.api.client.event.AddKingdomEvent;
 import com.wyverngame.anvil.api.client.event.AddMapAnnotationEvent;
 import com.wyverngame.anvil.api.client.event.AddPlonkEvent;
@@ -27,16 +24,15 @@ import com.wyverngame.anvil.api.client.event.AttachEffectEvent;
 import com.wyverngame.anvil.api.client.event.AvailableActionsEvent;
 import com.wyverngame.anvil.api.client.event.AvailableSelectionBarActionsEvent;
 import com.wyverngame.anvil.api.client.event.ClearMapAnnotationsEvent;
+import com.wyverngame.anvil.api.client.event.ClientTickEvent;
 import com.wyverngame.anvil.api.client.event.CompleteAchievementEvent;
 import com.wyverngame.anvil.api.client.event.DetachEffectEvent;
-import com.wyverngame.anvil.api.client.event.structure.FenceOpenEvent;
 import com.wyverngame.anvil.api.client.event.HudInitEvent;
 import com.wyverngame.anvil.api.client.event.HudRenderEvent;
 import com.wyverngame.anvil.api.client.event.KillCreatureEvent;
 import com.wyverngame.anvil.api.client.event.ListAchievementEvent;
 import com.wyverngame.anvil.api.client.event.ListPersonalGoalEvent;
 import com.wyverngame.anvil.api.client.event.LoginEvent;
-import com.wyverngame.anvil.api.client.event.structure.MarkStructureEvent;
 import com.wyverngame.anvil.api.client.event.MessageEvent;
 import com.wyverngame.anvil.api.client.event.MoveCreatureEvent;
 import com.wyverngame.anvil.api.client.event.OpenPortalMapEvent;
@@ -48,17 +44,14 @@ import com.wyverngame.anvil.api.client.event.ReconnectEvent;
 import com.wyverngame.anvil.api.client.event.RemoveCorpseEvent;
 import com.wyverngame.anvil.api.client.event.RemoveCreatureEvent;
 import com.wyverngame.anvil.api.client.event.RemoveEffectEvent;
-import com.wyverngame.anvil.api.client.event.structure.RemoveFenceEvent;
 import com.wyverngame.anvil.api.client.event.RemoveGroundItemEvent;
 import com.wyverngame.anvil.api.client.event.RemoveMapAnnotationEvent;
-import com.wyverngame.anvil.api.client.event.structure.RemoveStructureEvent;
 import com.wyverngame.anvil.api.client.event.RenameGroundItemEvent;
 import com.wyverngame.anvil.api.client.event.ResetMovementEvent;
 import com.wyverngame.anvil.api.client.event.SegmentedMessageEvent;
 import com.wyverngame.anvil.api.client.event.SpeedModifierUpdateEvent;
 import com.wyverngame.anvil.api.client.event.StartMovingEvent;
 import com.wyverngame.anvil.api.client.event.StopSoundEngineEvent;
-import com.wyverngame.anvil.api.client.event.ClientTickEvent;
 import com.wyverngame.anvil.api.client.event.TimeEvent;
 import com.wyverngame.anvil.api.client.event.ToggleArcheryModeEvent;
 import com.wyverngame.anvil.api.client.event.ToggleEvent;
@@ -87,13 +80,9 @@ import com.wyverngame.anvil.api.client.event.UpdateSelectedItemForKeepingEvent;
 import com.wyverngame.anvil.api.client.event.UpdateSelectionBarActionsEvent;
 import com.wyverngame.anvil.api.client.event.UpdateSizeEvent;
 import com.wyverngame.anvil.api.client.event.UpdateStanceEvent;
-import com.wyverngame.anvil.api.client.event.structure.UpdateStructureDamageEvent;
-import com.wyverngame.anvil.api.client.event.structure.UpdateStructurePartDamageEvent;
 import com.wyverngame.anvil.api.client.event.UpdateWeatherEvent;
 import com.wyverngame.anvil.api.client.event.UpdateWindImpactEvent;
 import com.wyverngame.anvil.api.client.event.UseItemEvent;
-import com.wyverngame.anvil.api.client.event.structure.WallOpenEvent;
-import com.wyverngame.anvil.api.client.event.structure.WallPassableEvent;
 import com.wyverngame.anvil.api.client.event.creationwindow.CreationWindowActionResultEvent;
 import com.wyverngame.anvil.api.client.event.creationwindow.CreationWindowAddCategoryListEvent;
 import com.wyverngame.anvil.api.client.event.creationwindow.CreationWindowAddGroundItemEvent;
@@ -123,6 +112,17 @@ import com.wyverngame.anvil.api.client.event.player.UpdateStunnedEvent;
 import com.wyverngame.anvil.api.client.event.player.UpdateTargetCreatureEvent;
 import com.wyverngame.anvil.api.client.event.player.UpdateThirstEvent;
 import com.wyverngame.anvil.api.client.event.render.WorldRenderEvent;
+import com.wyverngame.anvil.api.client.event.structure.AddBridgeEvent;
+import com.wyverngame.anvil.api.client.event.structure.AddFenceEvent;
+import com.wyverngame.anvil.api.client.event.structure.AddHouseEvent;
+import com.wyverngame.anvil.api.client.event.structure.FenceOpenEvent;
+import com.wyverngame.anvil.api.client.event.structure.MarkStructureEvent;
+import com.wyverngame.anvil.api.client.event.structure.RemoveFenceEvent;
+import com.wyverngame.anvil.api.client.event.structure.RemoveStructureEvent;
+import com.wyverngame.anvil.api.client.event.structure.UpdateStructureDamageEvent;
+import com.wyverngame.anvil.api.client.event.structure.UpdateStructurePartDamageEvent;
+import com.wyverngame.anvil.api.client.event.structure.WallOpenEvent;
+import com.wyverngame.anvil.api.client.event.structure.WallPassableEvent;
 import com.wyverngame.anvil.api.client.event.terrain.TerrainCaveUpdateEvent;
 import com.wyverngame.anvil.api.client.event.terrain.TerrainFarUpdateEvent;
 import com.wyverngame.anvil.api.client.event.terrain.TerrainNearUpdateEvent;
@@ -136,10 +136,9 @@ import com.wyverngame.anvil.api.server.event.SetDeadEvent;
 import com.wyverngame.anvil.api.server.event.SetItemTemplateEvent;
 import com.wyverngame.anvil.api.server.event.combat.GetMinimumBowRangeEvent;
 import com.wyverngame.anvil.api.server.event.combat.GetRangeDifficultyEvent;
-import com.wyverngame.anvil.injector.trans.Transformer;
 import com.wyverngame.anvil.injector.trans.MethodHookTransformer;
+import com.wyverngame.anvil.injector.trans.Transformer;
 import com.wyverngame.anvil.injector.trans.client.WurmClientBaseTransformer;
-import com.wyverngame.anvil.injector.trans.server.ActionEntriesMutableTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
@@ -173,10 +172,6 @@ import com.wyverngame.anvil.injector.trans.server.XmasBeforeCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasPresentTransformer;
 import com.wyverngame.anvil.injector.util.EmptyClassLoader;
-import org.objectweb.asm.Opcodes;
-import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldNode;
-import org.objectweb.asm.tree.MethodNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -941,7 +936,6 @@ public final class Injector {
 		new TicketAddTransformer(),
 		new TreasureChestTransformer(),
 		new SecureLoginTransformer(),
-		new ActionEntriesMutableTransformer(),
 		new GetBehavioursTransformer(),
 		new MethodHookTransformer(
 			"com/wurmonline/server/behaviours/BehaviourDispatcher",
@@ -1010,8 +1004,6 @@ public final class Injector {
 	public void run() throws IOException {
 		logger.info("Transforming classes...");
 
-		visibilityTransform(server);
-
 		/* transform common.jar */
 		Application commonApplication = new Application(common);
 
@@ -1057,36 +1049,5 @@ public final class Injector {
 		}
 
 		return new URLClassLoader(jars.toArray(EMPTY_URL_ARRAY));
-	}
-
-	private void visibilityTransform(Module... modules) {
-		for (Module module : modules) {
-			for (ClassNode clazz : module.getClasses()) {
-				if ((clazz.access & Opcodes.ACC_PRIVATE & Opcodes.ACC_PUBLIC & Opcodes.ACC_PROTECTED) == 0) {
-					logger.info("Changing visibility of " + clazz.name + " to public");
-					clazz.access = makePublic(clazz.access);
-				}
-
-				for (FieldNode field : clazz.fields) {
-					if ((field.access & Opcodes.ACC_PRIVATE & Opcodes.ACC_PUBLIC) == 0) {
-						logger.info("Changing visibility of " + clazz.name + "." + field.name + " to public");
-						field.access = makePublic(field.access);
-					}
-				}
-
-				for (MethodNode method : clazz.methods) {
-					if ((method.access & Opcodes.ACC_PRIVATE & Opcodes.ACC_PUBLIC) == 0) {
-						logger.info("Changing visibility of " + clazz.name + "." + method.name + " to public");
-						method.access = makePublic(method.access);
-					}
-				}
-			}
-		}
-	}
-
-	private static int makePublic(int access) {
-		access &= ~Opcodes.ACC_PROTECTED;
-		access &= ~Opcodes.ACC_PRIVATE;
-		return access | Opcodes.ACC_PUBLIC;
 	}
 }

@@ -19,7 +19,7 @@
       <artifactId>common</artifactId>
       <version>LATEST</version>
       <scope>system</scope>
-      <systemPath>${project.basedir}/../common-patched.jar</systemPath>
+      <systemPath>${project.basedir}/../common-public.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>io.github.lukehutch</groupId>

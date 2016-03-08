@@ -20,6 +20,7 @@
     <module>example-client-mod</module>
     <module>example-server-mod</module>
     <module>injector</module>
+    <module>publicizer</module>
   </modules>
 
   <pluginRepositories>

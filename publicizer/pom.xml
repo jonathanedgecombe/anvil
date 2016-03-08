@@ -8,25 +8,21 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>api-client</artifactId>
+  <artifactId>publicizer</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
-  <name>Anvil: API Client</name>
+  <name>Anvil: Publicizer</name>
 
   <dependencies>
     <dependency>
-      <groupId>com.wyverngame.anvil</groupId>
-      <artifactId>api-common</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.wurmonline</groupId>
-      <artifactId>client</artifactId>
-      <version>LATEST</version>
-      <scope>system</scope>
-      <systemPath>${project.basedir}/../client-public.jar</systemPath>
+      <groupId>org.ow2.asm</groupId>
+      <artifactId>asm-debug-all</artifactId>
     </dependency>
   </dependencies>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 
   <build>
     <plugins>
@@ -37,6 +33,11 @@
           <descriptorRefs>
             <descriptorRef>jar-with-dependencies</descriptorRef>
           </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>com.wyverngame.anvil.publicizer.Publicizer</mainClass>
+            </manifest>
+          </archive>
         </configuration>
         <executions>
           <execution>
@@ -49,8 +50,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 </project>
