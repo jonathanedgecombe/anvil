@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.terrain;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class TerrainCaveUpdateEvent extends Event {
+public final class TerrainCaveUpdateEvent extends Event<Void> {
 	private final short x, y;
 	private final short width;
 	private final int[][] tiles;

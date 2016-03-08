@@ -2,7 +2,7 @@ package com.wyverngame.anvil.api.client.event.terrain;
 
 import com.wyverngame.anvil.api.event.Event;
 
-public final class TerrainNearUpdateEvent extends Event {
+public final class TerrainNearUpdateEvent extends Event<Void> {
 	private final short width, height;
 	private final int[][] tileData;
 	private final short[][] waterHeights;
