@@ -21,7 +21,7 @@ public abstract class ServerPlugin extends Plugin<ServerPluginContext> {
 	private RegistryContext creatureTemplateRegistry;
 
 	@Override
-	protected void initRegistries() {
+	protected void initRegistries() throws IOException {
 		this.itemTemplateRegistry = new RegistryContext(this.ctx.getItemTemplateRegistry(), this);
 		this.actionEntryRegistry = new RegistryContext(this.ctx.getActionEntryRegistry(), this);
 		this.creatureTemplateRegistry = new RegistryContext(this.ctx.getCreatureTemplateRegistry(), this);

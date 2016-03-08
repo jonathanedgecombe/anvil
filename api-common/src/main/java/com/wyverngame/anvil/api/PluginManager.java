@@ -1,5 +1,6 @@
 package com.wyverngame.anvil.api;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -70,7 +71,11 @@ public final class PluginManager {
 			}
 		}
 
-		ctx.init();
+		try {
+			ctx.init();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 
 		return builder.build();
 	}

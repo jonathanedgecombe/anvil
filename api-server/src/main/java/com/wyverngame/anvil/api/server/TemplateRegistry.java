@@ -21,22 +21,6 @@ public final class TemplateRegistry {
 	private static final int MAXIMUM_ID = 22767;
 	private static final int MINIMUM_ID = ItemTemplateFactory.getInstance().getTemplates().length;
 
-	private static final TemplateRegistry instance;
-
-	static {
-		instance = new TemplateRegistry();
-
-		try {
-			instance.load();
-		} catch (IOException ex) {
-			throw new RuntimeException(ex);
-		}
-	}
-
-	public static TemplateRegistry getInstance() {
-		return instance;
-	}
-
 	private final Map<TemplateKey, Integer> registry = new HashMap<>();
 	private int currentId = MAXIMUM_ID;
 	private boolean dirty = false;

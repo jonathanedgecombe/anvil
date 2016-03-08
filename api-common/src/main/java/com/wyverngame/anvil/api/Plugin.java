@@ -1,5 +1,7 @@
 package com.wyverngame.anvil.api;
 
+import java.io.IOException;
+
 import com.wyverngame.anvil.api.event.Event;
 import com.wyverngame.anvil.api.event.EventBus;
 import com.wyverngame.anvil.api.event.EventHandler;
@@ -13,7 +15,7 @@ public abstract class Plugin<T extends PluginContext> {
 	protected EventBus eventBus;
 
 	public abstract void init() throws Exception;
-	protected abstract void initRegistries();
+	protected abstract void initRegistries() throws IOException;
 
 	public void exceptionCaught(Throwable t) {
 		logger.warn("Uncaught exception:", t);

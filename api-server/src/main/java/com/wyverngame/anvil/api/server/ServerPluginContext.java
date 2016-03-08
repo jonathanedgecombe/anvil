@@ -36,11 +36,9 @@ public final class ServerPluginContext extends PluginContext {
 	}
 
 	@Override
-	public void init() {
-		try {
-			TemplateRegistry.getInstance().save();
-		} catch (IOException ex) {
-			throw new RuntimeException(ex);
-		}
+	public void init() throws IOException {
+		actionEntryRegistry.save();
+		itemTemplateRegistry.save();
+		creatureTemplateRegistry.save();
 	}
 }
