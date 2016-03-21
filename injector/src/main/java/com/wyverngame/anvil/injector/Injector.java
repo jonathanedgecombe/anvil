@@ -909,8 +909,6 @@ public final class Injector {
 		new FarmingWeedsTilePollTransformer(),
 		new FarmingWeedsCropPollTransformer(),
 		new PortalTransformer(),
-		//new SteamAuthTransformer(),
-		//new SteamAuthCallbackTransformer(),
 		new SteamAuthDuplicateTransformer(),
 		new CreateCreatureTransformer(),
 		new ChatTransformer(),
