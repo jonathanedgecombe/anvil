@@ -9,15 +9,15 @@ import com.wyverngame.anvil.injector.util.InsnMatcher;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.tree.AbstractInsnNode;
 import org.objectweb.asm.tree.ClassNode;
-import org.objectweb.asm.tree.FieldInsnNode;
 import org.objectweb.asm.tree.InsnNode;
+import org.objectweb.asm.tree.MethodInsnNode;
 import org.objectweb.asm.tree.MethodNode;
 
 public final class ActionEntryTypePriestRestrictionTransformer extends MethodTransformer {
-	private static final ImmutableSet<String> FIELDS = ImmutableSet.of(
-		"isNonReligion",
-		"isNonLibila",
-		"isNonWhiteReligion"
+	private static final ImmutableSet<String> METHODS = ImmutableSet.of(
+		"setIsNonReligion",
+		"setIsNonLibila",
+		"setIsNonWhiteReligion"
 	);
 
 	public ActionEntryTypePriestRestrictionTransformer() {
@@ -26,23 +26,23 @@ public final class ActionEntryTypePriestRestrictionTransformer extends MethodTra
 
 	@Override
 	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
-		int patchedFields = 0;
+		int patchedMethods = 0;
 
-		for (Iterator<AbstractInsnNode[]> it = matcher.match("ALOAD ICONST_1 PUTFIELD"); it.hasNext();) {
+		for (Iterator<AbstractInsnNode[]> it = matcher.match("ALOAD ICONST_1 INVOKEVIRTUAL"); it.hasNext();) {
 			AbstractInsnNode[] match = it.next();
 
-			FieldInsnNode putfield = (FieldInsnNode) match[2];
-			if (!putfield.owner.equals(clazz.name) || !putfield.desc.equals("Z"))
+			MethodInsnNode putfield = (MethodInsnNode) match[2];
+			if (!putfield.owner.equals(clazz.name) || !putfield.desc.equals("(Z)V"))
 				continue;
 
-			if (FIELDS.contains(putfield.name)) {
+			if (METHODS.contains(putfield.name)) {
 				method.instructions.set(match[1], new InsnNode(Opcodes.ICONST_0));
-				patchedFields++;
+				patchedMethods++;
 			}
 		}
 
-		if (patchedFields != FIELDS.size()) {
-			throw new InjectorException("Didn't patch the expected number of fields");
+		if (patchedMethods != METHODS.size()) {
+			throw new InjectorException("Didn't patch the expected number of methods");
 		}
 	}
 }
