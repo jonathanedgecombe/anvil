@@ -3,10 +3,16 @@ package com.wyverngame.anvil.example;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.cert.X509Certificate;
 import java.util.concurrent.ArrayBlockingQueue;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import com.wurmonline.server.Items;
 import com.wurmonline.server.NoSuchItemException;
@@ -63,10 +69,11 @@ public final class ClaimVotePlugin extends ServerPlugin {
 
 			new Thread(() -> {
 				try {
-					HttpURLConnection connection = (HttpURLConnection) new URL(
-						"http://wurm-unlimited.com/api/?action=post&object=votes&element=claim&key=" + API_KEY +
+					HttpsURLConnection connection = (HttpsURLConnection) new URL(
+						"https://wurm-unlimited.com/api/?action=post&object=votes&element=claim&key=" + API_KEY +
 							"&steamid=" + evt.getPerformer().SteamId
 					).openConnection();
+					connection.setSSLSocketFactory(createTrustAllSocketFactory());
 
 					int responseCode = connection.getResponseCode();
 					if (responseCode != 200) throw new IOException("Invalid response code.");
@@ -109,5 +116,37 @@ public final class ClaimVotePlugin extends ServerPlugin {
 				tasks.poll().run();
 			}
 		});
+	}
+
+	/*
+	 * We should really add the ISRG root to the JDK's trust store. But Wurm distributes the JDK so any steam updates
+	 * would overwrite this. So for now let's just go with the hacky solution of disabling trust checks :(
+	 */
+	private SSLSocketFactory createTrustAllSocketFactory() throws IOException {
+		try {
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			TrustManager[] trustManagers = {
+				new X509TrustManager() {
+					@Override
+					public void checkClientTrusted(X509Certificate[] chain, String authType) {
+						/* empty */
+					}
+
+					@Override
+					public void checkServerTrusted(X509Certificate[] chain, String authType) {
+						/* empty */
+					}
+
+					@Override
+					public X509Certificate[] getAcceptedIssuers() {
+						return new X509Certificate[0];
+					}
+				}
+			};
+			ctx.init(null, trustManagers, null);
+			return ctx.getSocketFactory();
+		} catch (GeneralSecurityException ex) {
+			throw new IOException(ex);
+		}
 	}
 }
