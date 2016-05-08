@@ -165,6 +165,7 @@ import com.wyverngame.anvil.injector.trans.server.SpyPreventionTransformer;
 import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
 import com.wyverngame.anvil.injector.trans.server.TicketAddTransformer;
 import com.wyverngame.anvil.injector.trans.server.TreasureChestTransformer;
+import com.wyverngame.anvil.injector.trans.server.VeinCapTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasAfterCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasBeforeCalendarTransformer;
 import com.wyverngame.anvil.injector.trans.server.XmasCalendarTransformer;
@@ -933,6 +934,7 @@ public final class Injector {
 		new TreasureChestTransformer(),
 		new SecureLoginTransformer(),
 		new GetBehavioursTransformer(),
+		new VeinCapTransformer(),
 		new MethodHookTransformer(
 			"com/wurmonline/server/behaviours/BehaviourDispatcher",
 			"requestActions",
