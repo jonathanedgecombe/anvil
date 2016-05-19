@@ -30,9 +30,15 @@ public final class FarmingWeedsTilePollTransformer extends MethodTransformer {
 		if (tileAgeVar == null)
 			throw new InjectorException("Couldn't find tileAge field");
 
-		Iterator<AbstractInsnNode[]> matches = matcher.match("IINC", match -> {
-			IincInsnNode var = (IincInsnNode) match[0];
-			return var.var == tileAgeVar.index;
+		Iterator<AbstractInsnNode[]> matches = matcher.match("IINC | ILOAD ICONST_1 IADD ISTORE", match -> {
+			AbstractInsnNode insn = match[0];
+			if (insn.getOpcode() == Opcodes.IINC) {
+				IincInsnNode var = (IincInsnNode) match[0];
+				return var.var == tileAgeVar.index;
+			} else {
+				VarInsnNode var = (VarInsnNode) match[0];
+				return var.var == tileAgeVar.index;
+			}
 		});
 
 		if (!matches.hasNext())
