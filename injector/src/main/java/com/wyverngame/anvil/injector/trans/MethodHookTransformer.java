@@ -2,6 +2,8 @@ package com.wyverngame.anvil.injector.trans;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -59,14 +61,17 @@ public final class MethodHookTransformer extends MethodTransformer {
 			throw new InjectorException("Mismatching constructors for " + eventType);
 		}
 
+		List<LocalVariableNode> sortedLocalVariables = new ArrayList<>(method.localVariables);
+		Collections.sort(sortedLocalVariables, Comparator.comparingInt(n -> n.index));
+
 		int offset = !isStatic && !includeThis ? 1 : 0;
 		List<LocalVariableNode> vars = new ArrayList<>();
 		for (int i = 0; i < params.size(); i++) {
 			String param = params.get(i);
-			LocalVariableNode var = method.localVariables.get(i + offset);
+			LocalVariableNode var = sortedLocalVariables.get(i + offset);
 
 			if (!param.equals(var.desc)) {
-				throw new InjectorException("Mismatching parameter descriptor");
+				throw new InjectorException("Mismatching parameter descriptor (" + param + " vs " + var.desc + ") for " + eventType);
 			}
 
 			vars.add(var);
