@@ -20,7 +20,6 @@ public final class VeinCapTransformer extends MethodTransformer {
 	public void transform(ClassNode clazz, MethodNode method, InsnMatcher matcher) {
 		AbstractInsnNode[] match = Iterators.getOnlyElement(matcher.match("BIPUSH ISTORE", m -> {
 			IntInsnNode push = (IntInsnNode) m[0];
-			System.err.println(push.operand);
 			if (push.operand != 50) {
 				return false;
 			}
