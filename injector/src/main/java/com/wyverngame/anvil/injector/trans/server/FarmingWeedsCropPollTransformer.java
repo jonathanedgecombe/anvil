@@ -57,7 +57,7 @@ public final class FarmingWeedsCropPollTransformer extends MethodTransformer {
 		list.add(new VarInsnNode(Opcodes.ISTORE, tileAgeVar.index));
 		list.add(end);
 
-		method.instructions.insert(match[0], list);
+		method.instructions.insert(match[match.length - 1], list);
 
 		if (matches.hasNext())
 			throw new InjectorException("Found multiple tileAge increments");
