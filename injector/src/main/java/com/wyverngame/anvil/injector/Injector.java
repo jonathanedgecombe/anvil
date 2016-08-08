@@ -157,12 +157,10 @@ import com.wyverngame.anvil.injector.trans.server.LootTransformer;
 import com.wyverngame.anvil.injector.trans.server.MaxGuardsTransformer;
 import com.wyverngame.anvil.injector.trans.server.PortalTransformer;
 import com.wyverngame.anvil.injector.trans.server.ReimburseMethodTransformer;
-import com.wyverngame.anvil.injector.trans.server.SecureLoginTransformer;
 import com.wyverngame.anvil.injector.trans.server.ServerTransformer;
 import com.wyverngame.anvil.injector.trans.server.SkillGainTransformer;
 import com.wyverngame.anvil.injector.trans.server.SowActionTimeTransformer;
 import com.wyverngame.anvil.injector.trans.server.SpyPreventionTransformer;
-import com.wyverngame.anvil.injector.trans.server.SteamAuthDuplicateTransformer;
 import com.wyverngame.anvil.injector.trans.server.TicketAddTransformer;
 import com.wyverngame.anvil.injector.trans.server.TreasureChestTransformer;
 import com.wyverngame.anvil.injector.trans.server.VeinCapTransformer;
@@ -910,7 +908,7 @@ public final class Injector {
 		new FarmingWeedsTilePollTransformer(),
 		new FarmingWeedsCropPollTransformer(),
 		new PortalTransformer(),
-		new SteamAuthDuplicateTransformer(),
+		//new SteamAuthDuplicateTransformer(),
 		new CreateCreatureTransformer(),
 		new ChatTransformer(),
 		new ChangeKingdomTransformer(),
@@ -932,7 +930,7 @@ public final class Injector {
 		new ReimburseMethodTransformer(),
 		new TicketAddTransformer(),
 		new TreasureChestTransformer(),
-		new SecureLoginTransformer(),
+		//new SecureLoginTransformer(),
 		new GetBehavioursTransformer(),
 		new VeinCapTransformer(),
 		new MethodHookTransformer(
