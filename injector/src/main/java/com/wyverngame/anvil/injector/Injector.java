@@ -994,7 +994,23 @@ public final class Injector {
 			"putItemInfrontof",
 			"(Lcom/wurmonline/server/creatures/Creature;F)V",
 			PutItemInfrontOfEvent.class
-		)
+		),
+		new MethodHookTransformer(
+			"com/wurmonline/server/questions/KarmaQuestion",
+			"answer",
+			"(Ljava/util/Properties;)V",
+			KarmaQuestionAnswerEvent.class),
+		new MethodHookTransformer(
+			"com/wurmonline/server/players/Player",
+			"initialisePlayer",
+			"(Lcom/wurmonline/server/players/PlayerInfo;)V",
+			InitializePlayerEvent.class
+		),
+		new MethodHookTransformer(
+			"com/wurmonline/server/LoginHandler",
+			"loadPlayer",
+			"(Lcom/wurmonline/server/players/Player;I)I",
+			LoadPlayerEvent.class)
 	);
 	private final Module common, client, server;
 

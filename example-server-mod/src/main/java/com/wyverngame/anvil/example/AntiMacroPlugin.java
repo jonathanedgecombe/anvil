@@ -54,6 +54,8 @@ public class AntiMacroPlugin extends ServerPlugin {
 						}
 
 						if (!offline && macroer.getQuestion() != 0 && (System.currentTimeMillis() - macroer.getQuestion() > 120000)) {
+							macroer.setQuestion(0);
+							macroer.setLastQuestion(System.currentTimeMillis());
 							player.logoutIn(10, "Failed to answer anti-macro question in time.");
 							System.out.println(player.getName() + " failed to answer anti-macro question in time at " + System.currentTimeMillis());
 						}
