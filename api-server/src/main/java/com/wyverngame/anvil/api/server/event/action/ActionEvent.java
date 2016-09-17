@@ -45,7 +45,7 @@ public abstract class ActionEvent<T> extends Event<T> {
 	}
 
 	public boolean isFirstTick() {
-		return getTick() == 0;
+		return counter <= 1.0125f;
 	}
 
 	public int getTick() {

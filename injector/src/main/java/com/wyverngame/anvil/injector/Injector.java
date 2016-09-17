@@ -126,14 +126,8 @@ import com.wyverngame.anvil.api.client.event.structure.WallPassableEvent;
 import com.wyverngame.anvil.api.client.event.terrain.TerrainCaveUpdateEvent;
 import com.wyverngame.anvil.api.client.event.terrain.TerrainFarUpdateEvent;
 import com.wyverngame.anvil.api.client.event.terrain.TerrainNearUpdateEvent;
-import com.wyverngame.anvil.api.server.event.CheckTakeItemEvent;
-import com.wyverngame.anvil.api.server.event.CreateStarterItemsEvent;
-import com.wyverngame.anvil.api.server.event.CreaturePollEvent;
-import com.wyverngame.anvil.api.server.event.RequestActionsEvent;
-import com.wyverngame.anvil.api.server.event.SendSpawnQuestionEvent;
-import com.wyverngame.anvil.api.server.event.ServerTickEvent;
-import com.wyverngame.anvil.api.server.event.SetDeadEvent;
-import com.wyverngame.anvil.api.server.event.SetItemTemplateEvent;
+import com.wyverngame.anvil.api.server.event.*;
+import com.wyverngame.anvil.api.server.event.action.QueueActionEvent;
 import com.wyverngame.anvil.api.server.event.combat.GetMinimumBowRangeEvent;
 import com.wyverngame.anvil.api.server.event.combat.GetRangeDifficultyEvent;
 import com.wyverngame.anvil.injector.trans.MethodHookTransformer;
@@ -143,6 +137,7 @@ import com.wyverngame.anvil.injector.trans.server.ActionEntryPriestRestrictionTr
 import com.wyverngame.anvil.injector.trans.server.ActionEntryTypePriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionFaithfulPriestRestrictionTransformer;
 import com.wyverngame.anvil.injector.trans.server.ActionTimeTransformer;
+import com.wyverngame.anvil.injector.trans.server.AddDugItemTransformer;
 import com.wyverngame.anvil.injector.trans.server.CaWindowTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChangeKingdomTransformer;
 import com.wyverngame.anvil.injector.trans.server.ChaosTransformer;
@@ -933,6 +928,7 @@ public final class Injector {
 		//new SecureLoginTransformer(),
 		new GetBehavioursTransformer(),
 		new VeinCapTransformer(),
+		new AddDugItemTransformer(),
 		new MethodHookTransformer(
 			"com/wurmonline/server/behaviours/BehaviourDispatcher",
 			"requestActions",
@@ -968,11 +964,11 @@ public final class Injector {
 			"run",
 			"()V",
 			ServerTickEvent.class),
-		/*new MethodHookTransformer(
+		new MethodHookTransformer(
 			"com/wurmonline/server/structures/Structure",
 			"getLimitFor",
-			"(IIZ)I",
-			"com/wyverngame/anvil/api/server/event/GetStructureSkillRequirementEvent"),*/
+			"(IIZZ)I",
+			GetStructureSkillRequirementEvent.class),
 		new MethodHookTransformer(
 			"com/wurmonline/server/items/DbItem",
 			"setTemplateId",
@@ -987,7 +983,18 @@ public final class Injector {
 			"com/wurmonline/server/combat/Archery",
 			"getRangeDifficulty",
 			"(Lcom/wurmonline/server/creatures/Creature;IFF)D",
-			GetRangeDifficultyEvent.class, false)
+			GetRangeDifficultyEvent.class, false),
+		new MethodHookTransformer(
+			"com/wurmonline/server/behaviours/ActionStack",
+			"addAction",
+			"(Lcom/wurmonline/server/behaviours/Action;)V",
+			QueueActionEvent.class),
+		new MethodHookTransformer(
+			"com/wurmonline/server/items/Item",
+			"putItemInfrontof",
+			"(Lcom/wurmonline/server/creatures/Creature;F)V",
+			PutItemInfrontOfEvent.class
+		)
 	);
 	private final Module common, client, server;
 
