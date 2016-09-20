@@ -56,6 +56,7 @@ public class AntiMacroPlugin extends ServerPlugin {
 						if (!offline && macroer.getQuestion() != 0 && (System.currentTimeMillis() - macroer.getQuestion() > 120000)) {
 							macroer.setQuestion(0);
 							macroer.setLastQuestion(System.currentTimeMillis());
+							macroer.clear();
 							player.logoutIn(10, "Failed to answer anti-macro question in time.");
 							System.out.println(player.getName() + " failed to answer anti-macro question in time at " + System.currentTimeMillis());
 						}
@@ -133,6 +134,10 @@ public class AntiMacroPlugin extends ServerPlugin {
 			}
 		}
 
+		public void clear() {
+			events.clear();
+		}
+
 		public void check() {
 			if (events.size() < 128) return;
 
@@ -194,6 +199,7 @@ public class AntiMacroPlugin extends ServerPlugin {
 			boolean correct = id == 1;
 			macroer.setQuestion(0);
 			macroer.setLastQuestion(System.currentTimeMillis());
+			macroer.clear();
 			if (!correct) ((Player) getResponder()).logoutIn(10, "Answered anti-macro question incorrectly.");
 			System.out.println(getResponder().getName() + " answered anti-macro question at " + System.currentTimeMillis() + ", correct=" + correct);
 		}
