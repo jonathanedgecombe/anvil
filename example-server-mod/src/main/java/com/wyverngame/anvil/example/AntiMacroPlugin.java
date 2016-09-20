@@ -161,7 +161,7 @@ public class AntiMacroPlugin extends ServerPlugin {
 				int d = i + 5;
 				float score = (buckets[d] * buckets[d] * (float) Math.sqrt(d)) / (mavg[i] + 1f);
 
-				if (getQuestion() == 0 && System.currentTimeMillis() - getLastQuestion() > 1200000 && score > 800f && buckets[d] > 10 && d > 50) {
+				if (getQuestion() == 0 && System.currentTimeMillis() - getLastQuestion() > 1200000 && score > 800f && buckets[d] > 10 && d > 60) {
 					try {
 						setQuestion(System.currentTimeMillis());
 
