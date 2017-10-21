@@ -206,7 +206,7 @@ public final class RequestActionsEvent extends Event<Void> {
 				break;
 
 			case TILE_BORDER:
-				param = BehaviourDispatcher.requestActionForTileBorder(creature, target, onSurface, item, behaviour);
+				param = BehaviourDispatcher.requestActionForTileBorder(creature, target, item, behaviour);
 				break;
 
 			case TILE_CORNER:
